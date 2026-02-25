@@ -119,6 +119,27 @@ window.addEventListener('DOMContentLoaded', () => {
   setInterval(tick, 10000);
   updateClock();
   setInterval(updateClock, 1000);
+
+  // ── Keep screen awake ────────────────────────────
+  async function keepAwake() {
+    try {
+      if ('wakeLock' in navigator) {
+        let lock = await navigator.wakeLock.request('screen');
+        document.addEventListener('visibilitychange', async () => {
+          if (document.visibilityState === 'visible') {
+            lock = await navigator.wakeLock.request('screen');
+          }
+        });
+      }
+    } catch(e) {}
+    setInterval(() => {
+      document.querySelectorAll('.menu-frame').forEach(el => {
+        el.style.opacity = '0.9999';
+        setTimeout(() => el.style.opacity = el.classList.contains('active') ? '1' : '0', 100);
+      });
+    }, 30000);
+  }
+  keepAwake();
   scaleMenu();
 });
 window.addEventListener('resize', scaleMenu);
@@ -201,14 +222,14 @@ html, body { width:100%; height:100%; overflow:hidden; background:#000; }
   position:relative; flex-shrink:0;
 }
 .logo-wrap { line-height:1; }
-.logo-k {
-  font-family:'Black Ops One',sans-serif; font-size:54px; color:var(--green);
-  text-shadow:0 0 30px rgba(127,255,0,0.6),3px 3px 0 rgba(0,80,0,0.8);
-  line-height:0.95; animation:logopulse 3s infinite;
+.logo-img {
+  height:155px; width:auto; object-fit:contain;
+  filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4));
+  animation:logopulse 3s infinite;
 }
 @keyframes logopulse {
-  0%,100%{text-shadow:0 0 20px rgba(127,255,0,0.5),3px 3px 0 rgba(0,80,0,.8);}
-  50%{text-shadow:0 0 40px rgba(127,255,0,0.9),3px 3px 0 rgba(0,80,0,.8);}
+  0%,100% { filter:drop-shadow(0 0 12px rgba(170,255,0,0.6)) drop-shadow(0 0 30px rgba(170,255,0,0.3)); }
+  50%      { filter:drop-shadow(0 0 28px rgba(170,255,0,1))   drop-shadow(0 0 60px rgba(170,255,0,0.6)); }
 }
 .logo-c { font-family:'Black Ops One',sans-serif; font-size:30px; letter-spacing:12px; color:var(--white); }
 .hdr-center {
@@ -331,7 +352,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#000; }
   <div class="top-bar"></div>
   <div class="page">
     <header class="header">
-      <div class="logo-wrap"><div class="logo-k">Kannabis</div><div class="logo-c">City</div></div>
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
       <div class="hdr-center">
         <div class="hdr-title">VAPES <em>&</em> DISPOSABLES</div>
         <div class="hdr-sub">Today's Selection</div>
@@ -379,7 +400,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#000; }
   <div class="top-bar"></div>
   <div class="page">
     <header class="header">
-      <div class="logo-wrap"><div class="logo-k">Kannabis</div><div class="logo-c">City</div></div>
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
       <div class="hdr-center">
         <div class="hdr-title">CONC<em>E</em>NTRATES</div>
         <div class="hdr-sub">Today's Selection</div>

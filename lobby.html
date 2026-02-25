@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+<title>Kannabis City – Lobby</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>
+// ╔══════════════════════════════════════════════════╗
+// ║  ✏️  FLOWER                                       ║
+// ╚══════════════════════════════════════════════════╝
+const FLOWER = {
+  exotic: [
+    { name: "Hindu Kush",       thc: "26.16", cat: "indica" },
+    { name: "Bubblegum Gelato", thc: "25.88", cat: "indica" },
+    { name: "Ghost Train Haze", thc: "23.10", cat: "sativa" },
+    { name: "Princess Haze",    thc: "30.32", cat: "sativa" },
+    { name: "Cherry Eclipse",   thc: "29.34", cat: "hybrid" },
+    { name: "Prism Petals",     thc: "27.84", cat: "hybrid" },
+    { name: "Permanent Marker", thc: "26.76", cat: "hybrid" },
+  ],
+  topshelf: [
+    { name: "Milky Way",  thc: "29.99", cat: "indica" },
+    { name: "Unicorn",    thc: "24.96", cat: "indica" },
+    { name: "Blackjack",  thc: "22.55", cat: "sativa" },
+    { name: "Illemonati", thc: "28.27", cat: "hybrid" },
+  ],
+  bargain: [
+    { name: "OG",            thc: "24.44", cat: "indica" },
+    { name: "Apple Fritter", thc: "26.33", cat: "sativa" },
+    { name: "Space Junky",   thc: "24.82", cat: "hybrid" },
+  ],
+};
+
+// ╔══════════════════════════════════════════════════╗
+// ║  ✏️  CONCENTRATES                                 ║
+// ╚══════════════════════════════════════════════════╝
+const CONCENTRATES = {
+  liverosin: [
+    { name: "Grassmaster 1G Pucks", price: "$39.99" },
+  ],
+  bho: [
+    { name: "Lemon Cherry Diamonds", thc: "86.43" },
+    { name: "White Truffle Badder",  thc: "64.75" },
+  ],
+  bho_pricing: { g1: "$9.99", g28: "$79.99" },
+};
+
+// ╔══════════════════════════════════════════════════╗
+// ║  ✏️  EDIBLES                                      ║
+// ╚══════════════════════════════════════════════════╝
+const EDIBLES = {
+  topshelf: [
+    { name: "Ghost Graveyard 500mg",         price: "$39.99", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
+    { name: "Camino Gummies 20pk",           price: "$29.99", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
+    { name: "Camino Sours 20pk",             price: "$29.99", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
+    { name: "Sauce Live Rosin Bursts 100mg", price: "$27.99", flavors: "Juicy Watermelon · Sour Blue Razz · Sour Green Apple" },
+    { name: "Sauce Bursts 200mg",            price: "$24.99", flavors: "Juicy Watermelon · Strawberry Lemonade · Blue Raspberry · Tropical Twist · Sour Grape · Sour Green Apple · White Peach · Strawberry Kiwi · Sour Blue Razz" },
+    { name: "Ghost Reaper 10mg 20pk",        price: "$24.99", flavors: "Cherry Berry Cemetery · Apple · Grape Ghoul · Scary Strawberry · Potion Punch" },
+  ],
+  bargain: [
+    { name: "Stripz 600mg",       price: "$21.99", flavors: "Strawberry Lemonade · Sour Blue Razz · OMG · Watermelon" },
+    { name: "Stiizy 10mg 10pk",   price: "$19.99", flavors: "Strawberry · Caribbean Breeze · Pink Lemonade · Sour Apple · Pineapple · Mango · Lemon Lime · Blue Razz · Fruit Punch · Watermelon" },
+    { name: "House 2 Pack 500mg", price: "$4.99",  flavors: "Ask budtender for flavors" },
+  ],
+};
+
+// ╔══════════════════════════════════════════════════╗
+// ║  ✏️  VAPES                                        ║
+// ╚══════════════════════════════════════════════════╝
+const VAPES = {
+  exotic: [
+    { name: "FVKD 3G",      price: "$34.99", flavors: "Jelly Donutz · Garapples · Mango Runtz · Pink Berry · Strawberry Lemonade · LA Kush Cake · Wedding Cake · Alaskan Thunder Fvkd · Mango Mintality · Slurricane · Cannaloupe Haze" },
+    { name: "Sauce 2G XL",  price: "$34.99", flavors: "Strawberry Frost · Chemdawg · Watermelon Haze · White Widow · Super Blue Diesel · Banana Guava · Strawberry Cough · Purple Octane · Blue Tangie · Gelonade" },
+    { name: "Muha Meds 2G", price: "$39.99", flavors: "Pineapple Paradise · Blue Slushie · Bubblegum Burst · Dragon Berry Runtz · Horchata · Galactic Diesel · Sweet Dreams OG · Frozen Pomegranate · Watermelon Moonshine · Habibi" },
+  ],
+  topshelf: [
+    { name: "Madlabs 2G",            price: "$29.99", flavors: "Sherbacio · Blue Dream · Guava Kush · Lemon Cherry G · Peach Rings · Jet Fuel · Watermelon Z · Horchata Lato · Pixie Dust · Blue Razz" },
+    { name: "Sauce Live Resin 1.5G", price: "$29.99", flavors: "OG Z · Alien Runtz · Blue Dreamsicle · Apple Fritter · Ghost Train Haze · Blueberry Kush · Strawberry Cough · Tangie Dream · Gelato · Space Octane · Gelonade" },
+    { name: "Sluggers 2G Switch",    price: "$29.99", flavors: "WatermelonZ · Fire OG · 33 · Euphoria · Bubblegum" },
+  ],
+  bargain: [
+    { name: "Ghost 2G",              price: "$24.99", flavors: "Concrete Haze · Bubba Drift · Blueberry Blitz · Black Cherry · Golden Z · Midnight Mirage · Tropic Burst · Peach Paradise · Jungle Vice · Grape Bliss" },
+    { name: "Choices 2G Switch",     price: "$24.99", flavors: "Honey Cream x Wild Cherry · White Peach Freeze x Toxic Paradise · Watermelon Tart x Pistachio Gelato · Tres Leches x Banana Sundae · Sweet Citrus x War Heads · Sour Push Pop x Tutti Frutti · Red Starburst x Iced Sangria · Red Blow Pop x Kool Aid Jammers · Honey Comb x Strawberry Milk · Raspberry Kush x Cocolato · Pink Gushers x Atomic Pop · Orange Fanta x Lemonade Stand · Chocolate Milk x Horchata · Lychee Juice x Vanilla Float · Lecherita x Blue Jam · Hubba Bubba x Blueberry Jizz · Hibiscus Rush x Airhead Extremes · Grape Jelly x Caramel Apple · Diamond Dust x Sweet Tooth · Butter Fingerz x Pizookie" },
+    { name: "Seedless 2G",           price: "$24.99", flavors: "OG · Watermelon · Maui · Ice Cream Cake · Runtz · Strawberry · Zkittlez · Lemon Skunk · Blue Dream · GG4" },
+    { name: "Boutiq 2G",             price: "$24.99", flavors: "Brooklyn Dream · Black Z · Purple Berry · Chem Berry · Blue Matcha · Lava Mintz · Razzleberry · Pink Tangie · Green Magic · Tropical Gelato" },
+    { name: "White Recluse",         price: "$24.99", flavors: "Kiwi Kush · Strawberry Banana Runtz · Island Slushy · Red Pineapple Kush · Lychee Candy" },
+    { name: "Bodega Boyz 2G Switch", price: "$24.99", flavors: "HI-C · Pineapple Slushie · Guava Mintz · Lemon OG · Candy Funk" },
+  ],
+};
+
+// ╔══════════════════════════════════════════════════╗
+// ║  ✏️  PRE-ROLLS                                    ║
+// ╚══════════════════════════════════════════════════╝
+const PREROLLS = {
+  exotic: [
+    { name: "Boutiq Snack Packs 5pk", price: "$29.99", flavors: "Texas Tea · Yuzu · Cake Mix · Purple Peeps · Rocket Pop · Lime Z · Biscoff" },
+    { name: "Sluggers Juiced 5pk",    price: "$32.99", flavors: "Euphoria · Long Island Iced Tea · Adios MF · Pluto · Hurricane SZN · Blue Sushi" },
+    { name: "Fidel's Hash Hole 5pk",  price: "$34.99", flavors: "Blueberry Yogurt · Guava Z · Sour Runtz · Runtz" },
+  ],
+  topshelf: [
+    { name: "Ghost 2G Hash Holes", price: "$14.99", flavors: "Indica: Juicy Pop · Sativa: Candyland · Hybrid: True Blue" },
+    { name: "Stiizy 40's 1G",      price: "$14.99", flavors: "Orange Sunset · Super Lemon Haze · Strawberry Cough · Sour Diesel · Blue Dream · Strawnana" },
+    { name: "Stiizy .5G 5pk",      price: "$24.99", flavors: "Magic Melon · Strawnana · Strawberry Mango · Orange Sunset · Pink Acai · Blue Burst · Purple Punch" },
+    { name: "Stiizy Mini Blunts",  price: "$29.99", flavors: "Magic Melon · Strawnana · Purple Punch" },
+  ],
+  bargain: [
+    { name: "House Blend Pre-Rolls", price: "$3 / 2 for $5",     flavors: "Ask budtender" },
+    { name: "House Strain Specific", price: "$5.99 / 2 for $10", flavors: "Mirage Glue Indica 28.67% · White Fire OG Hybrid 28.76%" },
+  ],
+};
+
+// ── BUILD FUNCTIONS ──────────────────────────────────────
+const CAT_META = { indica:{label:"Indica"}, sativa:{label:"Sativa"}, hybrid:{label:"Hybrid"} };
+
+function buildFlowerCol(strains) {
+  const order = ["indica","sativa","hybrid"];
+  const map = {};
+  for (const s of strains) { if (!map[s.cat]) map[s.cat]=[]; map[s.cat].push(s); }
+  return order.filter(c => map[c]).map((c, i, arr) => {
+    const rows = map[c].map(s => `
+      <div class="strain-row">
+        <div class="strain-info"><span class="sname">${s.name}</span></div>
+        <span class="sthc">${s.thc}<span class="slabel">% THC</span></span>
+      </div>`).join('');
+    const div = i < arr.length - 1 ? `<div class="cat-divider"></div>` : '';
+    return `<div class="cat-block">
+      <div class="cat-pill"><span class="cat-dot"></span>${CAT_META[c].label}</div>
+      ${rows}</div>${div}`;
+  }).join('');
+}
+
+function buildConcentrates() {
+  document.getElementById('conc-lr').innerHTML = CONCENTRATES.liverosin.map(p =>
+    `<div class="conc-row"><span class="cname">${p.name}</span><span class="lr-price">${p.price}</span></div>`).join('');
+  document.getElementById('conc-bho').innerHTML = CONCENTRATES.bho.map(p =>
+    `<div class="conc-row"><span class="cname">${p.name}</span><span class="cthc">${p.thc}% THC</span></div>`).join('');
+  document.getElementById('bho-1g').textContent  = CONCENTRATES.bho_pricing.g1;
+  document.getElementById('bho-28g').textContent = CONCENTRATES.bho_pricing.g28;
+}
+
+function buildEdibles() {
+  ['topshelf','bargain'].forEach(tier => {
+    document.getElementById(`ed-${tier}`).innerHTML = EDIBLES[tier].map(p => `
+      <div class="ed-row">
+        <div class="ed-left">
+          <div class="ed-name">${p.name}</div>
+          <div class="ed-flavors">${p.flavors}</div>
+        </div>
+        <div class="ed-price">${p.price}</div>
+      </div>`).join('');
+  });
+}
+
+function chips(flavors, max) {
+  const f = flavors.split(' · ');
+  const c = f.slice(0,max).map(x=>`<span class="vflavor-chip">${x}</span>`).join('');
+  const m = f.length>max ? `<span class="vflavor-more">+${f.length-max} more</span>` : '';
+  return c + m;
+}
+
+function buildVapeCol(products) {
+  const max = products.length <= 3 ? 8 : products.length <= 4 ? 6 : 5;
+  return products.map((p, i) => `
+    <div class="product-row${i%2===0?' even':''}">
+      <div class="vape-left">
+        <div class="pname">${p.name}</div>
+        ${p.flavors ? `<div class="vflavors">${chips(p.flavors,max)}</div>` : ''}
+      </div>
+      <div class="pprice">${p.price}</div>
+    </div>`).join('');
+}
+
+function buildPrerolls() {
+  ['exotic','topshelf','bargain'].forEach(tier => {
+    document.getElementById(`pr-${tier}`).innerHTML = PREROLLS[tier].map(p => `
+      <div class="pr-row">
+        <div class="pr-left">
+          <div class="pr-name">${p.name}</div>
+          ${p.flavors ? `<div class="vflavors">${chips(p.flavors,8)}</div>` : ''}
+        </div>
+        <div class="pr-price">${p.price}</div>
+      </div>`).join('');
+  });
+}
+
+// ╔══════════════════════════════════════════════════╗
+// ║  ROTATION ENGINE  — 5 slides × 5s each           ║
+// ╚══════════════════════════════════════════════════╝
+const SLIDES    = ['slide-flower','slide-edibles','slide-conc','slide-vapes','slide-prerolls'];
+const LABELS    = ['Flower','Edibles','Concentrates','Vapes','Pre-Rolls'];
+const DURATIONS = [5, 5, 5, 5, 5];
+const CIRCUM    = 75.4;
+
+let cur=0, slideTimer=null, tickTimer=null, tickStart=0;
+
+function showSlide(idx) {
+  if (slideTimer) { clearTimeout(slideTimer);  slideTimer=null; }
+  if (tickTimer)  { clearInterval(tickTimer);  tickTimer=null;  }
+  cur = idx;
+  const duration = DURATIONS[idx];
+  SLIDES.forEach((id,i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','leaving');
+    if (i===idx) el.classList.add('active');
+  });
+  const next = (idx+1) % SLIDES.length;
+  document.querySelectorAll('#shared-dots .dot-item').forEach((item,i) => {
+    item.querySelector('.dot').classList.toggle('on', i===idx);
+    const lbl = item.querySelector('.dot-label');
+    lbl.classList.remove('current','upcoming');
+    if (i===idx)  lbl.classList.add('current');
+    if (i===next) lbl.classList.add('upcoming');
+  });
+  const arc = document.getElementById('shared-arc');
+  const num = document.getElementById('shared-num');
+  arc.style.strokeDashoffset = '0';
+  arc.style.stroke = '#aaff00';
+  num.textContent = duration;
+  num.style.color = '#ffffff';
+  tickStart = Date.now();
+  tickTimer = setInterval(() => {
+    const remaining = Math.max(0,(tickStart+duration*1000-Date.now())/1000);
+    const pct = remaining/duration;
+    arc.style.strokeDashoffset = CIRCUM*(1-pct);
+    arc.style.stroke = pct>0.5?'#aaff00':pct>0.2?'#ffd54f':'#ff6b6b';
+    num.textContent = Math.ceil(remaining);
+    num.style.color = pct>0.2?'#ffffff':'#ff6b6b';
+  }, 100);
+  slideTimer = setTimeout(() => { slideTimer=null; showSlide((cur+1)%SLIDES.length); }, duration*1000);
+}
+
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours();
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const ampm = h>=12?'PM':'AM';
+  h = h%12||12;
+  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.querySelectorAll('.clock').forEach(el => el.textContent=`${h}:${m} ${ampm}`);
+  document.querySelectorAll('.datestamp').forEach(el => el.textContent=`${days[now.getDay()]}  ${months[now.getMonth()]} ${now.getDate()}`);
+}
+
+function scaleMenu() {
+  const scale = Math.min(window.innerWidth/1920, window.innerHeight/1080);
+  document.querySelectorAll('.menu-frame').forEach(el => el.style.transform=`translate(-50%,-50%) scale(${scale})`);
+  const hud = document.getElementById('shared-hud');
+  if (hud) { hud.style.transformOrigin='bottom center'; hud.style.transform=`translateX(-50%) scale(${scale})`; }
+}
+
+async function keepAwake() {
+  try {
+    if ('wakeLock' in navigator) {
+      let lock = await navigator.wakeLock.request('screen');
+      document.addEventListener('visibilitychange', async () => {
+        if (document.visibilityState==='visible') lock = await navigator.wakeLock.request('screen');
+      });
+    }
+  } catch(e) {}
+  setInterval(() => { document.title = document.title; }, 30000);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('col-exotic').innerHTML   = buildFlowerCol(FLOWER.exotic);
+  document.getElementById('col-topshelf').innerHTML = buildFlowerCol(FLOWER.topshelf);
+  document.getElementById('col-bargain').innerHTML  = buildFlowerCol(FLOWER.bargain);
+  buildConcentrates();
+  buildEdibles();
+  document.getElementById('vape-exotic').innerHTML   = buildVapeCol(VAPES.exotic);
+  document.getElementById('vape-topshelf').innerHTML = buildVapeCol(VAPES.topshelf);
+  document.getElementById('vape-bargain').innerHTML  = buildVapeCol(VAPES.bargain);
+  buildPrerolls();
+  updateClock();
+  setInterval(updateClock, 1000);
+  showSlide(0);
+  scaleMenu();
+  keepAwake();
+});
+window.addEventListener('resize', scaleMenu);
+</script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#0a0a0a; --panel:#141414; --panel2:#181818; --border:#2a2a2a;
+  --green:#aaff00; --green2:#66cc00; --glow:rgba(170,255,0,0.5);
+  --white:#ffffff; --dim:#888;
+  --ex:#aaff00; --top:#5fffff; --bar:#ffffff; --gold:#ffd54f;
+}
+html,body { width:100%; height:100%; overflow:hidden; background:#000; }
+
+/* ── FRAMES ── */
+.menu-frame {
+  position:fixed; top:50%; left:50%;
+  width:1920px; height:1080px; transform-origin:center center;
+  background:var(--bg); color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;
+  overflow:hidden; opacity:0;
+  transition:opacity 0.2s ease; pointer-events:none;
+}
+.menu-frame.active  { opacity:1; pointer-events:all; }
+.menu-frame.leaving { opacity:0; transition:opacity 0.15s ease; }
+.menu-frame::before {
+  content:''; position:absolute; inset:0; z-index:100;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);
+  pointer-events:none;
+}
+
+/* ── SHARED HUD ── */
+#shared-hud {
+  position:fixed; bottom:0; left:50%;
+  transform:translateX(-50%); transform-origin:bottom center;
+  z-index:9999; display:flex; align-items:center; gap:20px;
+  background:rgba(10,10,10,0.95);
+  border:1px solid rgba(255,255,255,0.1);
+  border-top-left-radius:20px; border-top-right-radius:20px;
+  padding:8px 28px 10px; backdrop-filter:blur(10px);
+}
+#shared-dots { display:flex; align-items:center; gap:16px; }
+.dot-item { display:flex; flex-direction:column; align-items:center; gap:5px; }
+.dot { width:10px;height:10px;border-radius:50%;background:#2a2a2a;border:1px solid #555;transition:all 0.3s; }
+.dot.on { background:var(--green);border-color:var(--green);box-shadow:0 0 10px var(--green); }
+.dot-label { font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444;white-space:nowrap;transition:color 0.3s; }
+.dot-label.current  { color:var(--green);text-shadow:0 0 8px rgba(170,255,0,0.6); }
+.dot-label.upcoming { color:#888; }
+.hud-divider { width:1px;height:30px;background:rgba(255,255,255,0.1); }
+.countdown-wrap { display:flex;align-items:center;gap:10px; }
+.countdown-svg { width:32px;height:32px;flex-shrink:0; }
+.countdown-track { fill:none;stroke:rgba(255,255,255,0.1);stroke-width:3; }
+.countdown-arc { fill:none;stroke:var(--green);stroke-width:3;stroke-linecap:round;stroke-dasharray:75.4;stroke-dashoffset:0;transform-origin:center;transform:rotate(-90deg);filter:drop-shadow(0 0 4px rgba(170,255,0,0.8)); }
+.countdown-text { display:flex;flex-direction:column;align-items:center; }
+.countdown-num { font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#fff;line-height:1;min-width:28px;text-align:center; }
+.countdown-label { font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#555;line-height:1;margin-top:2px; }
+
+/* ── BG / CHROME ── */
+.bg-glow { position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
+.bg-glow span { position:absolute;border-radius:50%;filter:blur(130px);opacity:0;animation:blobpulse 9s infinite; }
+.bg-glow span:nth-child(1){ width:700px;height:500px;background:rgba(170,255,0,0.06);top:-100px;left:-100px;animation-delay:0s; }
+.bg-glow span:nth-child(2){ width:500px;height:500px;background:rgba(95,255,255,0.04);top:200px;right:-50px;animation-delay:3s; }
+.bg-glow span:nth-child(3){ width:400px;height:400px;background:rgba(255,255,255,0.03);bottom:0;left:600px;animation-delay:6s; }
+@keyframes blobpulse { 0%,100%{opacity:0;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+.top-bar { position:relative;z-index:10;height:10px;background:linear-gradient(90deg,transparent,var(--green2) 15%,var(--green) 50%,var(--green2) 85%,transparent);box-shadow:0 0 30px var(--glow),0 0 80px rgba(170,255,0,0.2);animation:topbar 4s infinite; }
+@keyframes topbar { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
+.btm { position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7;animation:topbar 4s infinite reverse; }
+
+/* ── PAGE / HEADER ── */
+.page { position:relative;z-index:5;height:1014px;display:grid;grid-template-rows:auto 1fr;padding:12px 32px 10px;gap:12px; }
+.page-3row { grid-template-rows:auto 1fr auto; }
+.header { display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0; }
+.logo-img { height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4));animation:logopulse 3s infinite; }
+@keyframes logopulse {
+  0%,100%{filter:drop-shadow(0 0 12px rgba(170,255,0,0.6)) drop-shadow(0 0 30px rgba(170,255,0,0.3));}
+  50%{filter:drop-shadow(0 0 28px rgba(170,255,0,1)) drop-shadow(0 0 60px rgba(170,255,0,0.6));}
+}
+.hdr-center { position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px; }
+.hdr-title { font-family:'Bebas Neue',sans-serif;font-size:100px;letter-spacing:18px;line-height:1;color:var(--white);text-shadow:5px 5px 0 rgba(0,0,0,.9);white-space:nowrap; }
+.hdr-title em { font-style:normal;color:var(--green);text-shadow:0 0 40px rgba(170,255,0,0.9); }
+.hdr-sub { font-size:13px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--dim); }
+.ticker-wrap { display:flex;flex-direction:column;align-items:flex-end;gap:6px; }
+.live-badge { display:flex;align-items:center;gap:10px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;padding:5px 12px; }
+.live-dot { width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green);animation:blink 1.5s infinite; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.live-text { font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green); }
+.datetime-row { display:flex;align-items:baseline;gap:20px; }
+.live-time,.datestamp { font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4); }
+
+/* ══ SHARED TIER CHROME ══ */
+.tiers { display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0; }
+.tier { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0; }
+.tier::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;animation:slideline 4s ease-in-out infinite; }
+.tier-ex::after  { background:linear-gradient(90deg,transparent,var(--ex),transparent);  animation-delay:0s; }
+.tier-top::after { background:linear-gradient(90deg,transparent,var(--top),transparent); animation-delay:1s; }
+.tier-bar::after { background:linear-gradient(90deg,transparent,var(--bar),transparent); animation-delay:2s; }
+@keyframes slideline { 0%{left:-100%;opacity:0;} 10%{opacity:1;} 50%{left:100%;opacity:1;} 60%{opacity:0;} 100%{left:100%;opacity:0;} }
+.tier-ex  { border:1px solid rgba(170,255,0,0.25); }
+.tier-top { border:1px solid rgba(95,255,255,0.2); }
+.tier-bar { border:1px solid rgba(255,255,255,0.2); }
+.tier-ex::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%); }
+.tier-top::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%); }
+.tier-bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%); }
+.tier-hdr { display:flex;align-items:center;justify-content:space-between;padding:12px 22px 10px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4); }
+.tier-label { font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:5px;line-height:1; }
+.tier-ex  .tier-label { color:var(--ex);  text-shadow:0 0 30px rgba(170,255,0,0.8); }
+.tier-top .tier-label { color:var(--top); text-shadow:0 0 30px rgba(95,255,255,0.8); }
+.tier-bar .tier-label { color:var(--bar); text-shadow:0 0 30px rgba(255,255,255,0.6); }
+.tier-tag { font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px; }
+.tier-ex  .tier-tag { background:rgba(170,255,0,0.18); color:var(--ex);  border:1px solid rgba(170,255,0,0.4); }
+.tier-top .tier-tag { background:rgba(95,255,255,0.15);color:var(--top); border:1px solid rgba(95,255,255,0.35); }
+.tier-bar .tier-tag { background:rgba(255,255,255,0.12);color:var(--bar);border:1px solid rgba(255,255,255,0.3); }
+
+/* ══ FLOWER ══ */
+.strains-body { padding:6px 0;overflow:hidden;flex:1;position:relative;z-index:1; }
+.cat-block { padding:5px 20px; }
+.cat-pill { display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);padding:4px 12px 4px 8px;border-radius:20px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);margin-bottom:5px; }
+.cat-dot { width:8px;height:8px;border-radius:50%;background:var(--white);box-shadow:0 0 6px rgba(255,255,255,0.5);flex-shrink:0; }
+.strain-row { display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04); }
+.strain-row:last-child { border-bottom:none; }
+.strain-info { display:flex;flex-direction:column;gap:1px;flex:1;min-width:0; }
+.sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1; }
+.sthc  { font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--green);text-shadow:0 0 16px rgba(170,255,0,0.8);white-space:nowrap;margin-left:12px;flex-shrink:0; }
+.slabel { font-size:17px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:2px; }
+.cat-divider { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:3px 20px; }
+.pricing-section { flex-shrink:0;padding-top:10px;border-top:1px solid var(--border); }
+.pricing-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+.price-col { background:var(--panel2);border-radius:6px;overflow:hidden; }
+.price-col-hdr { padding:9px 18px;font-size:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center; }
+.price-col-hdr.ex-h  { background:rgba(170,255,0,0.15);  color:var(--ex);  border-bottom:2px solid rgba(170,255,0,0.3); }
+.price-col-hdr.top-h { background:rgba(95,255,255,0.12); color:var(--top); border-bottom:2px solid rgba(95,255,255,0.25); }
+.price-col-hdr.bar-h { background:rgba(255,255,255,0.1); color:var(--bar); border-bottom:2px solid rgba(255,255,255,0.2); }
+.price-rows { display:grid;grid-template-columns:repeat(5,1fr);padding:6px 14px;gap:0; }
+.price-item { display:flex;flex-direction:column;align-items:center;padding:7px 4px;border-right:1px solid var(--border); }
+.price-item:last-child { border-right:none; }
+.p-size { font-size:19px;font-weight:700;color:var(--dim);letter-spacing:1px;text-transform:uppercase;line-height:1; }
+.p-oz   { font-size:13px;color:#555;font-weight:500;letter-spacing:0.5px;margin-top:2px;line-height:1; }
+.p-amt  { font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:1px;margin-top:3px;line-height:1; }
+.ex-prices  .p-amt { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
+.top-prices .p-amt { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
+.bar-prices .p-amt { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+
+/* ══ CONCENTRATES ══ */
+.conc-body { display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0; }
+.conc-panel { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;border:1px solid var(--border); }
+.conc-panel.lr  { border-top:3px solid var(--gold); }
+.conc-panel.bho { border-top:3px solid var(--bar); }
+.conc-panel.lr::after  { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:slideline 4s ease-in-out infinite; }
+.conc-panel.bho::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2s; }
+.conc-panel.lr::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,213,79,0.05) 0%,transparent 50%); }
+.conc-panel.bho::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(240,240,240,0.03) 0%,transparent 50%); }
+.conc-hdr { display:flex;align-items:center;justify-content:space-between;padding:16px 26px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1; }
+.conc-label { font-family:'Bebas Neue',sans-serif;font-size:62px;letter-spacing:5px;line-height:1; }
+.conc-panel.lr  .conc-label { color:var(--gold); text-shadow:0 0 25px rgba(255,213,79,0.6); }
+.conc-panel.bho .conc-label { color:var(--bar);  text-shadow:0 0 25px rgba(255,255,255,0.4); }
+.conc-tag { font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px; }
+.conc-panel.lr  .conc-tag { background:rgba(255,213,79,0.14);color:var(--gold);border:1px solid rgba(255,213,79,0.3); }
+.conc-panel.bho .conc-tag { background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25); }
+.conc-items { flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;overflow:hidden; }
+.conc-row { flex:1;display:flex;align-items:center;padding:0 26px;gap:12px;border-bottom:1px solid rgba(255,255,255,0.05); }
+.conc-row:last-child { border-bottom:none; }
+.cname { font-size:40px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1; }
+.cthc  { font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0; }
+.lr-price { font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);text-shadow:0 0 14px rgba(255,213,79,0.6);white-space:nowrap;flex-shrink:0; }
+.bho-pricing { flex-shrink:0;display:flex;border-top:1px solid var(--border);position:relative;z-index:1; }
+.bho-price-item { flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 10px;border-right:1px solid var(--border); }
+.bho-price-item:last-child { border-right:none; }
+.bp-size { font-size:22px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase; }
+.bp-amt  { font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 12px rgba(255,255,255,0.3); }
+
+/* ══ EDIBLES ══ */
+.edibles-body { display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0; }
+.ed-panel { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative; }
+.ed-panel.ts  { border:1px solid rgba(95,255,255,0.2);  border-top:3px solid var(--top); }
+.ed-panel.bar { border:1px solid rgba(255,255,255,0.2); border-top:3px solid var(--bar); }
+.ed-panel.ts::after  { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--top),transparent);animation:slideline 4s ease-in-out infinite; }
+.ed-panel.bar::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2s; }
+.ed-panel.ts::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.04) 0%,transparent 50%); }
+.ed-panel.bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.03) 0%,transparent 50%); }
+.ed-hdr { display:flex;align-items:center;justify-content:space-between;padding:14px 24px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1; }
+.ed-label { font-family:'Bebas Neue',sans-serif;font-size:62px;letter-spacing:5px;line-height:1; }
+.ed-panel.ts  .ed-label { color:var(--top); text-shadow:0 0 25px rgba(95,255,255,0.7); }
+.ed-panel.bar .ed-label { color:var(--bar); text-shadow:0 0 25px rgba(255,255,255,0.4); }
+.ed-tag { font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px; }
+.ed-panel.ts  .ed-tag { background:rgba(95,255,255,0.14);color:var(--top);border:1px solid rgba(95,255,255,0.3); }
+.ed-panel.bar .ed-tag { background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25); }
+.ed-items { flex:1;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
+.ed-row { flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid rgba(255,255,255,0.05);gap:16px; }
+.ed-row:last-child { border-bottom:none; }
+.ed-left { flex:1;min-width:0; }
+.ed-name { font-size:32px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
+.ed-flavors { font-size:22px;font-weight:500;color:var(--white);line-height:1.3;margin-top:3px; }
+.ed-price { font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
+.ed-panel.ts  .ed-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
+.ed-panel.bar .ed-price { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+
+/* ══ VAPES ══ */
+.products-body { flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden; }
+.product-row { display:flex;align-items:flex-start;justify-content:space-between;padding:8px 20px;position:relative;border-bottom:1px solid rgba(255,255,255,0.05); }
+.product-row:last-child { border-bottom:none; }
+.product-row.even { background:rgba(255,255,255,0.02); }
+.product-row::before { content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6; }
+.tier-ex  .product-row::before { background:var(--ex); }
+.tier-top .product-row::before { background:var(--top); }
+.tier-bar .product-row::before { background:var(--bar); }
+.vape-left { display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;padding-right:12px; }
+.pname  { font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;line-height:1.1;color:var(--white); }
+.pprice { font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;white-space:nowrap;flex-shrink:0;padding-top:2px; }
+.tier-ex  .pprice { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
+.tier-top .pprice { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
+.tier-bar .pprice { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+.vflavors { display:flex;flex-wrap:wrap;gap:6px;margin-top:8px; }
+.vflavor-chip { font-size:14px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:4px 12px;white-space:nowrap; }
+.vflavor-more { font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:4px 12px;white-space:nowrap; }
+.deal-wrap { position:relative;z-index:2;margin:10px 14px 12px;flex-shrink:0; }
+.deal-wrap::before { content:'';position:absolute;inset:-2px;border-radius:10px;z-index:-1;background:var(--green);filter:blur(6px);opacity:0.4;animation:breathe 2.5s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{opacity:0.2;filter:blur(6px);} 50%{opacity:0.6;filter:blur(14px);} }
+.deal-banner { background:linear-gradient(135deg,#0c1a00,#111c00,#0a1400);border-radius:8px;padding:12px 24px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(170,255,0,0.25); }
+.deal-banner::after { content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(170,255,0,0.07),transparent);animation:sweep 2.5s ease-in-out infinite; }
+@keyframes sweep { 0%{left:-50%} 100%{left:150%} }
+.deal-amount { font-family:'Bebas Neue',sans-serif;font-size:86px;letter-spacing:5px;color:var(--green);line-height:0.9;animation:dealnum 2s infinite; }
+@keyframes dealnum { 0%,100%{text-shadow:0 0 20px rgba(170,255,0,0.7),0 0 40px rgba(170,255,0,0.3);} 50%{text-shadow:0 0 40px rgba(170,255,0,1),0 0 80px rgba(170,255,0,0.5);} }
+.deal-sub { font-size:22px;font-weight:900;letter-spacing:8px;text-transform:uppercase;color:rgba(170,255,0,0.65);margin-top:4px;text-align:center; }
+
+/* ══ PRE-ROLLS ══ */
+.pr-body { flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden; }
+.pr-row { display:flex;align-items:flex-start;justify-content:space-between;padding:10px 22px;gap:16px;border-bottom:1px solid rgba(255,255,255,0.05);position:relative; }
+.pr-row:last-child { border-bottom:none; }
+.pr-row::before { content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6; }
+.tier-ex  .pr-row::before { background:var(--ex); }
+.tier-top .pr-row::before { background:var(--top); }
+.tier-bar .pr-row::before { background:var(--bar); }
+.pr-left { flex:1;min-width:0; }
+.pr-name { font-size:28px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
+.pr-price { font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;text-align:right;padding-top:2px; }
+.tier-ex  .pr-price { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
+.tier-top .pr-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
+.tier-bar .pr-price { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     SHARED HUD
+     ═══════════════════════════════════════ -->
+<div id="shared-hud">
+  <div id="shared-dots">
+    <div class="dot-item"><div class="dot on"></div><div class="dot-label current">Flower</div></div>
+    <div class="dot-item"><div class="dot"></div><div class="dot-label upcoming">Edibles</div></div>
+    <div class="dot-item"><div class="dot"></div><div class="dot-label">Concentrates</div></div>
+    <div class="dot-item"><div class="dot"></div><div class="dot-label">Vapes</div></div>
+    <div class="dot-item"><div class="dot"></div><div class="dot-label">Pre-Rolls</div></div>
+  </div>
+  <div class="hud-divider"></div>
+  <div class="countdown-wrap">
+    <svg class="countdown-svg" viewBox="0 0 32 32">
+      <circle class="countdown-track" cx="16" cy="16" r="12"/>
+      <circle class="countdown-arc" id="shared-arc" cx="16" cy="16" r="12"/>
+    </svg>
+    <div class="countdown-text">
+      <div class="countdown-num" id="shared-num">5</div>
+      <div class="countdown-label">sec</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 1 — FLOWER ═══════════ -->
+<div class="menu-frame" id="slide-flower">
+  <div class="bg-glow"><span></span><span></span><span></span></div>
+  <div class="top-bar"></div>
+  <div class="page page-3row">
+    <header class="header">
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
+      <div class="hdr-center">
+        <div class="hdr-title">FL<em>O</em>WER</div>
+        <div class="hdr-sub">Today's Selection</div>
+      </div>
+      <div class="ticker-wrap">
+        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
+        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
+      </div>
+    </header>
+    <div class="tiers">
+      <div class="tier tier-ex">
+        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
+        <div class="strains-body" id="col-exotic"></div>
+      </div>
+      <div class="tier tier-top">
+        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+        <div class="strains-body" id="col-topshelf"></div>
+      </div>
+      <div class="tier tier-bar">
+        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
+        <div class="strains-body" id="col-bargain"></div>
+      </div>
+    </div>
+    <div class="pricing-section">
+      <div class="pricing-grid">
+        <div class="price-col">
+          <div class="price-col-hdr ex-h"><span>Exotic Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
+          <div class="price-rows ex-prices">
+            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$9.99</span></div>
+            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$24.99</span></div>
+            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$34.99</span></div>
+            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$69.99</span></div>
+            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$99.99</span></div>
+          </div>
+        </div>
+        <div class="price-col">
+          <div class="price-col-hdr top-h"><span>Top Shelf Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
+          <div class="price-rows top-prices">
+            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$7.99</span></div>
+            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$19.99</span></div>
+            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$29.99</span></div>
+            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$54.99</span></div>
+            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$84.99</span></div>
+          </div>
+        </div>
+        <div class="price-col">
+          <div class="price-col-hdr bar-h"><span>Bargain Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
+          <div class="price-rows bar-prices">
+            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$4.99</span></div>
+            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$14.99</span></div>
+            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$24.99</span></div>
+            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$44.99</span></div>
+            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$74.99</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btm"></div>
+</div>
+
+<!-- ═══════════ SLIDE 2 — EDIBLES ═══════════ -->
+<div class="menu-frame" id="slide-edibles">
+  <div class="bg-glow"><span></span><span></span><span></span></div>
+  <div class="top-bar"></div>
+  <div class="page">
+    <header class="header">
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
+      <div class="hdr-center">
+        <div class="hdr-title">ED<em>I</em>BLES</div>
+        <div class="hdr-sub">Today's Selection</div>
+      </div>
+      <div class="ticker-wrap">
+        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
+        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
+      </div>
+    </header>
+    <div class="edibles-body">
+      <div class="ed-panel ts">
+        <div class="ed-hdr"><div class="ed-label">Top Shelf</div><div class="ed-tag">Fan Favorites</div></div>
+        <div class="ed-items" id="ed-topshelf"></div>
+      </div>
+      <div class="ed-panel bar">
+        <div class="ed-hdr"><div class="ed-label">Bargains</div><div class="ed-tag">Best Value</div></div>
+        <div class="ed-items" id="ed-bargain"></div>
+      </div>
+    </div>
+  </div>
+  <div class="btm"></div>
+</div>
+
+<!-- ═══════════ SLIDE 3 — CONCENTRATES ═══════════ -->
+<div class="menu-frame" id="slide-conc">
+  <div class="bg-glow"><span></span><span></span><span></span></div>
+  <div class="top-bar"></div>
+  <div class="page">
+    <header class="header">
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
+      <div class="hdr-center">
+        <div class="hdr-title">CONC<em>E</em>NTRATES</div>
+        <div class="hdr-sub">Today's Selection</div>
+      </div>
+      <div class="ticker-wrap">
+        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
+        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
+      </div>
+    </header>
+    <div class="conc-body">
+      <div class="conc-panel lr">
+        <div class="conc-hdr"><div class="conc-label">Live Rosin</div><div class="conc-tag">Premium Extract</div></div>
+        <div class="conc-items" id="conc-lr"></div>
+      </div>
+      <div class="conc-panel bho">
+        <div class="conc-hdr"><div class="conc-label">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div>
+        <div class="conc-items" id="conc-bho"></div>
+        <div class="bho-pricing">
+          <div class="bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div>
+          <div class="bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btm"></div>
+</div>
+
+<!-- ═══════════ SLIDE 4 — VAPES ═══════════ -->
+<div class="menu-frame" id="slide-vapes">
+  <div class="bg-glow"><span></span><span></span><span></span></div>
+  <div class="top-bar"></div>
+  <div class="page">
+    <header class="header">
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
+      <div class="hdr-center">
+        <div class="hdr-title">VAP<em>E</em>S &amp; DISPOSABLES</div>
+        <div class="hdr-sub">Today's Selection</div>
+      </div>
+      <div class="ticker-wrap">
+        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
+        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
+      </div>
+    </header>
+    <div class="tiers">
+      <div class="tier tier-ex">
+        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
+        <div class="products-body" id="vape-exotic"></div>
+      </div>
+      <div class="tier tier-top">
+        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+        <div class="products-body" id="vape-topshelf"></div>
+      </div>
+      <div class="tier tier-bar">
+        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
+        <div class="products-body" id="vape-bargain"></div>
+        <div class="deal-wrap">
+          <div class="deal-banner">
+            <div><div class="deal-amount">2 FOR $40</div><div class="deal-sub">Mix &amp; Match</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btm"></div>
+</div>
+
+<!-- ═══════════ SLIDE 5 — PRE-ROLLS ═══════════ -->
+<div class="menu-frame" id="slide-prerolls">
+  <div class="bg-glow"><span></span><span></span><span></span></div>
+  <div class="top-bar"></div>
+  <div class="page">
+    <header class="header">
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
+      <div class="hdr-center">
+        <div class="hdr-title">PR<em>E</em>-ROLLS</div>
+        <div class="hdr-sub">Today's Selection</div>
+      </div>
+      <div class="ticker-wrap">
+        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
+        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
+      </div>
+    </header>
+    <div class="tiers">
+      <div class="tier tier-ex">
+        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
+        <div class="pr-body" id="pr-exotic"></div>
+      </div>
+      <div class="tier tier-top">
+        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+        <div class="pr-body" id="pr-topshelf"></div>
+      </div>
+      <div class="tier tier-bar">
+        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
+        <div class="pr-body" id="pr-bargain"></div>
+      </div>
+    </div>
+  </div>
+  <div class="btm"></div>
+</div>
+
+</body>
+</html>

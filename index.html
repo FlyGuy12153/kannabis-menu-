@@ -1,11 +1,11 @@
-Index · HTML
-Copy
-
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Kannabis City – Flower Menu</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Stint+Ultra+Condensed&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
 
@@ -80,7 +80,9 @@ window.addEventListener('resize', scaleMenu);
 
 function scaleMenu() {
   const el = document.getElementById('menu');
-  const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  const scaleX = window.innerWidth / 1920;
+  const scaleY = window.innerHeight / 1080;
+  const scale = Math.max(scaleX, scaleY);
   el.style.transform = `translate(-50%,-50%) scale(${scale})`;
 }
 </script>

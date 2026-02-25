@@ -13,24 +13,22 @@
 // ╚══════════════════════════════════════════════════╝
 const VAPES = {
   exotic: [
-    { name: "FVKD 3G",                   price: "$34.99" },
-    { name: "Sauce 2G XL",               price: "$34.99" },
-    { name: "Grassmaster .5G Rosin Pen", price: "$44.99" },
-    { name: "Muha Meds 2G",              price: "$39.99" },
+    { name: "FVKD 3G",      price: "$34.99", flavors: "Jelly Donutz · Garapples · Mango Runtz · Pink Berry · Strawberry Lemonade · LA Kush Cake · Wedding Cake · Alaskan Thunder Fvkd · Mango Mintality · Slurricane · Cannaloupe Haze" },
+    { name: "Sauce 2G XL",  price: "$34.99", flavors: "Strawberry Frost · Chemdawg · Watermelon Haze · White Widow · Super Blue Diesel · Banana Guava · Strawberry Cough · Purple Octane · Blue Tangie · Gelonade" },
+    { name: "Muha Meds 2G", price: "$39.99", flavors: "Pineapple Paradise · Blue Slushie · Bubblegum Burst · Dragon Berry Runtz · Horchata · Galactic Diesel · Sweet Dreams OG · Frozen Pomegranate · Watermelon Moonshine · Habibi" },
   ],
   topshelf: [
-    { name: "Ace Ultra 2G",          price: "$29.99" },
-    { name: "Madlabs 2G",            price: "$29.99" },
-    { name: "Sauce Live Resin 1.5G", price: "$29.99" },
-    { name: "Sluggers 2G Switch",    price: "$29.99" },
+    { name: "Madlabs 2G",            price: "$29.99", flavors: "Sherbacio · Blue Dream · Guava Kush · Lemon Cherry G · Peach Rings · Jet Fuel · Watermelon Z · Horchata Lato · Pixie Dust · Blue Razz" },
+    { name: "Sauce Live Resin 1.5G", price: "$29.99", flavors: "OG Z · Alien Runtz · Blue Dreamsicle · Apple Fritter · Ghost Train Haze · Blueberry Kush · Strawberry Cough · Tangie Dream · Gelato · Space Octane · Gelonade" },
+    { name: "Sluggers 2G Switch",    price: "$29.99", flavors: "WatermelonZ · Fire OG · 33 · Euphoria · Bubblegum" },
   ],
   bargain: [
-    { name: "Ghost 2G",              price: "$24.99" },
-    { name: "Choices 2G Switch",     price: "$24.99" },
-    { name: "Seedless 2G",           price: "$24.99" },
-    { name: "Boutiq 2G",             price: "$24.99" },
-    { name: "White Recluse",         price: "$24.99" },
-    { name: "Bodega Boyz 2G Switch", price: "$24.99" },
+    { name: "Ghost 2G",              price: "$24.99", flavors: "Concrete Haze · Bubba Drift · Blueberry Blitz · Black Cherry · Golden Z · Midnight Mirage · Tropic Burst · Peach Paradise · Jungle Vice · Grape Bliss" },
+    { name: "Choices 2G Switch",     price: "$24.99", flavors: "Honey Cream x Wild Cherry · White Peach Freeze x Toxic Paradise · Watermelon Tart x Pistachio Gelato · Tres Leches x Banana Sundae · Sweet Citrus x War Heads · Sour Push Pop x Tutti Frutti · Red Starburst x Iced Sangria · Red Blow Pop x Kool Aid Jammers · Honey Comb x Strawberry Milk · Raspberry Kush x Cocolato · Pink Gushers x Atomic Pop · Orange Fanta x Lemonade Stand · Chocolate Milk x Horchata · Lychee Juice x Vanilla Float · Lecherita x Blue Jam · Hubba Bubba x Blueberry Jizz · Hibiscus Rush x Airhead Extremes · Grape Jelly x Caramel Apple · Diamond Dust x Sweet Tooth · Butter Fingerz x Pizookie" },
+    { name: "Seedless 2G",           price: "$24.99", flavors: "OG · Watermelon · Maui · Ice Cream Cake · Runtz · Strawberry · Zkittlez · Lemon Skunk · Blue Dream · GG4" },
+    { name: "Boutiq 2G",             price: "$24.99", flavors: "Brooklyn Dream · Black Z · Purple Berry · Chem Berry · Blue Matcha · Lava Mintz · Razzleberry · Pink Tangie · Green Magic · Tropical Gelato" },
+    { name: "White Recluse",         price: "$24.99", flavors: "Kiwi Kush · Strawberry Banana Runtz · Island Slushy · Red Pineapple Kush · Lychee Candy" },
+    { name: "Bodega Boyz 2G Switch", price: "$24.99", flavors: "HI-C · Pineapple Slushie · Guava Mintz · Lemon OG · Candy Funk" },
   ],
 };
 
@@ -39,8 +37,8 @@ const VAPES = {
 // ╚══════════════════════════════════════════════════╝
 const PREROLLS = {
   exotic: [
-    { name: "Boutiq Snack Packs 5pk", price: "$29.99", flavors: "Ask budtender for strains" },
-    { name: "Sluggers Juiced 5pk",    price: "$32.99", flavors: "Ask budtender for strains" },
+    { name: "Boutiq Snack Packs 5pk", price: "$29.99", flavors: "Texas Tea · Yuzu · Cake Mix · Purple Peeps · Rocket Pop · Lime Z · Biscoff" },
+    { name: "Sluggers Juiced 5pk",    price: "$32.99", flavors: "Euphoria · Long Island Iced Tea · Adios MF · Pluto · Hurricane SZN · Blue Sushi" },
     { name: "Fidel's Hash Hole 5pk",  price: "$34.99", flavors: "Blueberry Yogurt · Guava Z · Sour Runtz · Runtz" },
   ],
   topshelf: [
@@ -57,9 +55,13 @@ const PREROLLS = {
 
 // ── BUILD ──────────────────────────────────────────
 function buildVapeCol(products) {
+  const max = products.length <= 3 ? 8 : products.length <= 4 ? 6 : 5;
   return products.map((p, i) => `
     <div class="product-row${i % 2 === 0 ? ' even' : ''}">
-      <div class="pname">${p.name}</div>
+      <div class="vape-left">
+        <div class="pname">${p.name}</div>
+        ${p.flavors ? `<div class="vflavors">${(()=>{const f=p.flavors.split(' · ');const chips=f.slice(0,max).map(x=>`<span class="vflavor-chip">${x}</span>`).join('');const more=f.length>max?`<span class="vflavor-more">+${f.length-max} more</span>`:'';return chips+more;})()}</div>` : ''}
+      </div>
       <div class="pprice">${p.price}</div>
     </div>`).join('');
 }
@@ -70,7 +72,7 @@ function buildPrerolls() {
       <div class="pr-row">
         <div class="pr-left">
           <div class="pr-name">${p.name}</div>
-          <div class="pr-flavors">${p.flavors}</div>
+          ${p.flavors ? `<div class="vflavors">${(()=>{const f=p.flavors.split(' · ');const max=8;const chips=f.slice(0,max).map(x=>`<span class="vflavor-chip">${x}</span>`).join('');const more=f.length>max?`<span class="vflavor-more">+${f.length-max} more</span>`:'';return chips+more;})()}</div>` : ''}
         </div>
         <div class="pr-price">${p.price}</div>
       </div>`).join('');
@@ -310,16 +312,20 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .tier-bar .tier-tag { background:rgba(255,255,255,0.12);color:var(--bar);border:1px solid rgba(255,255,255,0.3); }
 
 /* ══ VAPES ══ */
-.products-body { flex:1;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
-.product-row { flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:relative;border-bottom:1px solid rgba(255,255,255,0.05); }
+.products-body { flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden; }
+.product-row { display:flex;align-items:flex-start;justify-content:space-between;padding:8px 20px;position:relative;border-bottom:1px solid rgba(255,255,255,0.05); }
 .product-row:last-child { border-bottom:none; }
 .product-row.even { background:rgba(255,255,255,0.02); }
 .product-row::before { content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6; }
 .tier-ex  .product-row::before { background:var(--ex); }
 .tier-top .product-row::before { background:var(--top); }
 .tier-bar .product-row::before { background:var(--bar); }
-.pname  { font-size:34px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;line-height:1.1;color:var(--white);flex:1; }
-.pprice { font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
+.pname  { font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;line-height:1.1;color:var(--white); }
+.vape-left { display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;padding-right:12px; }
+.vflavors { display:flex;flex-wrap:wrap;gap:6px;margin-top:8px; }
+.vflavor-chip { font-size:14px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:4px 12px;white-space:nowrap; }
+.vflavor-more { font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:4px 12px;white-space:nowrap;align-self:center; }
+.pprice { font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;white-space:nowrap;flex-shrink:0;padding-top:2px; }
 .tier-ex  .pprice { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
 .tier-top .pprice { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
 .tier-bar .pprice { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
@@ -339,8 +345,8 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .deal-sub { font-size:22px;font-weight:900;letter-spacing:8px;text-transform:uppercase;color:rgba(170,255,0,0.65);margin-top:4px;text-align:center; }
 
 /* ══ PRE-ROLLS ══ */
-.pr-body { flex:1;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
-.pr-row { flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:16px;border-bottom:1px solid rgba(255,255,255,0.05);position:relative; }
+.pr-body { flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden; }
+.pr-row { flex:1;display:flex;align-items:flex-start;justify-content:space-between;padding:10px 22px;gap:16px;border-bottom:1px solid rgba(255,255,255,0.05);position:relative; }
 .pr-row:last-child { border-bottom:none; }
 .pr-row::before { content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6; }
 .tier-ex  .pr-row::before { background:var(--ex); }

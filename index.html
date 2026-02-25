@@ -11,26 +11,27 @@
 // ╔══════════════════════════════════════════════════╗
 // ║  ✏️  FLOWER                                       ║
 // ╚══════════════════════════════════════════════════╝
+// terps: array of [name, one-word descriptor]
 const FLOWER = {
   exotic: [
-    { name: "Hindu Kush",       thc: "26.16", cat: "indica" },
-    { name: "Bubblegum Gelato", thc: "25.88", cat: "indica" },
-    { name: "Ghost Train Haze", thc: "23.10", cat: "sativa" },
-    { name: "Princess Haze",    thc: "30.32", cat: "sativa" },
-    { name: "Cherry Eclipse",   thc: "29.34", cat: "hybrid" },
-    { name: "Prism Petals",     thc: "27.84", cat: "hybrid" },
-    { name: "Permanent Marker", thc: "26.76", cat: "hybrid" },
+    { name: "Hindu Kush",       thc: "26.16", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
+    { name: "Bubblegum Gelato", thc: "25.88", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
+    { name: "Ghost Train Haze", thc: "23.10", cat: "sativa", terps: [["Terpinolene","Piney"],["Myrcene","Earthy"],["Limonene","Citrus"]] },
+    { name: "Princess Haze",    thc: "30.32", cat: "sativa", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
+    { name: "Cherry Eclipse",   thc: "29.34", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
+    { name: "Prism Petals",     thc: "27.84", cat: "hybrid", terps: [["Terpinolene","Piney"],["Myrcene","Earthy"],["Ocimene","Sweet"]] },
+    { name: "Permanent Marker", thc: "26.76", cat: "hybrid", terps: [["Caryophyllene","Peppery"],["Limonene","Citrus"],["Myrcene","Earthy"]] },
   ],
   topshelf: [
-    { name: "Milky Way",  thc: "29.99", cat: "indica" },
-    { name: "Unicorn",    thc: "24.96", cat: "indica" },
-    { name: "Blackjack",  thc: "22.55", cat: "sativa" },
-    { name: "Illemonati", thc: "28.27", cat: "hybrid" },
+    { name: "Milky Way",  thc: "29.99", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
+    { name: "Unicorn",    thc: "24.96", cat: "indica", terps: [["Terpinolene","Piney"],["Myrcene","Earthy"],["Caryophyllene","Peppery"]] },
+    { name: "Blackjack",  thc: "22.55", cat: "sativa", terps: [["Caryophyllene","Peppery"],["Myrcene","Earthy"],["Pinene","Woody"]] },
+    { name: "Illemonati", thc: "28.27", cat: "hybrid", terps: [["Limonene","Citrus"],["Caryophyllene","Peppery"],["Myrcene","Earthy"]] },
   ],
   bargain: [
-    { name: "OG",            thc: "24.44", cat: "indica" },
-    { name: "Apple Fritter", thc: "26.33", cat: "sativa" },
-    { name: "Space Junky",   thc: "24.82", cat: "hybrid" },
+    { name: "OG",            thc: "24.44", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
+    { name: "Apple Fritter", thc: "26.33", cat: "sativa", terps: [["Caryophyllene","Peppery"],["Limonene","Citrus"],["Pinene","Woody"]] },
+    { name: "Space Junky",   thc: "24.82", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Terpinolene","Piney"]] },
   ],
 };
 
@@ -81,7 +82,10 @@ function buildFlowerCol(strains) {
   return order.filter(c => map[c]).map((c, i, arr) => {
     const rows = map[c].map(s => `
       <div class="strain-row">
-        <span class="sname">${s.name}</span>
+        <div class="strain-info">
+          <span class="sname">${s.name}</span>
+
+        </div>
         <span class="sthc">${s.thc}<span class="slabel">% THC</span></span>
       </div>`).join('');
     const div = i < arr.length - 1 ? `<div class="cat-divider"></div>` : '';
@@ -395,10 +399,16 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .cat-block { padding:5px 20px; }
 .cat-pill { display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);padding:4px 12px 4px 8px;border-radius:20px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);margin-bottom:5px; }
 .cat-dot { width:8px;height:8px;border-radius:50%;background:var(--white);box-shadow:0 0 6px rgba(255,255,255,0.5);flex-shrink:0; }
-.strain-row { display:flex;align-items:baseline;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04); }
+.strain-row { display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04); }
 .strain-row:last-child { border-bottom:none; }
-.sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white); }
-.sthc  { font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--green);text-shadow:0 0 16px rgba(170,255,0,0.8);white-space:nowrap;margin-left:12px; }
+.strain-info { display:flex;flex-direction:column;gap:1px;flex:1;min-width:0; }
+.sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1; }
+.sterps-row { display:flex;gap:8px;margin-top:3px;flex-wrap:wrap; }
+.terp-chip { display:flex;flex-direction:column;align-items:center;gap:0px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:2px 8px; }
+.terp-name { font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(170,255,0,0.7);line-height:1.2; }
+.terp-desc { font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#ffffff;line-height:1.2; }
+.sterps { font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);line-height:1; }
+.sthc  { font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--green);text-shadow:0 0 16px rgba(170,255,0,0.8);white-space:nowrap;margin-left:12px;flex-shrink:0; }
 .slabel { font-size:17px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:2px; }
 .cat-divider { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:3px 20px; }
 .pricing-section { flex-shrink:0;padding-top:10px;border-top:1px solid var(--border); }
@@ -467,7 +477,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ed-row:last-child { border-bottom:none; }
 .ed-left { flex:1;min-width:0; }
 .ed-name { font-size:32px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
-.ed-flavors { font-size:18px;font-weight:500;color:var(--dim);line-height:1.3;margin-top:3px; }
+.ed-flavors { font-size:22px;font-weight:500;color:var(--white);line-height:1.3;margin-top:3px; }
 .ed-price { font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
 .ed-panel.ts  .ed-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
 .ed-panel.bar .ed-price { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }

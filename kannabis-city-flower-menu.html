@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kannabis City – Flower Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Barlow+Condensed:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+// ╔══════════════════════════════════════════════════════════╗
+// ║  ✏️  EDIT STRAINS HERE — message Claude to update!       ║
+// ╚══════════════════════════════════════════════════════════╝
+
+const MENU = {
+
+  exotic: [
+    { name: "Hindu Kush",       thc: "26.16", cat: "indica" },
+    { name: "Bubblegum Gelato", thc: "25.88", cat: "indica" },
+    { name: "Ghost Train Haze", thc: "23.10", cat: "sativa" },
+    { name: "Princess Haze",    thc: "30.32", cat: "sativa" },
+    { name: "Cherry Eclipse",   thc: "29.34", cat: "hybrid" },
+    { name: "Prism Petals",     thc: "27.84", cat: "hybrid" },
+    { name: "Permanent Marker", thc: "26.76", cat: "hybrid" },
+  ],
+
+  topshelf: [
+    { name: "Milky Way",  thc: "29.99", cat: "indica" },
+    { name: "Unicorn",    thc: "24.96", cat: "indica" },
+    { name: "Blackjack",  thc: "22.55", cat: "sativa" },
+    { name: "Illemonati", thc: "28.27", cat: "hybrid" },
+  ],
+
+  bargain: [
+    { name: "OG",            thc: "24.44", cat: "indica" },
+    { name: "Apple Fritter", thc: "26.33", cat: "sativa" },
+    { name: "Space Junky",   thc: "24.82", cat: "hybrid" },
+  ],
+
+};
+
+// ── Auto-build — do not edit below this line ──────────────
+const CAT_META = {
+  indica: { label: "Indica", color: "#9c6fcc" },
+  sativa: { label: "Sativa", color: "#e67e22" },
+  hybrid: { label: "Hybrid", color: "#17a8a8" },
+};
+
+function buildColumn(strains) {
+  const order = ["indica","sativa","hybrid"];
+  const map = {};
+  for (const s of strains) { if (!map[s.cat]) map[s.cat]=[]; map[s.cat].push(s); }
+  return order.filter(c => map[c]).map((c, i, arr) => {
+    const meta = CAT_META[c];
+    const rows = map[c].map(s => `
+      <div class="strain-row">
+        <span class="sname">${s.name}</span>
+        <span class="sthc">${s.thc}<span class="spct">%</span> <span class="slabel">THC</span></span>
+      </div>`).join('');
+    const div = i < arr.length - 1 ? '<div class="divider"></div>' : '';
+    return `
+      <div class="cat-block">
+        <div class="cat-label">
+          <span class="dot" style="background:${meta.color}"></span>${meta.label}
+        </div>${rows}
+      </div>${div}`;
+  }).join('');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('col-exotic').innerHTML   = buildColumn(MENU.exotic);
+  document.getElementById('col-topshelf').innerHTML = buildColumn(MENU.topshelf);
+  document.getElementById('col-bargain').innerHTML  = buildColumn(MENU.bargain);
+});
+</script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:    #090909;
+  --panel: #141414;
+  --border:#222;
+  --green: #76ff03;
+  --gd:    #2d6e1a;
+  --white: #efefef;
+  --gray:  #7a7a7a;
+  --ex:    #d4a0e0;
+  --top:   #7ecfca;
+  --bar:   #ffbb55;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse 55vw 25vh at 20% 110%, rgba(118,255,3,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 35vw 40vh at 80% -10%, rgba(118,255,3,0.03) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+
+.drip {
+  height: 0.55vh;
+  min-height: 4px;
+  background: linear-gradient(90deg, var(--gd) 0%, var(--green) 25%, var(--gd) 50%, var(--green) 75%, var(--gd) 100%);
+  box-shadow: 0 0 1vh rgba(118,255,3,.55);
+  position:relative; z-index:2;
+}
+
+.page {
+  position:relative; z-index:1;
+  height: calc(100vh - 0.55vh);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 1.2vh 1.6vw 1.4vh;
+  gap: 1vh;
+}
+
+/* ── HEADER ── */
+.header {
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.9vh;
+  position: relative;
+}
+.logo-k {
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 2.6vw; color: var(--green);
+  text-shadow: 0 0 1.5vw rgba(118,255,3,.45), 0.2vw 0.2vw 0 #163c0a;
+  line-height:1;
+}
+.logo-c {
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 1.5vw; letter-spacing: 0.6vw; color: var(--white); line-height:1;
+}
+.hdr-title {
+  position:absolute; left:50%; transform:translateX(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5.5vw; letter-spacing: 1vw; line-height:1;
+  color: var(--white); text-shadow: 0.25vw 0.25vw 0 rgba(0,0,0,.8);
+  white-space: nowrap;
+}
+.hdr-title em { font-style:normal; color: var(--green); }
+.live {
+  display:flex; align-items:center; gap:0.5vw;
+  font-size:0.8vw; font-weight:700; letter-spacing:0.25vw;
+  text-transform:uppercase; color:var(--gray); white-space:nowrap;
+}
+.live::before {
+  content:''; width:0.55vw; height:0.55vw; border-radius:50%;
+  background:var(--green); box-shadow:0 0 0.6vw var(--green);
+  animation: blink 2s infinite; flex-shrink:0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ── TIER COLUMNS ── */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2vw;
+  min-height: 0;
+}
+.tier {
+  background: var(--panel);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+.tier-ex  { border-top: 0.35vh solid var(--ex); }
+.tier-top { border-top: 0.35vh solid var(--top); }
+.tier-bar { border-top: 0.35vh solid var(--bar); }
+
+.tier-ex::before  { content:''; position:absolute; inset:0; pointer-events:none; border-radius:4px; background:linear-gradient(150deg,rgba(212,160,224,.04) 0%,transparent 55%); }
+.tier-top::before { content:''; position:absolute; inset:0; pointer-events:none; border-radius:4px; background:linear-gradient(150deg,rgba(126,207,202,.04) 0%,transparent 55%); }
+.tier-bar::before { content:''; position:absolute; inset:0; pointer-events:none; border-radius:4px; background:linear-gradient(150deg,rgba(255,187,85,.04) 0%,transparent 55%); }
+
+.tier-hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0.8vh 1.1vw 0.7vh;
+  border-bottom: 1px solid var(--border);
+  flex-shrink:0; position:relative; z-index:1;
+}
+.tier-label {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.3vw; letter-spacing:0.25vw; line-height:1;
+}
+.tier-ex  .tier-label { color:var(--ex); }
+.tier-top .tier-label { color:var(--top); }
+.tier-bar .tier-label { color:var(--bar); }
+
+.tier-tag {
+  font-size:0.7vw; font-weight:700;
+  letter-spacing:0.18vw; text-transform:uppercase;
+  padding:0.3vh 0.6vw; border-radius:2px;
+}
+.tier-ex  .tier-tag { background:rgba(212,160,224,.18); color:var(--ex); }
+.tier-top .tier-tag { background:rgba(126,207,202,.18); color:var(--top); }
+.tier-bar .tier-tag { background:rgba(255,187,85,.18);  color:var(--bar); }
+
+/* ── STRAINS ── */
+.strains-body { padding: 0.4vh 0; overflow:hidden; flex:1; position:relative; z-index:1; }
+
+.cat-block { padding: 0.35vh 1.1vw; }
+.cat-label {
+  display:flex; align-items:center; gap:0.4vw;
+  font-size:0.65vw; font-weight:700;
+  letter-spacing:0.22vw; text-transform:uppercase;
+  color:var(--gray);
+  padding-bottom:0.3vh; border-bottom:1px solid var(--border); margin-bottom:0.3vh;
+}
+.dot { width:0.4vw; height:0.4vw; border-radius:50%; flex-shrink:0; }
+
+.strain-row {
+  display:flex; align-items:baseline; justify-content:space-between;
+  padding: 0.22vh 0;
+}
+.sname {
+  font-size:1.25vw; font-weight:900;
+  text-transform:uppercase; letter-spacing:.02vw; line-height:1.2;
+}
+.sthc {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3vw; color:var(--green);
+  white-space:nowrap; margin-left:0.6vw;
+}
+.spct { font-size:1vw; }
+.slabel {
+  font-size:0.6vw; color:var(--gray);
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:600; letter-spacing:0.08vw;
+}
+.divider { height:1px; background:var(--border); margin:0.2vh 1.1vw; }
+
+/* ── PRICING ── */
+.pricing-section {
+  border-top:1px solid var(--border);
+  padding-top:0.8vh;
+  flex-shrink:0;
+}
+.pricing-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1.2vw;
+}
+.price-col { background:var(--panel); border-radius:4px; overflow:hidden; }
+.price-col-hdr {
+  padding:0.45vh 1vw; font-size:0.7vw; font-weight:700;
+  letter-spacing:0.2vw; text-transform:uppercase;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.price-col-hdr.ex-h  { background:rgba(212,160,224,.15); color:var(--ex); }
+.price-col-hdr.top-h { background:rgba(126,207,202,.15); color:var(--top); }
+.price-col-hdr.bar-h { background:rgba(255,187,85,.15);  color:var(--bar); }
+
+.price-rows { padding:0.4vh 1vw; }
+.price-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0.28vh 0; border-bottom:1px solid var(--border);
+}
+.price-row:last-child { border-bottom:none; }
+.price-left { display:flex; align-items:baseline; gap:0.3vw; }
+.price-size { font-size:1.1vw; font-weight:700; color:var(--gray); letter-spacing:0.05vw; }
+.price-oz   { font-size:0.75vw; color:#3a3a3a; font-weight:500; }
+.price-amt  { font-family:'Bebas Neue',sans-serif; font-size:1.35vw; letter-spacing:0.05vw; }
+.ex-prices  .price-amt { color:var(--ex); }
+.top-prices .price-amt { color:var(--top); }
+.bar-prices .price-amt { color:var(--bar); }
+
+.btm {
+  position:fixed; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--gd),var(--green),var(--gd));
+  opacity:.5;
+}
+</style>
+</head>
+<body>
+
+<div class="drip"></div>
+
+<div class="page">
+
+  <header class="header">
+    <div>
+      <div class="logo-k">Kannabis</div>
+      <div class="logo-c">City</div>
+    </div>
+    <div class="hdr-title">FL<em>O</em>WER</div>
+    <div class="live">Today's Menu</div>
+  </header>
+
+  <div class="tiers">
+
+    <div class="tier tier-ex">
+      <div class="tier-hdr">
+        <div class="tier-label">Exotic</div>
+        <div class="tier-tag">Premium Select</div>
+      </div>
+      <div class="strains-body" id="col-exotic"></div>
+    </div>
+
+    <div class="tier tier-top">
+      <div class="tier-hdr">
+        <div class="tier-label">Top Shelf</div>
+        <div class="tier-tag">Fan Favorites</div>
+      </div>
+      <div class="strains-body" id="col-topshelf"></div>
+    </div>
+
+    <div class="tier tier-bar">
+      <div class="tier-hdr">
+        <div class="tier-label">Bargains</div>
+        <div class="tier-tag">Best Value</div>
+      </div>
+      <div class="strains-body" id="col-bargain"></div>
+    </div>
+
+  </div>
+
+  <div class="pricing-section">
+    <div class="pricing-grid">
+
+      <div class="price-col">
+        <div class="price-col-hdr ex-h">
+          <span>Exotic Pricing</span>
+          <span style="opacity:.35;font-size:0.6vw">PER UNIT</span>
+        </div>
+        <div class="price-rows ex-prices">
+          <div class="price-row"><span class="price-left"><span class="price-size">1g</span></span><span class="price-amt">$9.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">3.5g</span><span class="price-oz">1/8 oz</span></span><span class="price-amt">$24.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">7g</span><span class="price-oz">1/4 oz</span></span><span class="price-amt">$34.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">14g</span><span class="price-oz">1/2 oz</span></span><span class="price-amt">$69.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">28g</span><span class="price-oz">1 oz</span></span><span class="price-amt">$99.99</span></div>
+        </div>
+      </div>
+
+      <div class="price-col">
+        <div class="price-col-hdr top-h">
+          <span>Top Shelf Pricing</span>
+          <span style="opacity:.35;font-size:0.6vw">PER UNIT</span>
+        </div>
+        <div class="price-rows top-prices">
+          <div class="price-row"><span class="price-left"><span class="price-size">1g</span></span><span class="price-amt">$7.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">3.5g</span><span class="price-oz">1/8 oz</span></span><span class="price-amt">$19.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">7g</span><span class="price-oz">1/4 oz</span></span><span class="price-amt">$29.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">14g</span><span class="price-oz">1/2 oz</span></span><span class="price-amt">$54.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">28g</span><span class="price-oz">1 oz</span></span><span class="price-amt">$84.99</span></div>
+        </div>
+      </div>
+
+      <div class="price-col">
+        <div class="price-col-hdr bar-h">
+          <span>Bargain Pricing</span>
+          <span style="opacity:.35;font-size:0.6vw">PER UNIT</span>
+        </div>
+        <div class="price-rows bar-prices">
+          <div class="price-row"><span class="price-left"><span class="price-size">1g</span></span><span class="price-amt">$4.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">3.5g</span><span class="price-oz">1/8 oz</span></span><span class="price-amt">$14.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">7g</span><span class="price-oz">1/4 oz</span></span><span class="price-amt">$24.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">14g</span><span class="price-oz">1/2 oz</span></span><span class="price-amt">$44.99</span></div>
+          <div class="price-row"><span class="price-left"><span class="price-size">28g</span><span class="price-oz">1 oz</span></span><span class="price-amt">$74.99</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div class="btm"></div>
+</body>
+</html>

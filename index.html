@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kannabis City – Flower Menu</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Barlow+Condensed:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Stint+Ultra+Condensed&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <script>
-// ╔══════════════════════════════════════════════════════════╗
-// ║  ✏️  EDIT STRAINS HERE — message Claude to update!       ║
-// ╚══════════════════════════════════════════════════════════╝
+// ╔══════════════════════════════════════════════════╗
+// ║  ✏️  EDIT STRAINS HERE                           ║
+// ╚══════════════════════════════════════════════════╝
 
 const MENU = {
 
@@ -38,11 +38,11 @@ const MENU = {
 
 };
 
-// ── Auto-build — do not edit below this line ──────────────
+// ── Auto-build ────────────────────────────────────
 const CAT_META = {
-  indica: { label: "Indica", color: "#9c6fcc" },
-  sativa: { label: "Sativa", color: "#e67e22" },
-  hybrid: { label: "Hybrid", color: "#17a8a8" },
+  indica: { label: "Indica", color: "#b388ff" },
+  sativa: { label: "Sativa", color: "#ff8f00" },
+  hybrid: { label: "Hybrid", color: "#00e5ff" },
 };
 
 function buildColumn(strains) {
@@ -54,14 +54,15 @@ function buildColumn(strains) {
     const rows = map[c].map(s => `
       <div class="strain-row">
         <span class="sname">${s.name}</span>
-        <span class="sthc">${s.thc}<span class="spct">%</span> <span class="slabel">THC</span></span>
+        <span class="sthc">${s.thc}<span class="slabel">% THC</span></span>
       </div>`).join('');
-    const div = i < arr.length - 1 ? '<div class="divider"></div>' : '';
+    const div = i < arr.length - 1 ? `<div class="cat-divider"></div>` : '';
     return `
       <div class="cat-block">
-        <div class="cat-label">
-          <span class="dot" style="background:${meta.color}"></span>${meta.label}
-        </div>${rows}
+        <div class="cat-pill" style="--cc:${meta.color}">
+          <span class="cat-dot"></span>${meta.label}
+        </div>
+        ${rows}
       </div>${div}`;
   }).join('');
 }
@@ -70,310 +71,524 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('col-exotic').innerHTML   = buildColumn(MENU.exotic);
   document.getElementById('col-topshelf').innerHTML = buildColumn(MENU.topshelf);
   document.getElementById('col-bargain').innerHTML  = buildColumn(MENU.bargain);
+  scaleMenu();
 });
+window.addEventListener('resize', scaleMenu);
+
+function scaleMenu() {
+  const el = document.getElementById('menu');
+  const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  el.style.transform = `translate(-50%,-50%) scale(${scale})`;
+}
 </script>
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
-  --bg:    #090909;
-  --panel: #141414;
-  --border:#222;
-  --green: #76ff03;
-  --gd:    #2d6e1a;
-  --white: #efefef;
-  --gray:  #7a7a7a;
-  --ex:    #d4a0e0;
-  --top:   #7ecfca;
-  --bar:   #ffbb55;
+  --bg:     #070707;
+  --panel:  #0f0f0f;
+  --panel2: #131313;
+  --border: #1e1e1e;
+  --green:  #7fff00;
+  --green2: #4caf50;
+  --glow:   rgba(127,255,0,0.35);
+  --white:  #f5f5f5;
+  --dim:    #666;
+  --ex:     #ce93d8;
+  --top:    #4dd0e1;
+  --bar:    #ffa726;
 }
 
 html, body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--bg);
-  color: var(--white);
-  font-family: 'Barlow Condensed', sans-serif;
+  width:100%; height:100%;
+  overflow:hidden;
+  background:#000;
 }
 
-body::after {
+/* ── CANVAS ── */
+#menu {
+  position:fixed;
+  top:50%; left:50%;
+  width:1920px; height:1080px;
+  transform-origin:center center;
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;
+  overflow:hidden;
+}
+
+/* ── ANIMATED SCANLINE OVERLAY ── */
+#menu::before {
   content:'';
-  position:fixed; inset:0;
-  background:
-    radial-gradient(ellipse 55vw 25vh at 20% 110%, rgba(118,255,3,0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 35vw 40vh at 80% -10%, rgba(118,255,3,0.03) 0%, transparent 70%);
-  pointer-events:none; z-index:0;
+  position:absolute; inset:0; z-index:100;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events:none;
 }
 
-.drip {
-  height: 0.55vh;
-  min-height: 4px;
-  background: linear-gradient(90deg, var(--gd) 0%, var(--green) 25%, var(--gd) 50%, var(--green) 75%, var(--gd) 100%);
-  box-shadow: 0 0 1vh rgba(118,255,3,.55);
-  position:relative; z-index:2;
+/* ── ANIMATED BG GLOW ── */
+.bg-glow {
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  overflow:hidden;
+}
+.bg-glow span {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:0;
+  animation: glowpulse 8s infinite;
+}
+.bg-glow span:nth-child(1) {
+  width:600px; height:600px;
+  background:rgba(127,255,0,0.06);
+  top:-100px; left:-100px;
+  animation-delay:0s;
+}
+.bg-glow span:nth-child(2) {
+  width:500px; height:500px;
+  background:rgba(206,147,216,0.05);
+  top:200px; right:-50px;
+  animation-delay:3s;
+}
+.bg-glow span:nth-child(3) {
+  width:400px; height:400px;
+  background:rgba(77,208,225,0.05);
+  bottom:-50px; left:600px;
+  animation-delay:5s;
+}
+@keyframes glowpulse {
+  0%,100% { opacity:0; transform:scale(1); }
+  50%      { opacity:1; transform:scale(1.15); }
 }
 
+/* ── TOP ACCENT BAR ── */
+.top-bar {
+  position:relative; z-index:10;
+  height:8px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    var(--green2) 15%,
+    var(--green) 40%,
+    var(--green) 60%,
+    var(--green2) 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 20px var(--glow), 0 0 60px rgba(127,255,0,0.15);
+  animation: barshine 4s infinite;
+}
+@keyframes barshine {
+  0%,100% { opacity:0.8; }
+  50%      { opacity:1; box-shadow:0 0 30px var(--glow), 0 0 80px rgba(127,255,0,0.25); }
+}
+
+/* ── PAGE LAYOUT ── */
 .page {
-  position:relative; z-index:1;
-  height: calc(100vh - 0.55vh);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: 1.2vh 1.6vw 1.4vh;
-  gap: 1vh;
+  position:relative; z-index:5;
+  height:1072px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  padding:20px 32px 22px;
+  gap:16px;
 }
 
 /* ── HEADER ── */
 .header {
   display:flex; align-items:center; justify-content:space-between;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.9vh;
-  position: relative;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+  position:relative;
 }
+
+.logo-wrap { line-height:1; }
 .logo-k {
-  font-family: 'Black Ops One', sans-serif;
-  font-size: 2.6vw; color: var(--green);
-  text-shadow: 0 0 1.5vw rgba(118,255,3,.45), 0.2vw 0.2vw 0 #163c0a;
-  line-height:1;
+  font-family:'Black Ops One',sans-serif;
+  font-size:54px;
+  color:var(--green);
+  text-shadow:0 0 30px rgba(127,255,0,0.6), 3px 3px 0 rgba(0,80,0,0.8);
+  line-height:0.95;
+  animation: logopulse 3s infinite;
+}
+@keyframes logopulse {
+  0%,100% { text-shadow:0 0 20px rgba(127,255,0,0.5), 3px 3px 0 rgba(0,80,0,0.8); }
+  50%      { text-shadow:0 0 40px rgba(127,255,0,0.9), 3px 3px 0 rgba(0,80,0,0.8); }
 }
 .logo-c {
-  font-family: 'Black Ops One', sans-serif;
-  font-size: 1.5vw; letter-spacing: 0.6vw; color: var(--white); line-height:1;
+  font-family:'Black Ops One',sans-serif;
+  font-size:30px; letter-spacing:12px; color:var(--white);
+  text-shadow:1px 1px 0 #000;
+}
+
+.hdr-center {
+  position:absolute; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:2px;
 }
 .hdr-title {
-  position:absolute; left:50%; transform:translateX(-50%);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 5.5vw; letter-spacing: 1vw; line-height:1;
-  color: var(--white); text-shadow: 0.25vw 0.25vw 0 rgba(0,0,0,.8);
-  white-space: nowrap;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:110px; letter-spacing:20px; line-height:1;
+  color:var(--white);
+  text-shadow:0 0 40px rgba(255,255,255,0.1), 5px 5px 0 rgba(0,0,0,0.9);
+  white-space:nowrap;
 }
-.hdr-title em { font-style:normal; color: var(--green); }
-.live {
-  display:flex; align-items:center; gap:0.5vw;
-  font-size:0.8vw; font-weight:700; letter-spacing:0.25vw;
-  text-transform:uppercase; color:var(--gray); white-space:nowrap;
+.hdr-title em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(127,255,0,0.7); }
+
+.hdr-sub {
+  font-size:13px; font-weight:700; letter-spacing:8px;
+  text-transform:uppercase; color:var(--dim);
 }
-.live::before {
-  content:''; width:0.55vw; height:0.55vw; border-radius:50%;
-  background:var(--green); box-shadow:0 0 0.6vw var(--green);
-  animation: blink 2s infinite; flex-shrink:0;
+
+/* Animated ticker in top right */
+.ticker-wrap {
+  display:flex; flex-direction:column; align-items:flex-end; gap:8px;
 }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.live-badge {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(127,255,0,0.08);
+  border:1px solid rgba(127,255,0,0.2);
+  border-radius:4px;
+  padding:6px 14px;
+}
+.live-dot {
+  width:10px; height:10px; border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+  animation:blink 1.5s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.8)} }
+.live-text {
+  font-size:13px; font-weight:700; letter-spacing:4px;
+  text-transform:uppercase; color:var(--green);
+}
+
+/* Animated date/time */
+.live-time {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px; letter-spacing:3px; color:var(--dim);
+  text-align:right;
+}
 
 /* ── TIER COLUMNS ── */
 .tiers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.2vw;
-  min-height: 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  min-height:0;
 }
+
 .tier {
-  background: var(--panel);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  min-height: 0;
+  background:var(--panel);
+  border-radius:6px;
+  display:flex; flex-direction:column;
+  overflow:hidden; position:relative;
+  min-height:0;
 }
-.tier-ex  { border-top: 0.35vh solid var(--ex); }
-.tier-top { border-top: 0.35vh solid var(--top); }
-.tier-bar { border-top: 0.35vh solid var(--bar); }
 
-.tier-ex::before  { content:''; position:absolute; inset:0; pointer-events:none; border-radius:4px; background:linear-gradient(150deg,rgba(212,160,224,.04) 0%,transparent 55%); }
-.tier-top::before { content:''; position:absolute; inset:0; pointer-events:none; border-radius:4px; background:linear-gradient(150deg,rgba(126,207,202,.04) 0%,transparent 55%); }
-.tier-bar::before { content:''; position:absolute; inset:0; pointer-events:none; border-radius:4px; background:linear-gradient(150deg,rgba(255,187,85,.04) 0%,transparent 55%); }
+/* Animated top accent per tier */
+.tier::after {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+  animation:tiershine 3s infinite;
+}
+.tier-ex::after  { background:linear-gradient(90deg,transparent,var(--ex),transparent); animation-delay:0s; }
+.tier-top::after { background:linear-gradient(90deg,transparent,var(--top),transparent); animation-delay:1s; }
+.tier-bar::after { background:linear-gradient(90deg,transparent,var(--bar),transparent); animation-delay:2s; }
+@keyframes tiershine {
+  0%,100% { opacity:0.4; transform:scaleX(0.3); }
+  50%      { opacity:1;   transform:scaleX(1); }
+}
 
+.tier-ex  { border:1px solid rgba(206,147,216,0.12); }
+.tier-top { border:1px solid rgba(77,208,225,0.12); }
+.tier-bar { border:1px solid rgba(255,167,38,0.12); }
+
+/* inner bg tint */
+.tier-ex::before  { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(160deg,rgba(206,147,216,0.04) 0%,transparent 50%); }
+.tier-top::before { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(160deg,rgba(77,208,225,0.04) 0%,transparent 50%); }
+.tier-bar::before { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(160deg,rgba(255,167,38,0.04) 0%,transparent 50%); }
+
+/* tier header */
 .tier-hdr {
   display:flex; align-items:center; justify-content:space-between;
-  padding: 0.8vh 1.1vw 0.7vh;
-  border-bottom: 1px solid var(--border);
+  padding:16px 22px 14px;
+  border-bottom:1px solid var(--border);
   flex-shrink:0; position:relative; z-index:1;
+  background:rgba(0,0,0,0.3);
 }
 .tier-label {
   font-family:'Bebas Neue',sans-serif;
-  font-size:2.3vw; letter-spacing:0.25vw; line-height:1;
+  font-size:52px; letter-spacing:5px; line-height:1;
 }
-.tier-ex  .tier-label { color:var(--ex); }
-.tier-top .tier-label { color:var(--top); }
-.tier-bar .tier-label { color:var(--bar); }
+.tier-ex  .tier-label { color:var(--ex);  text-shadow:0 0 20px rgba(206,147,216,0.4); }
+.tier-top .tier-label { color:var(--top); text-shadow:0 0 20px rgba(77,208,225,0.4); }
+.tier-bar .tier-label { color:var(--bar); text-shadow:0 0 20px rgba(255,167,38,0.4); }
 
 .tier-tag {
-  font-size:0.7vw; font-weight:700;
-  letter-spacing:0.18vw; text-transform:uppercase;
-  padding:0.3vh 0.6vw; border-radius:2px;
+  font-size:13px; font-weight:700; letter-spacing:3px;
+  text-transform:uppercase; padding:5px 14px; border-radius:3px;
 }
-.tier-ex  .tier-tag { background:rgba(212,160,224,.18); color:var(--ex); }
-.tier-top .tier-tag { background:rgba(126,207,202,.18); color:var(--top); }
-.tier-bar .tier-tag { background:rgba(255,187,85,.18);  color:var(--bar); }
+.tier-ex  .tier-tag { background:rgba(206,147,216,0.15); color:var(--ex);  border:1px solid rgba(206,147,216,0.2); }
+.tier-top .tier-tag { background:rgba(77,208,225,0.15);  color:var(--top); border:1px solid rgba(77,208,225,0.2); }
+.tier-bar .tier-tag { background:rgba(255,167,38,0.15);  color:var(--bar); border:1px solid rgba(255,167,38,0.2); }
 
 /* ── STRAINS ── */
-.strains-body { padding: 0.4vh 0; overflow:hidden; flex:1; position:relative; z-index:1; }
-
-.cat-block { padding: 0.35vh 1.1vw; }
-.cat-label {
-  display:flex; align-items:center; gap:0.4vw;
-  font-size:0.65vw; font-weight:700;
-  letter-spacing:0.22vw; text-transform:uppercase;
-  color:var(--gray);
-  padding-bottom:0.3vh; border-bottom:1px solid var(--border); margin-bottom:0.3vh;
+.strains-body {
+  padding:10px 0; overflow:hidden; flex:1; position:relative; z-index:1;
 }
-.dot { width:0.4vw; height:0.4vw; border-radius:50%; flex-shrink:0; }
+
+.cat-block { padding:8px 22px; }
+
+.cat-pill {
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+  color:var(--cc);
+  padding:4px 12px 4px 8px;
+  border-radius:20px;
+  background:rgba(from var(--cc) r g b / 0.1);
+  border:1px solid rgba(from var(--cc) r g b / 0.25);
+  margin-bottom:8px;
+}
+/* fallback for browsers without relative color syntax */
+.cat-pill { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); }
+.cat-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--cc);
+  box-shadow:0 0 6px var(--cc);
+  flex-shrink:0;
+}
 
 .strain-row {
   display:flex; align-items:baseline; justify-content:space-between;
-  padding: 0.22vh 0;
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
 }
+.strain-row:last-child { border-bottom:none; }
+
 .sname {
-  font-size:1.25vw; font-weight:900;
-  text-transform:uppercase; letter-spacing:.02vw; line-height:1.2;
+  font-size:28px; font-weight:900;
+  text-transform:uppercase; letter-spacing:1px; line-height:1.15;
+  color:var(--white);
 }
 .sthc {
   font-family:'Bebas Neue',sans-serif;
-  font-size:1.3vw; color:var(--green);
-  white-space:nowrap; margin-left:0.6vw;
+  font-size:30px; color:var(--green);
+  text-shadow:0 0 12px rgba(127,255,0,0.5);
+  white-space:nowrap; margin-left:12px;
 }
-.spct { font-size:1vw; }
 .slabel {
-  font-size:0.6vw; color:var(--gray);
+  font-size:14px; color:var(--dim);
   font-family:'Barlow Condensed',sans-serif;
-  font-weight:600; letter-spacing:0.08vw;
+  font-weight:600; letter-spacing:2px;
 }
-.divider { height:1px; background:var(--border); margin:0.2vh 1.1vw; }
+
+.cat-divider {
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:6px 22px;
+}
 
 /* ── PRICING ── */
 .pricing-section {
-  border-top:1px solid var(--border);
-  padding-top:0.8vh;
   flex-shrink:0;
+  padding-top:14px;
+  border-top:1px solid var(--border);
 }
+
 .pricing-grid {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1.2vw;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
 }
-.price-col { background:var(--panel); border-radius:4px; overflow:hidden; }
+
+.price-col {
+  background:var(--panel2);
+  border-radius:6px; overflow:hidden;
+  position:relative;
+}
+
 .price-col-hdr {
-  padding:0.45vh 1vw; font-size:0.7vw; font-weight:700;
-  letter-spacing:0.2vw; text-transform:uppercase;
+  padding:9px 18px; font-size:13px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase;
   display:flex; justify-content:space-between; align-items:center;
 }
-.price-col-hdr.ex-h  { background:rgba(212,160,224,.15); color:var(--ex); }
-.price-col-hdr.top-h { background:rgba(126,207,202,.15); color:var(--top); }
-.price-col-hdr.bar-h { background:rgba(255,187,85,.15);  color:var(--bar); }
+.price-col-hdr.ex-h  { background:rgba(206,147,216,0.12); color:var(--ex);  border-bottom:1px solid rgba(206,147,216,0.15); }
+.price-col-hdr.top-h { background:rgba(77,208,225,0.12);  color:var(--top); border-bottom:1px solid rgba(77,208,225,0.15); }
+.price-col-hdr.bar-h { background:rgba(255,167,38,0.12);  color:var(--bar); border-bottom:1px solid rgba(255,167,38,0.15); }
 
-.price-rows { padding:0.4vh 1vw; }
-.price-row {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:0.28vh 0; border-bottom:1px solid var(--border);
+.price-rows {
+  display:grid; grid-template-columns:repeat(5,1fr);
+  padding:10px 18px; gap:0;
 }
-.price-row:last-child { border-bottom:none; }
-.price-left { display:flex; align-items:baseline; gap:0.3vw; }
-.price-size { font-size:1.1vw; font-weight:700; color:var(--gray); letter-spacing:0.05vw; }
-.price-oz   { font-size:0.75vw; color:#3a3a3a; font-weight:500; }
-.price-amt  { font-family:'Bebas Neue',sans-serif; font-size:1.35vw; letter-spacing:0.05vw; }
-.ex-prices  .price-amt { color:var(--ex); }
-.top-prices .price-amt { color:var(--top); }
-.bar-prices .price-amt { color:var(--bar); }
+.price-item {
+  display:flex; flex-direction:column; align-items:center;
+  padding:6px 4px;
+  border-right:1px solid var(--border);
+}
+.price-item:last-child { border-right:none; }
 
+.p-size {
+  font-size:15px; font-weight:700; color:var(--dim);
+  letter-spacing:1px; text-transform:uppercase;
+  line-height:1;
+}
+.p-oz {
+  font-size:11px; color:#333; font-weight:500;
+  letter-spacing:0.5px; margin-top:2px;
+  line-height:1;
+}
+.p-amt {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px; letter-spacing:1px;
+  margin-top:4px; line-height:1;
+}
+.ex-prices  .p-amt { color:var(--ex); }
+.top-prices .p-amt { color:var(--top); }
+.bar-prices .p-amt { color:var(--bar); }
+
+/* ── BOTTOM BAR ── */
 .btm {
-  position:fixed; bottom:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg,var(--gd),var(--green),var(--gd));
-  opacity:.5;
+  position:absolute; bottom:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    var(--green2) 20%,
+    var(--green) 50%,
+    var(--green2) 80%,
+    transparent 100%
+  );
+  opacity:0.6;
+  animation:barshine 4s infinite reverse;
 }
 </style>
 </head>
 <body>
 
-<div class="drip"></div>
+<div id="menu">
+  <div class="bg-glow">
+    <span></span><span></span><span></span>
+  </div>
 
-<div class="page">
+  <div class="top-bar"></div>
 
-  <header class="header">
-    <div>
-      <div class="logo-k">Kannabis</div>
-      <div class="logo-c">City</div>
-    </div>
-    <div class="hdr-title">FL<em>O</em>WER</div>
-    <div class="live">Today's Menu</div>
-  </header>
+  <div class="page">
 
-  <div class="tiers">
-
-    <div class="tier tier-ex">
-      <div class="tier-hdr">
-        <div class="tier-label">Exotic</div>
-        <div class="tier-tag">Premium Select</div>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo-wrap">
+        <div class="logo-k">Kannabis</div>
+        <div class="logo-c">City</div>
       </div>
-      <div class="strains-body" id="col-exotic"></div>
+
+      <div class="hdr-center">
+        <div class="hdr-title">FL<em>O</em>WER</div>
+        <div class="hdr-sub">Today's Selection</div>
+      </div>
+
+      <div class="ticker-wrap">
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          <div class="live-text">Live Menu</div>
+        </div>
+        <div class="live-time" id="clock"></div>
+      </div>
+    </header>
+
+    <!-- TIERS -->
+    <div class="tiers">
+
+      <div class="tier tier-ex">
+        <div class="tier-hdr">
+          <div class="tier-label">Exotic</div>
+          <div class="tier-tag">Premium Select</div>
+        </div>
+        <div class="strains-body" id="col-exotic"></div>
+      </div>
+
+      <div class="tier tier-top">
+        <div class="tier-hdr">
+          <div class="tier-label">Top Shelf</div>
+          <div class="tier-tag">Fan Favorites</div>
+        </div>
+        <div class="strains-body" id="col-topshelf"></div>
+      </div>
+
+      <div class="tier tier-bar">
+        <div class="tier-hdr">
+          <div class="tier-label">Bargains</div>
+          <div class="tier-tag">Best Value</div>
+        </div>
+        <div class="strains-body" id="col-bargain"></div>
+      </div>
+
     </div>
 
-    <div class="tier tier-top">
-      <div class="tier-hdr">
-        <div class="tier-label">Top Shelf</div>
-        <div class="tier-tag">Fan Favorites</div>
-      </div>
-      <div class="strains-body" id="col-topshelf"></div>
-    </div>
+    <!-- PRICING — horizontal layout -->
+    <div class="pricing-section">
+      <div class="pricing-grid">
 
-    <div class="tier tier-bar">
-      <div class="tier-hdr">
-        <div class="tier-label">Bargains</div>
-        <div class="tier-tag">Best Value</div>
+        <div class="price-col">
+          <div class="price-col-hdr ex-h">
+            <span>Exotic Pricing</span>
+            <span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span>
+          </div>
+          <div class="price-rows ex-prices">
+            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$9.99</span></div>
+            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$24.99</span></div>
+            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$34.99</span></div>
+            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$69.99</span></div>
+            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$99.99</span></div>
+          </div>
+        </div>
+
+        <div class="price-col">
+          <div class="price-col-hdr top-h">
+            <span>Top Shelf Pricing</span>
+            <span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span>
+          </div>
+          <div class="price-rows top-prices">
+            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$7.99</span></div>
+            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$19.99</span></div>
+            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$29.99</span></div>
+            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$54.99</span></div>
+            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$84.99</span></div>
+          </div>
+        </div>
+
+        <div class="price-col">
+          <div class="price-col-hdr bar-h">
+            <span>Bargain Pricing</span>
+            <span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span>
+          </div>
+          <div class="price-rows bar-prices">
+            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$4.99</span></div>
+            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$14.99</span></div>
+            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$24.99</span></div>
+            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$44.99</span></div>
+            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$74.99</span></div>
+          </div>
+        </div>
+
       </div>
-      <div class="strains-body" id="col-bargain"></div>
     </div>
 
   </div>
-
-  <div class="pricing-section">
-    <div class="pricing-grid">
-
-      <div class="price-col">
-        <div class="price-col-hdr ex-h">
-          <span>Exotic Pricing</span>
-          <span style="opacity:.35;font-size:0.6vw">PER UNIT</span>
-        </div>
-        <div class="price-rows ex-prices">
-          <div class="price-row"><span class="price-left"><span class="price-size">1g</span></span><span class="price-amt">$9.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">3.5g</span><span class="price-oz">1/8 oz</span></span><span class="price-amt">$24.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">7g</span><span class="price-oz">1/4 oz</span></span><span class="price-amt">$34.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">14g</span><span class="price-oz">1/2 oz</span></span><span class="price-amt">$69.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">28g</span><span class="price-oz">1 oz</span></span><span class="price-amt">$99.99</span></div>
-        </div>
-      </div>
-
-      <div class="price-col">
-        <div class="price-col-hdr top-h">
-          <span>Top Shelf Pricing</span>
-          <span style="opacity:.35;font-size:0.6vw">PER UNIT</span>
-        </div>
-        <div class="price-rows top-prices">
-          <div class="price-row"><span class="price-left"><span class="price-size">1g</span></span><span class="price-amt">$7.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">3.5g</span><span class="price-oz">1/8 oz</span></span><span class="price-amt">$19.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">7g</span><span class="price-oz">1/4 oz</span></span><span class="price-amt">$29.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">14g</span><span class="price-oz">1/2 oz</span></span><span class="price-amt">$54.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">28g</span><span class="price-oz">1 oz</span></span><span class="price-amt">$84.99</span></div>
-        </div>
-      </div>
-
-      <div class="price-col">
-        <div class="price-col-hdr bar-h">
-          <span>Bargain Pricing</span>
-          <span style="opacity:.35;font-size:0.6vw">PER UNIT</span>
-        </div>
-        <div class="price-rows bar-prices">
-          <div class="price-row"><span class="price-left"><span class="price-size">1g</span></span><span class="price-amt">$4.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">3.5g</span><span class="price-oz">1/8 oz</span></span><span class="price-amt">$14.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">7g</span><span class="price-oz">1/4 oz</span></span><span class="price-amt">$24.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">14g</span><span class="price-oz">1/2 oz</span></span><span class="price-amt">$44.99</span></div>
-          <div class="price-row"><span class="price-left"><span class="price-size">28g</span><span class="price-oz">1 oz</span></span><span class="price-amt">$74.99</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+  <div class="btm"></div>
 </div>
-<div class="btm"></div>
+
+<script>
+// Live clock
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours();
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  document.getElementById('clock').textContent = `${h}:${m} ${ampm}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
 </body>
 </html>

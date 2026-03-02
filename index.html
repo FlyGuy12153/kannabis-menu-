@@ -27,9 +27,10 @@ const FLOWER = {
     { name: "Illemonati", thc: "28.27", cat: "hybrid", terps: [["Limonene","Citrus"],["Caryophyllene","Peppery"],["Myrcene","Earthy"]] },
   ],
   bargain: [
-    { name: "OG",            thc: "24.44", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
-    { name: "Apple Fritter", thc: "26.33", cat: "sativa", terps: [["Caryophyllene","Peppery"],["Limonene","Citrus"],["Pinene","Woody"]] },
-    { name: "Space Junky",   thc: "24.82", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Terpinolene","Piney"]] },
+    { name: "OG",             thc: "24.44", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
+    { name: "Apple Fritter",  thc: "26.33", cat: "sativa", terps: [["Caryophyllene","Peppery"],["Limonene","Citrus"],["Pinene","Woody"]] },
+    { name: "Space Junky",    thc: "24.82", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Terpinolene","Piney"]] },
+    { name: "Premium Shake",  thc: "3.5g",  cat: "hybrid", price: "$9.99", lto: true },
   ],
 };
 
@@ -51,18 +52,20 @@ const CONCENTRATES = {
 // ║  ✏️  EDIBLES                                      ║
 // ╚══════════════════════════════════════════════════╝
 const EDIBLES = {
-  topshelf: [
-    { name: "Ghost Graveyard 500mg",        price: "$39.99", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
-    { name: "Camino Gummies 20pk",          price: "$29.99", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
-    { name: "Camino Sours 20pk",            price: "$29.99", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
-    { name: "Sauce Live Rosin Bursts 100mg",price: "$27.99", flavors: "Juicy Watermelon · Sour Blue Razz · Sour Green Apple" },
-    { name: "Sauce Bursts 200mg",           price: "$24.99", flavors: "Juicy Watermelon · Strawberry Lemonade · Blue Raspberry · Tropical Twist · Sour Grape · Sour Green Apple · White Peach · Strawberry Kiwi · Sour Blue Razz" },
-    { name: "Ghost Reaper 10mg 20pk",       price: "$24.99", flavors: "Cherry Berry Cemetery · Apple · Grape Ghoul · Scary Strawberry · Potion Punch" },
+  exotic: [
+    { name: "Ghost Graveyard 500mg",         price: "$39.99", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
+    { name: "Camino Gummies 20pk",           price: "$29.99", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
+    { name: "Camino Sours 20pk",             price: "$29.99", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
+    { name: "Sauce Live Rosin Bursts 100mg", price: "$27.99", flavors: "Juicy Watermelon · Sour Blue Razz · Sour Green Apple" },
   ],
-  bargain: [
-    { name: "Stripz 600mg",       price: "$21.99", flavors: "Strawberry Lemonade · Sour Blue Razz · OMG · Watermelon" },
-    { name: "Stiizy 10mg 10pk",   price: "$19.99", flavors: "Strawberry · Caribbean Breeze · Pink Lemonade · Sour Apple · Pineapple · Mango · Lemon Lime · Blue Razz · Fruit Punch · Watermelon" },
-    { name: "House 2 Pack 500mg", price: "$4.99",  flavors: "Ask budtender for flavors" },
+  topshelf: [
+    { name: "Sauce Bursts 200mg",   price: "$24.99", flavors: "Juicy Watermelon · Strawberry Lemonade · Blue Raspberry · Tropical Twist · Sour Grape · Sour Green Apple · White Peach · Strawberry Kiwi · Sour Blue Razz" },
+    { name: "Ghost Reaper 10mg 20pk", price: "$24.99", flavors: "Cherry Berry Cemetery · Apple · Grape Ghoul · Scary Strawberry · Potion Punch" },
+    { name: "Stripz 600mg",         price: "$21.99", flavors: "Strawberry Lemonade · Sour Blue Razz · OMG · Watermelon" },
+  ],
+  deals: [
+    { name: "Gummy 2 Pack 500mg", price: "$4.99",  flavors: "Ask budtender for flavors",                                                                                              deal: "Best Value" },
+    { name: "Stiizy 10mg 10pk",   price: "$19.99", flavors: "Strawberry · Caribbean Breeze · Pink Lemonade · Sour Apple · Pineapple · Mango · Lemon Lime · Blue Razz · Fruit Punch · Watermelon", deal: "10 Gummies" },
   ],
 };
 
@@ -81,10 +84,12 @@ function buildFlowerCol(strains) {
     const rows = map[c].map(s => `
       <div class="strain-row">
         <div class="strain-info">
-          <span class="sname">${s.name}</span>
-
+          <span class="sname">${s.name}${s.lto ? ' <span class="lto-badge">Limited</span>' : ''}</span>
         </div>
-        <span class="sthc">${s.thc}<span class="slabel">% THC</span></span>
+        ${s.lto
+          ? `<span class="sthc">${s.price}<span class="slabel"> / ${s.thc}</span></span>`
+          : `<span class="sthc">${s.thc}<span class="slabel">% THC</span></span>`
+        }
       </div>`).join('');
     const div = i < arr.length - 1 ? `<div class="cat-divider"></div>` : '';
     return `<div class="cat-block">
@@ -103,7 +108,7 @@ function buildConcentrates() {
 }
 
 function buildEdibles() {
-  ['topshelf','bargain'].forEach(tier => {
+  ['exotic','topshelf'].forEach(tier => {
     document.getElementById(`ed-${tier}`).innerHTML = EDIBLES[tier].map(p => `
       <div class="ed-row">
         <div class="ed-left">
@@ -113,17 +118,21 @@ function buildEdibles() {
         <div class="ed-price">${p.price}</div>
       </div>`).join('');
   });
+  document.getElementById('ed-deals').innerHTML = EDIBLES.deals.map(p => `
+    <div class="ed-deal-card">
+      <div class="ed-deal-badge">${p.deal}</div>
+      <div class="ed-deal-name">${p.name}</div>
+      <div class="ed-deal-price">${p.price}</div>
+    </div>`).join('');
 }
-
-// ╔══════════════════════════════════════════════════╗
 // ║  ROTATION ENGINE                                  ║
 // ╚══════════════════════════════════════════════════╝
 //
 // Sequence: 0=Flower(20s) → 1=Edibles(10s) → 2=Concentrates(10s) → repeat
 //
-const SLIDES    = ['slide-flower', 'slide-edibles', 'slide-conc'];
-const LABELS    = ['Flower',       'Edibles',       'Concentrates'];
-const DURATIONS = [15,             10,              5]; // seconds
+const SLIDES    = ['slide-flower', 'slide-edcon'];
+const LABELS    = ['Flower',       'Edibles & Concentrates'];
+const DURATIONS = [15,             12]; // seconds
 const CIRCUM    = 75.4; // 2 * PI * 12
 
 let cur         = 0;
@@ -401,6 +410,8 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .strain-row:last-child { border-bottom:none; }
 .strain-info { display:flex;flex-direction:column;gap:1px;flex:1;min-width:0; }
 .sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1; }
+.lto-badge { display:inline-block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b;border:1px solid rgba(255,107,107,0.5);background:rgba(255,107,107,0.1);border-radius:4px;padding:2px 8px;vertical-align:middle;margin-left:10px;animation:ltopulse 2s ease-in-out infinite; }
+@keyframes ltopulse { 0%,100%{opacity:0.7;} 50%{opacity:1;} }
 .sterps-row { display:flex;gap:8px;margin-top:3px;flex-wrap:wrap; }
 .terp-chip { display:flex;flex-direction:column;align-items:center;gap:0px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:2px 8px; }
 .terp-name { font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(170,255,0,0.7);line-height:1.2; }
@@ -443,9 +454,9 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .conc-panel.lr  .conc-tag { background:rgba(255,213,79,0.14);color:var(--gold);border:1px solid rgba(255,213,79,0.3); }
 .conc-panel.bho .conc-tag { background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25); }
 .conc-items { flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;overflow:hidden; }
-.conc-row { flex:1;display:flex;align-items:center;padding:0 26px;gap:12px;border-bottom:1px solid rgba(255,255,255,0.05); }
+.conc-row { display:flex;align-items:center;padding:14px 20px;gap:12px;border-bottom:1px solid rgba(255,255,255,0.05); }
 .conc-row:last-child { border-bottom:none; }
-.cname { font-size:40px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1; }
+.cname { font-size:30px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1; }
 .cthc  { font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0; }
 .lr-price { font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);text-shadow:0 0 14px rgba(255,213,79,0.6);white-space:nowrap;flex-shrink:0; }
 .bho-pricing { flex-shrink:0;display:flex;border-top:1px solid var(--border);position:relative;z-index:1; }
@@ -471,14 +482,89 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ed-panel.ts  .ed-tag { background:rgba(95,255,255,0.14);color:var(--top);border:1px solid rgba(95,255,255,0.3); }
 .ed-panel.bar .ed-tag { background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25); }
 .ed-items { flex:1;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
-.ed-row { flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid rgba(255,255,255,0.05);gap:16px; }
+.ed-row { display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.05);gap:12px; }
 .ed-row:last-child { border-bottom:none; }
 .ed-left { flex:1;min-width:0; }
-.ed-name { font-size:32px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
-.ed-flavors { font-size:22px;font-weight:500;color:var(--white);line-height:1.3;margin-top:3px; }
-.ed-price { font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
+.ed-name { font-size:26px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
+.ed-flavors { font-size:15px;font-weight:500;color:rgba(255,255,255,0.45);line-height:1.3;margin-top:2px; }
+.ed-price { font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
 .ed-panel.ts  .ed-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
 .ed-panel.bar .ed-price { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+
+/* ══ EDIBLES + CONCENTRATES COMBINED ══ */
+.edcon-body { display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;min-height:0; }
+.edcon-panel { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0; }
+.ec-ts   { border:1px solid rgba(95,255,255,0.2);  border-top:3px solid var(--top); }
+.ec-bar  { border:1px solid rgba(255,255,255,0.15); border-top:3px solid var(--bar); }
+.ec-conc { border:1px solid rgba(255,213,79,0.2);   border-top:3px solid var(--gold); }
+.ec-ts::after   { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--top),transparent);animation:slideline 4s ease-in-out infinite; }
+.ec-bar::after  { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:1.5s; }
+.ec-conc::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:3s; }
+.ec-ts::before   { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.04) 0%,transparent 50%); }
+.ec-bar::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.03) 0%,transparent 50%); }
+.ec-conc::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,213,79,0.04) 0%,transparent 50%); }
+.edcon-hdr { display:flex;align-items:center;justify-content:space-between;padding:12px 20px 10px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1; }
+.edcon-label { font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;line-height:1;color:var(--white); }
+.ec-gold { color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.5); }
+.edcon-tag { font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:3px; }
+.ec-ts-tag  { background:rgba(95,255,255,0.14); color:var(--top); border:1px solid rgba(95,255,255,0.3); }
+.ec-bar-tag { background:rgba(255,255,255,0.1);  color:var(--bar); border:1px solid rgba(255,255,255,0.25); }
+.ec-lr-tag  { background:rgba(255,213,79,0.12);  color:var(--gold);border:1px solid rgba(255,213,79,0.3); }
+.edcon-items { display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
+.edcon-items .ed-row  { flex:unset;padding:10px 18px; }
+.edcon-items .conc-row { padding:14px 20px; }
+.edcon-divider { display:flex;align-items:center;gap:12px;padding:8px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(0,0,0,0.25);flex-shrink:0; }
+.edcon-divider-label { font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35); }
+
+/* ══ EDIBLES + CONCENTRATES STACKED ══ */
+.edcon-page { grid-template-rows:auto 1fr auto 1fr !important; gap:8px !important; }
+.ec2-section { min-height:0; display:flex; flex-direction:column; }
+.ec2-tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1; min-height:0; }
+.ec2-tier { min-height:0; }
+.ec2-items { display:flex; flex-direction:column; overflow:hidden; flex:1; position:relative; z-index:1; }
+.ec2-items .ed-row { flex:unset; padding:8px 18px; }
+
+/* edibles pricing col */
+.ec2-pricing-col .tier-hdr { border-bottom:1px solid var(--border); }
+.ec2-price-body { flex:1; display:flex; flex-direction:column; justify-content:center; gap:0; position:relative; z-index:1; }
+.ec2-price-row { display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.05); }
+.ec2-price-row:last-child { border-bottom:none; }
+.ec2-plabel { font-size:18px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--dim); }
+.ec2-pamt { font-family:'Bebas Neue',sans-serif; font-size:52px; letter-spacing:2px; }
+.ec2-top { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.6); }
+.ec2-bar { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.3); }
+
+/* section divider */
+.ec2-divider { display:flex; align-items:center; gap:20px; flex-shrink:0; padding:0 4px; }
+.ec2-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
+.ec2-divider-label { font-family:'Bebas Neue',sans-serif; font-size:80px; letter-spacing:18px; color:var(--white); text-shadow:5px 5px 0 rgba(0,0,0,.9); white-space:nowrap; line-height:1; }
+.ec2-divider-label em { font-style:normal; color:var(--green); text-shadow:0 0 40px rgba(170,255,0,0.9); }
+
+/* concentrates in bottom section — larger pricing display */
+.bho-pricing-lg { flex:1; display:flex; }
+.bho-pricing-lg .bho-price-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--border); }
+.bho-pricing-lg .bho-price-item:last-child { border-right:none; }
+.bho-pricing-lg .bp-size { font-size:24px; }
+.bho-pricing-lg .bp-amt { font-size:64px; }
+
+/* ── EDIBLES DEALS COLUMN ── */
+.ed-deals-body { flex:1; display:flex; flex-direction:column; gap:12px; padding:14px; overflow:hidden; position:relative; z-index:1; }
+.ed-deal-card { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; position:relative; overflow:hidden; }
+.ed-deal-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%); pointer-events:none; }
+.ed-deal-badge { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--green); border:1px solid rgba(170,255,0,0.35); background:rgba(170,255,0,0.1); border-radius:20px; padding:3px 14px; margin-bottom:10px; }
+.ed-deal-name { font-size:26px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:var(--white); line-height:1.1; margin-bottom:8px; }
+.ed-deal-price { font-family:'Bebas Neue',sans-serif; font-size:72px; letter-spacing:2px; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.8); line-height:1; margin-bottom:8px; animation:dealnum 2.5s ease-in-out infinite; }
+.ed-deal-flavors { font-size:13px; font-weight:500; color:rgba(255,255,255,0.3); line-height:1.4; }
+
+/* ── MERGED BHO + PRICING ── */
+.ec2-bho-merged { grid-column: span 2; }
+.ec2-bho-body { flex:1; display:flex; min-height:0; }
+.ec2-bho-items { flex:1; border-right:1px solid var(--border); }
+.ec2-bho-pricing { display:flex; flex-direction:column; width:260px; flex-shrink:0; }
+.ec2-bho-price-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-bottom:1px solid var(--border); gap:4px; }
+.ec2-bho-price-item:last-child { border-bottom:none; }
+.ec2-bho-price-item .bp-size { font-size:22px; font-weight:700; color:var(--dim); letter-spacing:2px; text-transform:uppercase; }
+.ec2-bho-price-item .bp-amt  { font-family:'Bebas Neue',sans-serif; font-size:58px; letter-spacing:2px; color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
 </style>
 </head>
 <body>
@@ -494,11 +580,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
     </div>
     <div class="dot-item">
       <div class="dot"></div>
-      <div class="dot-label upcoming">Edibles</div>
-    </div>
-    <div class="dot-item">
-      <div class="dot"></div>
-      <div class="dot-label">Concentrates</div>
+      <div class="dot-label upcoming">Edibles &amp; Concentrates</div>
     </div>
   </div>
   <div class="hud-divider"></div>
@@ -582,11 +664,11 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
   <div class="btm"></div>
 </div>
 
-<!-- ═══════════ SLIDE 2 — EDIBLES ═══════════ -->
-<div class="menu-frame" id="slide-edibles">
+<!-- ═══════════ SLIDE 2 — EDIBLES & CONCENTRATES ═══════════ -->
+<div class="menu-frame" id="slide-edcon">
   <div class="bg-glow"><span></span><span></span><span></span></div>
   <div class="top-bar"></div>
-  <div class="page">
+  <div class="page edcon-page">
     <header class="header">
       <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
       <div class="hdr-center">
@@ -598,50 +680,52 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
         <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
       </div>
     </header>
-    <div class="edibles-body">
-      <div class="ed-panel ts">
-        <div class="ed-hdr"><div class="ed-label">Top Shelf</div><div class="ed-tag">Fan Favorites</div></div>
-        <div class="ed-items" id="ed-topshelf"></div>
-      </div>
-      <div class="ed-panel bar">
-        <div class="ed-hdr"><div class="ed-label">Bargains</div><div class="ed-tag">Best Value</div></div>
-        <div class="ed-items" id="ed-bargain"></div>
-      </div>
-    </div>
-  </div>
-  <div class="btm"></div>
-</div>
 
-<!-- ═══════════ SLIDE 3 — CONCENTRATES ═══════════ -->
-<div class="menu-frame" id="slide-conc">
-  <div class="bg-glow"><span></span><span></span><span></span></div>
-  <div class="top-bar"></div>
-  <div class="page">
-    <header class="header">
-      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
-      <div class="hdr-center">
-        <div class="hdr-title">CONC<em>E</em>NTRATES</div>
-        <div class="hdr-sub">Today's Selection</div>
-      </div>
-      <div class="ticker-wrap">
-        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
-        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
-      </div>
-    </header>
-    <div class="conc-body">
-      <div class="conc-panel lr">
-        <div class="conc-hdr"><div class="conc-label">Live Rosin</div><div class="conc-tag">Premium Extract</div></div>
-        <div class="conc-items" id="conc-lr"></div>
-      </div>
-      <div class="conc-panel bho">
-        <div class="conc-hdr"><div class="conc-label">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div>
-        <div class="conc-items" id="conc-bho"></div>
-        <div class="bho-pricing">
-          <div class="bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div>
-          <div class="bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div>
+    <!-- ── EDIBLES SECTION ── -->
+    <div class="ec2-section">
+      <div class="ec2-tiers">
+        <div class="tier tier-ex ec2-tier">
+          <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
+          <div class="ec2-items" id="ed-exotic"></div>
+        </div>
+        <div class="tier tier-top ec2-tier">
+          <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+          <div class="ec2-items" id="ed-topshelf"></div>
+        </div>
+        <div class="tier tier-bar ec2-tier ed-deals-col">
+          <div class="tier-hdr"><div class="tier-label">Best Deals</div><div class="tier-tag">Don't Miss</div></div>
+          <div class="ed-deals-body" id="ed-deals"></div>
         </div>
       </div>
     </div>
+
+    <!-- ── SECTION DIVIDER ── -->
+    <div class="ec2-divider">
+      <div class="ec2-divider-line"></div>
+      <div class="ec2-divider-label">CONC<em>E</em>NTRATES</div>
+      <div class="ec2-divider-line"></div>
+    </div>
+
+    <!-- ── CONCENTRATES SECTION ── -->
+    <div class="ec2-section">
+      <div class="ec2-tiers">
+        <div class="conc-panel lr ec2-tier">
+          <div class="conc-hdr"><div class="conc-label">Live Rosin</div><div class="conc-tag">Premium Extract</div></div>
+          <div class="conc-items" id="conc-lr"></div>
+        </div>
+        <div class="conc-panel bho ec2-tier ec2-bho-merged">
+          <div class="conc-hdr"><div class="conc-label">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div>
+          <div class="ec2-bho-body">
+            <div class="conc-items ec2-bho-items" id="conc-bho"></div>
+            <div class="ec2-bho-pricing">
+              <div class="ec2-bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div>
+              <div class="ec2-bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div class="btm"></div>
 </div>

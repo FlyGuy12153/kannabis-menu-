@@ -26,9 +26,10 @@ const FLOWER = {
     { name: "Illemonati", thc: "28.27", cat: "hybrid" },
   ],
   bargain: [
-    { name: "OG",            thc: "24.44", cat: "indica" },
-    { name: "Apple Fritter", thc: "26.33", cat: "sativa" },
-    { name: "Space Junky",   thc: "24.82", cat: "hybrid" },
+    { name: "OG",             thc: "24.44", cat: "indica" },
+    { name: "Kind Candy",    thc: "22.62", cat: "sativa" },
+    { name: "Space Junky",    thc: "24.82", cat: "hybrid" },
+    { name: "Premium Shake",  thc: "3.5g",  cat: "hybrid", price: "$9.99", lto: true },
   ],
 };
 
@@ -120,8 +121,13 @@ function buildFlowerCol(strains) {
   return order.filter(c => map[c]).map((c, i, arr) => {
     const rows = map[c].map(s => `
       <div class="strain-row">
-        <div class="strain-info"><span class="sname">${s.name}</span></div>
-        <span class="sthc">${s.thc}<span class="slabel">% THC</span></span>
+        <div class="strain-info">
+          <span class="sname">${s.name}${s.lto ? ' <span class="lto-badge">Limited</span>' : ''}</span>
+        </div>
+        ${s.lto
+          ? `<span class="sthc">${s.price}<span class="slabel"> / ${s.thc}</span></span>`
+          : `<span class="sthc">${s.thc}<span class="slabel">% THC</span></span>`
+        }
       </div>`).join('');
     const div = i < arr.length - 1 ? `<div class="cat-divider"></div>` : '';
     return `<div class="cat-block">
@@ -398,6 +404,8 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .strain-row:last-child { border-bottom:none; }
 .strain-info { display:flex;flex-direction:column;gap:1px;flex:1;min-width:0; }
 .sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1; }
+.lto-badge { display:inline-block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b;border:1px solid rgba(255,107,107,0.5);background:rgba(255,107,107,0.1);border-radius:4px;padding:2px 8px;vertical-align:middle;margin-left:10px;animation:ltopulse 2s ease-in-out infinite; }
+@keyframes ltopulse { 0%,100%{opacity:0.7;} 50%{opacity:1;} }
 .sthc  { font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--green);text-shadow:0 0 16px rgba(170,255,0,0.8);white-space:nowrap;margin-left:12px;flex-shrink:0; }
 .slabel { font-size:17px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:2px; }
 .cat-divider { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:3px 20px; }

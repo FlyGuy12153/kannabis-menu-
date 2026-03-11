@@ -280,43 +280,36 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 
 /* ── BG GLOW ── */
 .bg-glow { position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
-.bg-glow span { position:absolute;border-radius:50%;filter:blur(130px);opacity:0;animation:blobpulse 9s infinite; }
-.bg-glow span:nth-child(1){ width:700px;height:500px;background:rgba(170,255,0,0.06);top:-100px;left:-100px;animation-delay:0s; }
-.bg-glow span:nth-child(2){ width:500px;height:500px;background:rgba(95,255,255,0.04);top:200px;right:-50px;animation-delay:3s; }
-.bg-glow span:nth-child(3){ width:400px;height:400px;background:rgba(255,255,255,0.03);bottom:0;left:600px;animation-delay:6s; }
-@keyframes blobpulse { 0%,100%{opacity:0;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+.bg-glow span { position:absolute;border-radius:50%;filter:blur(130px);opacity:0.5; }
+.bg-glow span:nth-child(1){ width:700px;height:500px;background:rgba(170,255,0,0.06);top:-100px;left:-100px; }
+.bg-glow span:nth-child(2){ width:500px;height:500px;background:rgba(95,255,255,0.04);top:200px;right:-50px; }
+.bg-glow span:nth-child(3){ width:400px;height:400px;background:rgba(255,255,255,0.03);bottom:0;left:600px; }
 
 /* top bar */
 .top-bar { position:relative;z-index:10;height:10px;
   background:linear-gradient(90deg,transparent,var(--green2) 15%,var(--green) 50%,var(--green2) 85%,transparent);
   box-shadow:0 0 30px var(--glow),0 0 80px rgba(170,255,0,0.2);
-  animation:topbar 4s infinite; }
-@keyframes topbar { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
+  opacity:1; }
 
 /* page — full height, bottom padding accounts for HUD bar (~56px) */
 .page { position:relative;z-index:5;height:1014px;display:grid;grid-template-rows:auto 1fr auto;padding:12px 32px 10px;gap:12px; }
 
 /* header */
 .header { display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0; }
-.logo-img { height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4));animation:logopulse 3s infinite; }
-@keyframes logopulse {
-  0%,100%{filter:drop-shadow(0 0 12px rgba(170,255,0,0.6)) drop-shadow(0 0 30px rgba(170,255,0,0.3));}
-  50%{filter:drop-shadow(0 0 28px rgba(170,255,0,1)) drop-shadow(0 0 60px rgba(170,255,0,0.6));}
-}
+.logo-img { height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4)); }
 .hdr-center { position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px; }
 .hdr-title { font-family:'Bebas Neue',sans-serif;font-size:100px;letter-spacing:18px;line-height:1;color:var(--white);text-shadow:5px 5px 0 rgba(0,0,0,.9);white-space:nowrap; }
 .hdr-title em { font-style:normal;color:var(--green);text-shadow:0 0 40px rgba(170,255,0,0.9); }
 .hdr-sub { font-size:13px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--dim); }
 .ticker-wrap { display:flex;flex-direction:column;align-items:flex-end;gap:6px; }
 .live-badge { display:flex;align-items:center;gap:10px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;padding:5px 12px; }
-.live-dot { width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green);animation:blink 1.5s infinite; }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.live-dot { width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green); }
 .live-text { font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green); }
 .datetime-row { display:flex;align-items:baseline;gap:20px; }
 .live-time,.datestamp { font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4); }
 
 /* bottom bar */
-.btm { position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7;animation:topbar 4s infinite reverse; }
+.btm { position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7; }
 
 /* ══ FLOWER ══ */
 .tiers { display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0; }
@@ -349,8 +342,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .strain-row:last-child { border-bottom:none; }
 .strain-info { display:flex;flex-direction:column;gap:1px;flex:1;min-width:0; }
 .sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1; }
-.lto-badge { display:inline-block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b;border:1px solid rgba(255,107,107,0.5);background:rgba(255,107,107,0.1);border-radius:4px;padding:2px 8px;vertical-align:middle;margin-left:10px;animation:ltopulse 2s ease-in-out infinite; }
-@keyframes ltopulse { 0%,100%{opacity:0.7;} 50%{opacity:1;} }
+.lto-badge { display:inline-block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b;border:1px solid rgba(255,107,107,0.5);background:rgba(255,107,107,0.1);border-radius:4px;padding:2px 8px;vertical-align:middle;margin-left:10px; }
 .sterps-row { display:flex;gap:8px;margin-top:3px;flex-wrap:wrap; }
 .terp-chip { display:flex;flex-direction:column;align-items:center;gap:0px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:2px 8px; }
 .terp-name { font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(170,255,0,0.7);line-height:1.2; }
@@ -397,12 +389,12 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .conc-row:last-child { border-bottom:none; }
 .cname { font-size:30px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1; }
 .cthc  { font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0; }
-.lr-price { font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);text-shadow:0 0 14px rgba(255,213,79,0.6);white-space:nowrap;flex-shrink:0; }
+.lr-price { font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);text-shadow:0 0 16px rgba(255,213,79,0.9);white-space:nowrap;flex-shrink:0; }
 .bho-pricing { flex-shrink:0;display:flex;border-top:1px solid var(--border);position:relative;z-index:1; }
 .bho-price-item { flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 10px;border-right:1px solid var(--border); }
 .bho-price-item:last-child { border-right:none; }
 .bp-size { font-size:22px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase; }
-.bp-amt  { font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 12px rgba(255,255,255,0.3); }
+.bp-amt  { font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 16px rgba(255,255,255,0.8); }
 
 /* ══ EDIBLES ══ */
 .edibles-body { display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0; }
@@ -427,8 +419,9 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ed-name { font-size:26px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
 .ed-flavors { font-size:15px;font-weight:500;color:rgba(255,255,255,0.45);line-height:1.3;margin-top:2px; }
 .ed-price { font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
-.ed-panel.ts  .ed-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
-.ed-panel.bar .ed-price { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+.ed-panel.ex  .ed-price { color:var(--ex);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
+.ed-panel.ts  .ed-price { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.8); }
+.ed-panel.bar .ed-price { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
 
 /* ══ EDIBLES + CONCENTRATES COMBINED ══ */
 .edcon-body { display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;min-height:0; }
@@ -492,7 +485,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ed-deal-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%); pointer-events:none; }
 .ed-deal-badge { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--green); border:1px solid rgba(170,255,0,0.35); background:rgba(170,255,0,0.1); border-radius:20px; padding:3px 14px; margin-bottom:10px; }
 .ed-deal-name { font-size:26px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:var(--white); line-height:1.1; margin-bottom:8px; }
-.ed-deal-price { font-family:'Bebas Neue',sans-serif; font-size:72px; letter-spacing:2px; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.8); line-height:1; margin-bottom:8px; animation:dealnum 2.5s ease-in-out infinite; }
+.ed-deal-price { font-family:'Bebas Neue',sans-serif; font-size:72px; letter-spacing:2px; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.8); line-height:1; margin-bottom:8px; }
 .ed-deal-flavors { font-size:13px; font-weight:500; color:rgba(255,255,255,0.3); line-height:1.4; }
 
 /* ── MERGED BHO + PRICING ── */
@@ -503,13 +496,13 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ec2-bho-price-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-bottom:1px solid var(--border); gap:4px; }
 .ec2-bho-price-item:last-child { border-bottom:none; }
 .ec2-bho-price-item .bp-size { font-size:22px; font-weight:700; color:var(--dim); letter-spacing:2px; text-transform:uppercase; }
-.ec2-bho-price-item .bp-amt  { font-family:'Bebas Neue',sans-serif; font-size:58px; letter-spacing:2px; color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+.ec2-bho-price-item .bp-amt  { font-family:'Bebas Neue',sans-serif; font-size:58px; letter-spacing:2px; color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
 
 /* ══ COMBINED SINGLE-PAGE LAYOUT ══ */
 .hud-clock-only { display:flex; align-items:center; gap:16px; }
 .combined-page { position:relative; z-index:5; height:1060px; display:grid; grid-template-rows:auto auto auto auto 1fr; padding:8px 24px 6px; gap:6px; }
 .combo-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:6px; border-bottom:1px solid var(--border); flex-shrink:0; }
-.combo-logo { height:72px; width:auto; object-fit:contain; filter:drop-shadow(0 0 12px rgba(170,255,0,0.7)); }
+.combo-logo { height:110px; width:auto; object-fit:contain; filter:drop-shadow(0 0 12px rgba(170,255,0,0.7)); }
 .combo-hdr-center { position:absolute; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
 .combo-title { font-family:'Bebas Neue',sans-serif; font-size:64px; letter-spacing:14px; line-height:1; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
 .combo-title em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
@@ -544,9 +537,9 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-price-col.top-h .cpb-label { color:var(--top); }
 .combo-price-col.bar-h .cpb-label { color:var(--bar); }
 .cpb-prices { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; }
-.combo-price-col.ex-h  .cpb-prices { color:rgba(170,255,0,0.7); }
-.combo-price-col.top-h .cpb-prices { color:rgba(95,255,255,0.7); }
-.combo-price-col.bar-h .cpb-prices { color:rgba(255,255,255,0.7); }
+.combo-price-col.ex-h  .cpb-prices { color:rgba(170,255,0,1);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
+.combo-price-col.top-h .cpb-prices { color:rgba(95,255,255,1);  text-shadow:0 0 16px rgba(95,255,255,0.8); }
+.combo-price-col.bar-h .cpb-prices { color:rgba(255,255,255,1); text-shadow:0 0 16px rgba(255,255,255,0.8); }
 .combo-divider { display:flex; align-items:center; gap:16px; flex-shrink:0; }
 .combo-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
 .combo-divider-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
@@ -559,6 +552,9 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-ed-items .ed-name { font-size:18px; }
 .combo-ed-items .ed-flavors { font-size:11px; color:rgba(255,255,255,0.35); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .combo-ed-items .ed-price { font-size:26px; }
+.tier-ex .combo-ed-items .ed-price { color:var(--ex);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
+.tier-top .combo-ed-items .ed-price { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.8); }
+.tier-bar .combo-ed-items .ed-price { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
 .combo-bottom .conc-hdr { padding:7px 14px 6px; }
 .combo-bottom .conc-label { font-size:36px; }
 .combo-bottom .cname { font-size:22px; }
@@ -595,7 +591,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
     <header class="combo-header">
       <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="combo-logo" alt="Kannabis City"></div>
       <div class="combo-hdr-center">
-        <div class="combo-title">KANN<em>A</em>BIS CITY</div>
+        <div class="combo-title">FL<em>O</em>WER</div>
         <div class="combo-sub">Today's Full Menu</div>
       </div>
       <div class="ticker-wrap">
@@ -604,12 +600,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
       </div>
     </header>
 
-    <!-- ══ FLOWER SECTION ══ -->
-    <div class="combo-section-label">
-      <div class="combo-section-label-line"></div>
-      <div class="combo-section-label-text">FL<em>O</em>WER</div>
-      <div class="combo-section-label-line"></div>
-    </div>
+    <!-- ══ FLOWER TIERS ══ -->
     <div class="combo-tiers">
       <div class="tier tier-ex combo-tier">
         <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div>

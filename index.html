@@ -128,76 +128,13 @@ function buildEdibles() {
       <div class="ed-deal-price">${p.price}</div>
     </div>`).join('');
 }
-// ║  ROTATION ENGINE                                  ║
+// ║  STATIC DISPLAY (single screen, no rotation)     ║
 // ╚══════════════════════════════════════════════════╝
-//
-// Sequence: 0=Flower(20s) → 1=Edibles(10s) → 2=Concentrates(10s) → repeat
-//
-const SLIDES    = ['slide-flower', 'slide-edcon'];
-const LABELS    = ['Flower',       'Edibles & Concentrates'];
-const DURATIONS = [15,             12]; // seconds
-const CIRCUM    = 75.4; // 2 * PI * 12
-
-let cur         = 0;
-let slideTimer  = null; // the one setTimeout driving the loop
-let tickTimer   = null; // the setInterval driving the visual countdown
-let tickStart   = 0;
-let tickTotal   = 0;
 
 function showSlide(idx) {
-  // ── 1. Kill any previous timers ──────────────────
-  if (slideTimer !== null) { clearTimeout(slideTimer);   slideTimer = null; }
-  if (tickTimer  !== null) { clearInterval(tickTimer);   tickTimer  = null; }
-
-  cur = idx;
-  const duration = DURATIONS[idx]; // seconds
-
-  // ── 2. Swap slides ───────────────────────────────
-  SLIDES.forEach((id, i) => {
-    const el = document.getElementById(id);
-    el.classList.remove('active', 'leaving');
-    if (i === idx) {
-      el.classList.add('active');
-    }
-  });
-
-  // ── 3. Update dots + labels ──────────────────────
-  const next = (idx + 1) % SLIDES.length;
-  document.querySelectorAll('#shared-dots .dot-item').forEach((item, i) => {
-    const dot = item.querySelector('.dot');
-    const lbl = item.querySelector('.dot-label');
-    dot.classList.toggle('on', i === idx);
-    lbl.classList.remove('current', 'upcoming');
-    if (i === idx)   lbl.classList.add('current');
-    if (i === next)  lbl.classList.add('upcoming');
-  });
-
-  // ── 4. Reset arc + number ────────────────────────
-  const arc = document.getElementById('shared-arc');
-  const num = document.getElementById('shared-num');
-  arc.style.strokeDashoffset = '0';
-  arc.style.stroke = '#aaff00';
-  num.textContent = duration;
-  num.style.color = '#ffffff';
-
-  // ── 5. Tick every 100ms to update the visual ─────
-  tickStart = Date.now();
-  tickTotal = duration * 1000; // ms
-  tickTimer = setInterval(() => {
-    const elapsed   = Date.now() - tickStart;
-    const remaining = Math.max(0, tickTotal - elapsed) / 1000; // seconds
-    const pct       = remaining / duration;
-    arc.style.strokeDashoffset = CIRCUM * (1 - pct);
-    arc.style.stroke = pct > 0.5 ? '#aaff00' : pct > 0.2 ? '#ffd54f' : '#ff6b6b';
-    num.textContent  = Math.ceil(remaining);
-    num.style.color  = pct > 0.2 ? '#ffffff' : '#ff6b6b';
-  }, 100);
-
-  // ── 6. Schedule next slide ────────────────────────
-  slideTimer = setTimeout(() => {
-    slideTimer = null;
-    showSlide((cur + 1) % SLIDES.length);
-  }, duration * 1000);
+  document.querySelectorAll('.menu-frame').forEach(el => el.classList.remove('active','leaving'));
+  const el = document.getElementById('slide-all');
+  if (el) el.classList.add('active');
 }
 
 // ── CLOCK ──────────────────────────────────────────
@@ -225,7 +162,6 @@ function scaleMenu() {
     hud.style.transform = `translateX(-50%) scale(${scale})`;
   }
 }
-
 // ── WAKE LOCK ──────────────────────────────────────
 async function keepAwake() {
   try {
@@ -568,6 +504,71 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ec2-bho-price-item:last-child { border-bottom:none; }
 .ec2-bho-price-item .bp-size { font-size:22px; font-weight:700; color:var(--dim); letter-spacing:2px; text-transform:uppercase; }
 .ec2-bho-price-item .bp-amt  { font-family:'Bebas Neue',sans-serif; font-size:58px; letter-spacing:2px; color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+
+/* ══ COMBINED SINGLE-PAGE LAYOUT ══ */
+.hud-clock-only { display:flex; align-items:center; gap:16px; }
+.combined-page { position:relative; z-index:5; height:1060px; display:grid; grid-template-rows:auto auto auto auto 1fr; padding:8px 24px 6px; gap:6px; }
+.combo-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:6px; border-bottom:1px solid var(--border); flex-shrink:0; }
+.combo-logo { height:72px; width:auto; object-fit:contain; filter:drop-shadow(0 0 12px rgba(170,255,0,0.7)); }
+.combo-hdr-center { position:absolute; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
+.combo-title { font-family:'Bebas Neue',sans-serif; font-size:64px; letter-spacing:14px; line-height:1; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
+.combo-title em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
+.combo-sub { font-size:11px; font-weight:700; letter-spacing:6px; text-transform:uppercase; color:var(--dim); }
+.combo-section-label { display:flex; align-items:center; gap:16px; flex-shrink:0; }
+.combo-section-label-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
+.combo-section-label-text { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
+.combo-section-label-text em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
+.combo-tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; min-height:0; }
+.combo-tier { min-height:0; }
+.combo-tier-hdr { padding:7px 14px 6px; }
+.combo-tier-label { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:3px; line-height:1; }
+.tier-ex-lbl  { color:var(--ex);  text-shadow:0 0 20px rgba(170,255,0,0.7); }
+.tier-top-lbl { color:var(--top); text-shadow:0 0 20px rgba(95,255,255,0.7); }
+.tier-bar-lbl { color:var(--bar); text-shadow:0 0 20px rgba(255,255,255,0.5); }
+.combo-strains { padding:3px 0; overflow:hidden; flex:1; position:relative; z-index:1; }
+.combo-strains .cat-block { padding:3px 12px; }
+.combo-strains .cat-pill { font-size:11px; padding:2px 8px 2px 6px; margin-bottom:3px; }
+.combo-strains .cat-dot { width:6px; height:6px; }
+.combo-strains .strain-row { padding:2px 0; }
+.combo-strains .sname { font-size:24px; }
+.combo-strains .sthc { font-size:26px; }
+.combo-strains .slabel { font-size:11px; }
+.combo-strains .cat-divider { margin:2px 12px; }
+.combo-pricing-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; flex-shrink:0; }
+.combo-price-col { display:flex; align-items:center; gap:10px; padding:6px 14px; border-radius:4px; }
+.combo-price-col.ex-h  { background:rgba(170,255,0,0.08);  border:1px solid rgba(170,255,0,0.2); }
+.combo-price-col.top-h { background:rgba(95,255,255,0.06); border:1px solid rgba(95,255,255,0.15); }
+.combo-price-col.bar-h { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12); }
+.cpb-label { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+.combo-price-col.ex-h  .cpb-label { color:var(--ex); }
+.combo-price-col.top-h .cpb-label { color:var(--top); }
+.combo-price-col.bar-h .cpb-label { color:var(--bar); }
+.cpb-prices { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; }
+.combo-price-col.ex-h  .cpb-prices { color:rgba(170,255,0,0.7); }
+.combo-price-col.top-h .cpb-prices { color:rgba(95,255,255,0.7); }
+.combo-price-col.bar-h .cpb-prices { color:rgba(255,255,255,0.7); }
+.combo-divider { display:flex; align-items:center; gap:16px; flex-shrink:0; }
+.combo-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
+.combo-divider-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
+.combo-divider-label em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
+.combo-bottom { display:grid; grid-template-columns:repeat(3,1fr) repeat(3,1fr); gap:10px; min-height:0; }
+.combo-ed-tier { min-height:0; }
+.combo-conc-tier { min-height:0; }
+.combo-ed-items { display:flex; flex-direction:column; overflow:hidden; flex:1; position:relative; z-index:1; }
+.combo-ed-items .ed-row { padding:6px 12px; }
+.combo-ed-items .ed-name { font-size:18px; }
+.combo-ed-items .ed-flavors { font-size:11px; color:rgba(255,255,255,0.35); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.combo-ed-items .ed-price { font-size:26px; }
+.combo-bottom .conc-hdr { padding:7px 14px 6px; }
+.combo-bottom .conc-label { font-size:36px; }
+.combo-bottom .cname { font-size:22px; }
+.combo-bottom .cthc { font-size:22px; }
+.combo-bottom .lr-price { font-size:30px; }
+.combo-bottom .ec2-bho-price-item .bp-size { font-size:16px; }
+.combo-bottom .ec2-bho-price-item .bp-amt { font-size:38px; }
+.combo-bottom .ed-deal-card { padding:10px; }
+.combo-bottom .ed-deal-name { font-size:18px; margin-bottom:4px; }
+.combo-bottom .ed-deal-price { font-size:48px; margin-bottom:0; }
 </style>
 </head>
 <body>
@@ -576,107 +577,26 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
      SHARED HUD — single timer, lives outside all slides
      ═══════════════════════════════════════════ -->
 <div id="shared-hud">
-  <div id="shared-dots">
-    <div class="dot-item">
-      <div class="dot on"></div>
-      <div class="dot-label current">Flower</div>
-    </div>
-    <div class="dot-item">
-      <div class="dot"></div>
-      <div class="dot-label upcoming">Edibles &amp; Concentrates</div>
-    </div>
-  </div>
-  <div class="hud-divider"></div>
-  <div class="countdown-wrap">
-    <svg class="countdown-svg" viewBox="0 0 32 32">
-      <circle class="countdown-track" cx="16" cy="16" r="12"/>
-      <circle class="countdown-arc" id="shared-arc" cx="16" cy="16" r="12"/>
-    </svg>
-    <div class="countdown-text">
-      <div class="countdown-num" id="shared-num">20</div>
-      <div class="countdown-label">sec</div>
-    </div>
+  <div class="hud-clock-only">
+    <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
+    <div class="hud-divider"></div>
+    <div class="live-time clock" style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff;"></div>
+    <div class="datestamp" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#888;"></div>
   </div>
 </div>
 
 <!-- ═══════════ SLIDE 1 — FLOWER ═══════════ -->
-<div class="menu-frame" id="slide-flower">
+<div class="menu-frame active" id="slide-all">
   <div class="bg-glow"><span></span><span></span><span></span></div>
   <div class="top-bar"></div>
-  <div class="page">
-    <header class="header">
-      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
-      <div class="hdr-center">
-        <div class="hdr-title">FL<em>O</em>WER</div>
-        <div class="hdr-sub">Today's Selection</div>
-      </div>
-      <div class="ticker-wrap">
-        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
-        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
-      </div>
-    </header>
-    <div class="tiers">
-      <div class="tier tier-ex">
-        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
-        <div class="strains-body" id="col-exotic"></div>
-      </div>
-      <div class="tier tier-top">
-        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
-        <div class="strains-body" id="col-topshelf"></div>
-      </div>
-      <div class="tier tier-bar">
-        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
-        <div class="strains-body" id="col-bargain"></div>
-      </div>
-    </div>
-    <div class="pricing-section">
-      <div class="pricing-grid">
-        <div class="price-col">
-          <div class="price-col-hdr ex-h"><span>Exotic Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
-          <div class="price-rows ex-prices">
-            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$9.99</span></div>
-            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$24.99</span></div>
-            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$34.99</span></div>
-            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$69.99</span></div>
-            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$99.99</span></div>
-          </div>
-        </div>
-        <div class="price-col">
-          <div class="price-col-hdr top-h"><span>Top Shelf Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
-          <div class="price-rows top-prices">
-            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$7.99</span></div>
-            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$19.99</span></div>
-            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$29.99</span></div>
-            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$54.99</span></div>
-            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$84.99</span></div>
-          </div>
-        </div>
-        <div class="price-col">
-          <div class="price-col-hdr bar-h"><span>Bargain Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
-          <div class="price-rows bar-prices">
-            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$4.99</span></div>
-            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$14.99</span></div>
-            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$24.99</span></div>
-            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$44.99</span></div>
-            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$74.99</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="btm"></div>
-</div>
+  <div class="combined-page">
 
-<!-- ═══════════ SLIDE 2 — EDIBLES & CONCENTRATES ═══════════ -->
-<div class="menu-frame" id="slide-edcon">
-  <div class="bg-glow"><span></span><span></span><span></span></div>
-  <div class="top-bar"></div>
-  <div class="page edcon-page">
-    <header class="header">
-      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
-      <div class="hdr-center">
-        <div class="hdr-title">ED<em>I</em>BLES</div>
-        <div class="hdr-sub">Today's Selection</div>
+    <!-- ══ HEADER ══ -->
+    <header class="combo-header">
+      <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="combo-logo" alt="Kannabis City"></div>
+      <div class="combo-hdr-center">
+        <div class="combo-title">KANN<em>A</em>BIS CITY</div>
+        <div class="combo-sub">Today's Full Menu</div>
       </div>
       <div class="ticker-wrap">
         <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
@@ -684,49 +604,84 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
       </div>
     </header>
 
-    <!-- ── EDIBLES SECTION ── -->
-    <div class="ec2-section">
-      <div class="ec2-tiers">
-        <div class="tier tier-ex ec2-tier">
-          <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
-          <div class="ec2-items" id="ed-exotic"></div>
-        </div>
-        <div class="tier tier-top ec2-tier">
-          <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
-          <div class="ec2-items" id="ed-topshelf"></div>
-        </div>
-        <div class="tier tier-bar ec2-tier ed-deals-col">
-          <div class="tier-hdr"><div class="tier-label">Best Deals</div><div class="tier-tag">Don't Miss</div></div>
-          <div class="ed-deals-body" id="ed-deals"></div>
-        </div>
+    <!-- ══ FLOWER SECTION ══ -->
+    <div class="combo-section-label">
+      <div class="combo-section-label-line"></div>
+      <div class="combo-section-label-text">FL<em>O</em>WER</div>
+      <div class="combo-section-label-line"></div>
+    </div>
+    <div class="combo-tiers">
+      <div class="tier tier-ex combo-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div>
+        <div class="combo-strains" id="col-exotic"></div>
+      </div>
+      <div class="tier tier-top combo-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+        <div class="combo-strains" id="col-topshelf"></div>
+      </div>
+      <div class="tier tier-bar combo-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Bargains</div><div class="tier-tag">Best Value</div></div>
+        <div class="combo-strains" id="col-bargain"></div>
       </div>
     </div>
 
-    <!-- ── SECTION DIVIDER ── -->
-    <div class="ec2-divider">
-      <div class="ec2-divider-line"></div>
-      <div class="ec2-divider-label">CONC<em>E</em>NTRATES</div>
-      <div class="ec2-divider-line"></div>
+    <!-- ══ FLOWER PRICING ══ -->
+    <div class="combo-pricing-bar">
+      <div class="combo-price-col ex-h">
+        <span class="cpb-label">Exotic</span>
+        <span class="cpb-prices ex-prices-inline">1g $9.99 &nbsp;·&nbsp; 3.5g $24.99 &nbsp;·&nbsp; 7g $34.99 &nbsp;·&nbsp; 14g $69.99 &nbsp;·&nbsp; oz $99.99</span>
+      </div>
+      <div class="combo-price-col top-h">
+        <span class="cpb-label">Top Shelf</span>
+        <span class="cpb-prices top-prices-inline">1g $7.99 &nbsp;·&nbsp; 3.5g $19.99 &nbsp;·&nbsp; 7g $29.99 &nbsp;·&nbsp; 14g $54.99 &nbsp;·&nbsp; oz $84.99</span>
+      </div>
+      <div class="combo-price-col bar-h">
+        <span class="cpb-label">Bargains</span>
+        <span class="cpb-prices bar-prices-inline">1g $4.99 &nbsp;·&nbsp; 3.5g $14.99 &nbsp;·&nbsp; 7g $24.99 &nbsp;·&nbsp; 14g $44.99 &nbsp;·&nbsp; oz $74.99</span>
+      </div>
     </div>
 
-    <!-- ── CONCENTRATES SECTION ── -->
-    <div class="ec2-section">
-      <div class="ec2-tiers">
-        <div class="conc-panel lr ec2-tier">
-          <div class="conc-hdr"><div class="conc-label">Live Rosin</div><div class="conc-tag">Premium Extract</div></div>
-          <div class="conc-items" id="conc-lr"></div>
-        </div>
-        <div class="conc-panel bho ec2-tier ec2-bho-merged">
-          <div class="conc-hdr"><div class="conc-label">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div>
-          <div class="ec2-bho-body">
-            <div class="conc-items ec2-bho-items" id="conc-bho"></div>
-            <div class="ec2-bho-pricing">
-              <div class="ec2-bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div>
-              <div class="ec2-bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div>
-            </div>
+    <!-- ══ DIVIDER ══ -->
+    <div class="combo-divider">
+      <div class="combo-divider-line"></div>
+      <div class="combo-divider-label">EDIBLES &amp; CONC<em>E</em>NTRATES</div>
+      <div class="combo-divider-line"></div>
+    </div>
+
+    <!-- ══ EDIBLES + CONCENTRATES ══ -->
+    <div class="combo-bottom">
+
+      <div class="tier tier-ex combo-tier combo-ed-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div>
+        <div class="combo-ed-items" id="ed-exotic"></div>
+      </div>
+
+      <div class="tier tier-top combo-tier combo-ed-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+        <div class="combo-ed-items" id="ed-topshelf"></div>
+      </div>
+
+      <div class="tier tier-bar combo-tier combo-ed-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Best Deals</div><div class="tier-tag">Don't Miss</div></div>
+        <div class="ed-deals-body" id="ed-deals"></div>
+      </div>
+
+      <div class="conc-panel lr combo-tier combo-conc-tier">
+        <div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.6)">Live Rosin</div><div class="conc-tag">Premium Extract</div></div>
+        <div class="conc-items" id="conc-lr"></div>
+      </div>
+
+      <div class="conc-panel bho combo-tier combo-conc-tier ec2-bho-merged" style="grid-column:span 2">
+        <div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--bar)">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div>
+        <div class="ec2-bho-body">
+          <div class="conc-items ec2-bho-items" id="conc-bho"></div>
+          <div class="ec2-bho-pricing">
+            <div class="ec2-bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div>
+            <div class="ec2-bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div>
           </div>
         </div>
       </div>
+
     </div>
 
   </div>

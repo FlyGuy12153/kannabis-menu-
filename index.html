@@ -483,7 +483,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .ed-deals-body { flex:1; display:flex; flex-direction:column; gap:12px; padding:14px; overflow:hidden; position:relative; z-index:1; }
 .ed-deal-card { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; position:relative; overflow:hidden; }
 .ed-deal-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%); pointer-events:none; }
-.ed-deal-badge { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--green); border:1px solid rgba(170,255,0,0.35); background:rgba(170,255,0,0.1); border-radius:20px; padding:3px 14px; margin-bottom:10px; }
+.ed-deal-badge { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--green); border:1px solid rgba(170,255,0,0.35); background:rgba(170,255,0,0.1); border-radius:20px; padding:3px 10px; margin-bottom:10px; white-space:nowrap; }
 .ed-deal-name { font-size:26px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:var(--white); line-height:1.1; margin-bottom:8px; }
 .ed-deal-price { font-family:'Bebas Neue',sans-serif; font-size:72px; letter-spacing:2px; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.8); line-height:1; margin-bottom:8px; }
 .ed-deal-flavors { font-size:13px; font-weight:500; color:rgba(255,255,255,0.3); line-height:1.4; }
@@ -514,29 +514,29 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; min-height:0; }
 .combo-tier { min-height:0; }
 .combo-tier-hdr { padding:7px 14px 6px; }
-.combo-tier-label { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:3px; line-height:1; }
+.combo-tier-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:3px; line-height:1; }
 .tier-ex-lbl  { color:var(--ex);  text-shadow:0 0 20px rgba(170,255,0,0.7); }
 .tier-top-lbl { color:var(--top); text-shadow:0 0 20px rgba(95,255,255,0.7); }
 .tier-bar-lbl { color:var(--bar); text-shadow:0 0 20px rgba(255,255,255,0.5); }
 .combo-strains { padding:3px 0; overflow:hidden; flex:1; position:relative; z-index:1; }
 .combo-strains .cat-block { padding:3px 12px; }
-.combo-strains .cat-pill { font-size:11px; padding:2px 8px 2px 6px; margin-bottom:3px; }
+.combo-strains .cat-pill { font-size:13px; padding:2px 8px 2px 6px; margin-bottom:3px; }
 .combo-strains .cat-dot { width:6px; height:6px; }
 .combo-strains .strain-row { padding:2px 0; }
-.combo-strains .sname { font-size:24px; }
-.combo-strains .sthc { font-size:26px; }
-.combo-strains .slabel { font-size:11px; }
+.combo-strains .sname { font-size:28px; }
+.combo-strains .sthc { font-size:30px; }
+.combo-strains .slabel { font-size:12px; }
 .combo-strains .cat-divider { margin:2px 12px; }
 .combo-pricing-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; flex-shrink:0; }
 .combo-price-col { display:flex; align-items:center; gap:10px; padding:6px 14px; border-radius:4px; }
 .combo-price-col.ex-h  { background:rgba(170,255,0,0.08);  border:1px solid rgba(170,255,0,0.2); }
 .combo-price-col.top-h { background:rgba(95,255,255,0.06); border:1px solid rgba(95,255,255,0.15); }
 .combo-price-col.bar-h { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12); }
-.cpb-label { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+.cpb-label { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
 .combo-price-col.ex-h  .cpb-label { color:var(--ex); }
 .combo-price-col.top-h .cpb-label { color:var(--top); }
 .combo-price-col.bar-h .cpb-label { color:var(--bar); }
-.cpb-prices { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; }
+.cpb-prices { font-family:'Bebas Neue',sans-serif; font-size:21px; letter-spacing:0.5px; white-space:nowrap; overflow:hidden; }
 .combo-price-col.ex-h  .cpb-prices { color:rgba(170,255,0,1);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
 .combo-price-col.top-h .cpb-prices { color:rgba(95,255,255,1);  text-shadow:0 0 16px rgba(95,255,255,0.8); }
 .combo-price-col.bar-h .cpb-prices { color:rgba(255,255,255,1); text-shadow:0 0 16px rgba(255,255,255,0.8); }
@@ -548,38 +548,27 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-ed-tier { min-height:0; }
 .combo-conc-tier { min-height:0; }
 .combo-ed-items { display:flex; flex-direction:column; overflow:hidden; flex:1; position:relative; z-index:1; }
-.combo-ed-items .ed-row { padding:6px 12px; }
-.combo-ed-items .ed-name { font-size:18px; }
+.combo-ed-items .ed-row { padding:4px 12px; flex-shrink:0; }
+.combo-ed-items .ed-name { font-size:20px; }
 .combo-ed-items .ed-flavors { font-size:11px; color:rgba(255,255,255,0.35); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.combo-ed-items .ed-price { font-size:26px; }
+.combo-ed-items .ed-price { font-size:28px; }
 .tier-ex .combo-ed-items .ed-price { color:var(--ex);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
 .tier-top .combo-ed-items .ed-price { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.8); }
 .tier-bar .combo-ed-items .ed-price { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
 .combo-bottom .conc-hdr { padding:7px 14px 6px; }
-.combo-bottom .conc-label { font-size:36px; }
-.combo-bottom .cname { font-size:22px; }
-.combo-bottom .cthc { font-size:22px; }
-.combo-bottom .lr-price { font-size:30px; }
-.combo-bottom .ec2-bho-price-item .bp-size { font-size:16px; }
-.combo-bottom .ec2-bho-price-item .bp-amt { font-size:38px; }
+.combo-bottom .conc-label { font-size:42px; }
+.combo-bottom .cname { font-size:26px; }
+.combo-bottom .cthc { font-size:26px; }
+.combo-bottom .lr-price { font-size:36px; }
+.combo-bottom .ec2-bho-price-item .bp-size { font-size:18px; }
+.combo-bottom .ec2-bho-price-item .bp-amt { font-size:46px; }
 .combo-bottom .ed-deal-card { padding:10px; }
-.combo-bottom .ed-deal-name { font-size:18px; margin-bottom:4px; }
-.combo-bottom .ed-deal-price { font-size:48px; margin-bottom:0; }
+.combo-bottom .ed-deal-name { font-size:22px; margin-bottom:4px; }
+.combo-bottom .ed-deal-price { font-size:58px; margin-bottom:0; }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     SHARED HUD — single timer, lives outside all slides
-     ═══════════════════════════════════════════ -->
-<div id="shared-hud">
-  <div class="hud-clock-only">
-    <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
-    <div class="hud-divider"></div>
-    <div class="live-time clock" style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff;"></div>
-    <div class="datestamp" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#888;"></div>
-  </div>
-</div>
 
 <!-- ═══════════ SLIDE 1 — FLOWER ═══════════ -->
 <div class="menu-frame active" id="slide-all">

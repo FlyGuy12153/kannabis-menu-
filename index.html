@@ -13,6 +13,10 @@
 // ╚══════════════════════════════════════════════════╝
 // terps: array of [name, one-word descriptor]
 const FLOWER = {
+  platinum: [
+    { name: "Berry Yum Yum",            thc: "29.36", cat: "hybrid", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
+    { name: "Black Strawberry Gelato",  thc: "30.67", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
+  ],
   exotic: [
     { name: "White Peach",          thc: "31.40", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
     { name: "Berries and Cream",    thc: "31.56", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
@@ -178,6 +182,7 @@ async function keepAwake() {
 
 // ── INIT ───────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('col-platinum').innerHTML = buildFlowerCol(FLOWER.platinum);
   document.getElementById('col-exotic').innerHTML   = buildFlowerCol(FLOWER.exotic);
   document.getElementById('col-topshelf').innerHTML = buildFlowerCol(FLOWER.topshelf);
   document.getElementById('col-bargain').innerHTML  = buildFlowerCol(FLOWER.bargain);
@@ -199,6 +204,7 @@ window.addEventListener('resize', scaleMenu);
   --green:#aaff00; --green2:#66cc00; --glow:rgba(170,255,0,0.5);
   --white:#ffffff; --dim:#888;
   --ex:#aaff00; --top:#5fffff; --bar:#ffffff; --gold:#ffd54f;
+  --plat:#d4aaff;
 }
 html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 
@@ -318,13 +324,16 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .tier-ex::after  { background:linear-gradient(90deg,transparent,var(--ex),transparent);  animation-delay:0s; }
 .tier-top::after { background:linear-gradient(90deg,transparent,var(--top),transparent); animation-delay:1s; }
 .tier-bar::after { background:linear-gradient(90deg,transparent,var(--bar),transparent); animation-delay:2s; }
+.tier-plat::after { background:linear-gradient(90deg,transparent,var(--plat),transparent); animation-delay:0.5s; }
 @keyframes slideline { 0%{left:-100%;opacity:0;} 10%{opacity:1;} 50%{left:100%;opacity:1;} 60%{opacity:0;} 100%{left:100%;opacity:0;} }
 .tier-ex  { border:1px solid rgba(170,255,0,0.25); }
 .tier-top { border:1px solid rgba(95,255,255,0.2); }
 .tier-bar { border:1px solid rgba(255,255,255,0.2); }
+.tier-plat { border:1px solid rgba(212,170,255,0.35); }
 .tier-ex::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%); }
 .tier-top::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%); }
 .tier-bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%); }
+.tier-plat::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(212,170,255,0.09) 0%,transparent 50%); }
 .tier-hdr { display:flex;align-items:center;justify-content:space-between;padding:12px 22px 10px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4); }
 .tier-label { font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:5px;line-height:1; }
 .tier-ex  .tier-label { color:var(--ex);  text-shadow:0 0 30px rgba(170,255,0,0.8); }
@@ -500,7 +509,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 
 /* ══ COMBINED SINGLE-PAGE LAYOUT ══ */
 .hud-clock-only { display:flex; align-items:center; gap:16px; }
-.combined-page { position:relative; z-index:5; height:1060px; display:grid; grid-template-rows:auto auto auto auto 1fr; padding:8px 24px 6px; gap:6px; }
+.combined-page { position:relative; z-index:5; height:1060px; display:grid; grid-template-rows:auto auto auto auto 1fr; padding:8px 8px 6px; gap:6px; }
 .combo-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:6px; border-bottom:1px solid var(--border); flex-shrink:0; }
 .combo-logo { height:110px; width:auto; object-fit:contain; filter:drop-shadow(0 0 12px rgba(170,255,0,0.7)); }
 .combo-hdr-center { position:absolute; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
@@ -511,13 +520,14 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-section-label-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
 .combo-section-label-text { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
 .combo-section-label-text em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
-.combo-tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; min-height:0; }
+.combo-tiers { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; min-height:0; }
 .combo-tier { min-height:0; }
-.combo-tier-hdr { padding:7px 14px 6px; }
+.combo-tier-hdr { padding:7px 8px 6px; }
 .combo-tier-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:3px; line-height:1; }
 .tier-ex-lbl  { color:var(--ex);  text-shadow:0 0 20px rgba(170,255,0,0.7); }
 .tier-top-lbl { color:var(--top); text-shadow:0 0 20px rgba(95,255,255,0.7); }
 .tier-bar-lbl { color:var(--bar); text-shadow:0 0 20px rgba(255,255,255,0.5); }
+.tier-plat-lbl { color:var(--plat); text-shadow:0 0 20px rgba(212,170,255,0.8); }
 .combo-strains { padding:3px 0; overflow:hidden; flex:1; position:relative; z-index:1; }
 .combo-strains .cat-block { padding:3px 12px; }
 .combo-strains .cat-pill { font-size:13px; padding:2px 8px 2px 6px; margin-bottom:3px; }
@@ -527,24 +537,31 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-strains .sthc { font-size:30px; }
 .combo-strains .slabel { font-size:12px; }
 .combo-strains .cat-divider { margin:2px 12px; }
-.combo-pricing-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; flex-shrink:0; }
-.combo-price-col { display:flex; align-items:center; gap:10px; padding:6px 14px; border-radius:4px; }
+.combo-pricing-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex-shrink:0; }
+.combo-price-col { display:flex; flex-direction:column; gap:4px; padding:5px 8px; border-radius:4px; overflow:hidden; }
+.combo-price-col.plat-h { background:rgba(212,170,255,0.08); border:1px solid rgba(212,170,255,0.25); }
 .combo-price-col.ex-h  { background:rgba(170,255,0,0.08);  border:1px solid rgba(170,255,0,0.2); }
 .combo-price-col.top-h { background:rgba(95,255,255,0.06); border:1px solid rgba(95,255,255,0.15); }
 .combo-price-col.bar-h { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12); }
-.cpb-label { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+.cpb-label { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+.combo-price-col.plat-h .cpb-label { color:var(--plat); }
 .combo-price-col.ex-h  .cpb-label { color:var(--ex); }
 .combo-price-col.top-h .cpb-label { color:var(--top); }
 .combo-price-col.bar-h .cpb-label { color:var(--bar); }
-.cpb-prices { font-family:'Bebas Neue',sans-serif; font-size:21px; letter-spacing:0.5px; white-space:nowrap; overflow:hidden; }
-.combo-price-col.ex-h  .cpb-prices { color:rgba(170,255,0,1);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
-.combo-price-col.top-h .cpb-prices { color:rgba(95,255,255,1);  text-shadow:0 0 16px rgba(95,255,255,0.8); }
-.combo-price-col.bar-h .cpb-prices { color:rgba(255,255,255,1); text-shadow:0 0 16px rgba(255,255,255,0.8); }
+.cpb-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; flex:1; }
+.cpb-item { display:flex; flex-direction:column; align-items:center; border-right:1px solid rgba(255,255,255,0.06); padding:0 2px; }
+.cpb-item:last-child { border-right:none; }
+.cpb-sz  { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dim); }
+.cpb-amt { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:0.5px; }
+.combo-price-col.plat-h .cpb-amt { color:var(--plat); text-shadow:0 0 14px rgba(212,170,255,0.8); }
+.combo-price-col.ex-h  .cpb-amt { color:var(--ex);   text-shadow:0 0 14px rgba(170,255,0,0.8); }
+.combo-price-col.top-h .cpb-amt { color:var(--top);  text-shadow:0 0 14px rgba(95,255,255,0.8); }
+.combo-price-col.bar-h .cpb-amt { color:var(--bar);  text-shadow:0 0 14px rgba(255,255,255,0.8); }
 .combo-divider { display:flex; align-items:center; gap:16px; flex-shrink:0; }
 .combo-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
 .combo-divider-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
 .combo-divider-label em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
-.combo-bottom { display:grid; grid-template-columns:repeat(3,1fr) repeat(3,1fr); gap:10px; min-height:0; }
+.combo-bottom { display:grid; grid-template-columns:repeat(3,1fr) repeat(3,1fr); gap:5px; min-height:0; }
 .combo-ed-tier { min-height:0; }
 .combo-conc-tier { min-height:0; }
 .combo-ed-items { display:flex; flex-direction:column; overflow:hidden; flex:1; position:relative; z-index:1; }
@@ -591,6 +608,10 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 
     <!-- ══ FLOWER TIERS ══ -->
     <div class="combo-tiers">
+      <div class="tier tier-plat combo-tier">
+        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-plat-lbl">Platinum</div><div class="tier-tag" style="border-color:rgba(212,170,255,0.4);color:var(--plat)">Top Tier</div></div>
+        <div class="combo-strains" id="col-platinum"></div>
+      </div>
       <div class="tier tier-ex combo-tier">
         <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div>
         <div class="combo-strains" id="col-exotic"></div>
@@ -607,17 +628,45 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 
     <!-- ══ FLOWER PRICING ══ -->
     <div class="combo-pricing-bar">
+      <div class="combo-price-col plat-h">
+        <span class="cpb-label">Platinum</span>
+        <div class="cpb-grid">
+          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$11.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$29.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$54.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$74.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$124.99</span></div>
+        </div>
+      </div>
       <div class="combo-price-col ex-h">
         <span class="cpb-label">Exotic</span>
-        <span class="cpb-prices ex-prices-inline">1g $9.99 &nbsp;·&nbsp; 3.5g $24.99 &nbsp;·&nbsp; 7g $34.99 &nbsp;·&nbsp; 14g $69.99 &nbsp;·&nbsp; oz $99.99</span>
+        <div class="cpb-grid">
+          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$9.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$24.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$34.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$69.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$99.99</span></div>
+        </div>
       </div>
       <div class="combo-price-col top-h">
         <span class="cpb-label">Top Shelf</span>
-        <span class="cpb-prices top-prices-inline">1g $7.99 &nbsp;·&nbsp; 3.5g $19.99 &nbsp;·&nbsp; 7g $29.99 &nbsp;·&nbsp; 14g $54.99 &nbsp;·&nbsp; oz $84.99</span>
+        <div class="cpb-grid">
+          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$7.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$19.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$29.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$54.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$84.99</span></div>
+        </div>
       </div>
       <div class="combo-price-col bar-h">
         <span class="cpb-label">Bargains</span>
-        <span class="cpb-prices bar-prices-inline">1g $4.99 &nbsp;·&nbsp; 3.5g $14.99 &nbsp;·&nbsp; 7g $24.99 &nbsp;·&nbsp; 14g $44.99 &nbsp;·&nbsp; oz $74.99</span>
+        <div class="cpb-grid">
+          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$4.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$14.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$24.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$44.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$74.99</span></div>
+        </div>
       </div>
     </div>
 

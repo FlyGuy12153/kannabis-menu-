@@ -18,8 +18,8 @@ const FLOWER = {
     { name: "Black Strawberry Gelato",  thc: "30.67", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
   ],
   exotic: [
-    { name: "White Peach",          thc: "31.40", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
     { name: "Berries and Cream",    thc: "31.56", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
+    { name: "Shirley Temple",       thc: "24.51", cat: "indica", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Linalool","Floral"]] },
     { name: "Narnia",               thc: "28.20", cat: "sativa", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
     { name: "Peanut Butter Breath", thc: "27.18", cat: "hybrid", terps: [["Caryophyllene","Peppery"],["Limonene","Citrus"],["Myrcene","Earthy"]] },
     { name: "Cherry Eclipse",       thc: "29.34", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
@@ -28,7 +28,6 @@ const FLOWER = {
   topshelf: [
     { name: "Blood Diamond", thc: "26.00", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
     { name: "RS-54",         thc: "25.69", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Blackjack",     thc: "22.55", cat: "sativa", terps: [["Caryophyllene","Peppery"],["Myrcene","Earthy"],["Pinene","Woody"]] },
     { name: "Candy Jack",    thc: "27.36", cat: "hybrid", terps: [["Limonene","Citrus"],["Caryophyllene","Peppery"],["Myrcene","Earthy"]] },
   ],
   bargain: [
@@ -538,21 +537,16 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .combo-strains .slabel { font-size:12px; }
 .combo-strains .cat-divider { margin:2px 12px; }
 .combo-pricing-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex-shrink:0; }
-.combo-price-col { display:flex; flex-direction:column; gap:4px; padding:5px 8px; border-radius:4px; overflow:hidden; }
+.combo-price-col { display:flex; flex-direction:column; gap:2px; padding:5px 6px; border-radius:4px; overflow:hidden; }
 .combo-price-col.plat-h { background:rgba(212,170,255,0.08); border:1px solid rgba(212,170,255,0.25); }
 .combo-price-col.ex-h  { background:rgba(170,255,0,0.08);  border:1px solid rgba(170,255,0,0.2); }
 .combo-price-col.top-h { background:rgba(95,255,255,0.06); border:1px solid rgba(95,255,255,0.15); }
 .combo-price-col.bar-h { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12); }
-.cpb-label { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
-.combo-price-col.plat-h .cpb-label { color:var(--plat); }
-.combo-price-col.ex-h  .cpb-label { color:var(--ex); }
-.combo-price-col.top-h .cpb-label { color:var(--top); }
-.combo-price-col.bar-h .cpb-label { color:var(--bar); }
 .cpb-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; flex:1; }
 .cpb-item { display:flex; flex-direction:column; align-items:center; border-right:1px solid rgba(255,255,255,0.06); padding:0 2px; }
 .cpb-item:last-child { border-right:none; }
-.cpb-sz  { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dim); }
-.cpb-amt { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:0.5px; }
+.cpb-sz  { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--dim); }
+.cpb-amt { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:0.5px; }
 .combo-price-col.plat-h .cpb-amt { color:var(--plat); text-shadow:0 0 14px rgba(212,170,255,0.8); }
 .combo-price-col.ex-h  .cpb-amt { color:var(--ex);   text-shadow:0 0 14px rgba(170,255,0,0.8); }
 .combo-price-col.top-h .cpb-amt { color:var(--top);  text-shadow:0 0 14px rgba(95,255,255,0.8); }
@@ -629,17 +623,15 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
     <!-- ══ FLOWER PRICING ══ -->
     <div class="combo-pricing-bar">
       <div class="combo-price-col plat-h">
-        <span class="cpb-label">Platinum</span>
         <div class="cpb-grid">
           <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$11.99</span></div>
           <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$29.99</span></div>
           <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$54.99</span></div>
-          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$74.99</span></div>
+          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$79.99</span></div>
           <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$124.99</span></div>
         </div>
       </div>
       <div class="combo-price-col ex-h">
-        <span class="cpb-label">Exotic</span>
         <div class="cpb-grid">
           <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$9.99</span></div>
           <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$24.99</span></div>
@@ -649,7 +641,6 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
         </div>
       </div>
       <div class="combo-price-col top-h">
-        <span class="cpb-label">Top Shelf</span>
         <div class="cpb-grid">
           <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$7.99</span></div>
           <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$19.99</span></div>
@@ -659,7 +650,6 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
         </div>
       </div>
       <div class="combo-price-col bar-h">
-        <span class="cpb-label">Bargains</span>
         <div class="cpb-grid">
           <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$4.99</span></div>
           <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$14.99</span></div>

@@ -12,18 +12,21 @@
 // ║  ✏️  FLOWER                                       ║
 // ╚══════════════════════════════════════════════════╝
 const FLOWER = {
+  platinum: [
+    { name: "Berry Yum Yum",           thc: "29.36", cat: "hybrid" },
+    { name: "Black Strawberry Gelato", thc: "30.67", cat: "indica" },
+    { name: "Chemdog Millionaire",     thc: "29.48", cat: "indica" },
+  ],
   exotic: [
-    { name: "White Peach",          thc: "31.40", cat: "indica" },
     { name: "Berries and Cream",    thc: "31.56", cat: "indica" },
+    { name: "Shirley Temple",       thc: "24.51", cat: "indica" },
     { name: "Narnia",               thc: "28.20", cat: "sativa" },
     { name: "Peanut Butter Breath", thc: "27.18", cat: "hybrid" },
-    { name: "Cherry Eclipse",       thc: "29.34", cat: "hybrid" },
     { name: "Prism Petals",         thc: "27.84", cat: "hybrid" },
   ],
   topshelf: [
     { name: "Blood Diamond", thc: "26.00", cat: "indica" },
     { name: "RS-54",         thc: "25.69", cat: "indica" },
-    { name: "Blackjack",     thc: "22.55", cat: "sativa" },
     { name: "Candy Jack",    thc: "27.36", cat: "hybrid" },
   ],
   bargain: [
@@ -271,6 +274,7 @@ async function keepAwake() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('col-platinum').innerHTML = buildFlowerCol(FLOWER.platinum);
   document.getElementById('col-exotic').innerHTML   = buildFlowerCol(FLOWER.exotic);
   document.getElementById('col-topshelf').innerHTML = buildFlowerCol(FLOWER.topshelf);
   document.getElementById('col-bargain').innerHTML  = buildFlowerCol(FLOWER.bargain);
@@ -295,7 +299,7 @@ window.addEventListener('resize', scaleMenu);
   --bg:#0a0a0a; --panel:#141414; --panel2:#181818; --border:#2a2a2a;
   --green:#aaff00; --green2:#66cc00; --glow:rgba(170,255,0,0.5);
   --white:#ffffff; --dim:#888;
-  --ex:#aaff00; --top:#5fffff; --bar:#ffffff; --gold:#ffd54f;
+  --ex:#aaff00; --top:#5fffff; --bar:#ffffff; --gold:#ffd54f; --plat:#d4aaff;
 }
 html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 
@@ -354,7 +358,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .btm { position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7;animation:topbar 4s infinite reverse; }
 
 /* ── PAGE / HEADER ── */
-.page { position:relative;z-index:5;height:1014px;display:grid;grid-template-rows:auto 1fr;padding:12px 32px 10px;gap:12px; }
+.page { position:relative;z-index:5;height:1014px;display:grid;grid-template-rows:auto 1fr;padding:12px 16px 10px;gap:12px; }
 .page-3row { grid-template-rows:auto 1fr auto; }
 .header { display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0; }
 .logo-img { height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4));animation:logopulse 3s infinite; }
@@ -375,19 +379,22 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .live-time,.datestamp { font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4); }
 
 /* ══ SHARED TIER CHROME ══ */
-.tiers { display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0; }
+.tiers { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-height:0; }
 .tier { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0; }
 .tier::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;animation:slideline 4s ease-in-out infinite; }
 .tier-ex::after  { background:linear-gradient(90deg,transparent,var(--ex),transparent);  animation-delay:0s; }
 .tier-top::after { background:linear-gradient(90deg,transparent,var(--top),transparent); animation-delay:1s; }
 .tier-bar::after { background:linear-gradient(90deg,transparent,var(--bar),transparent); animation-delay:2s; }
+.tier-plat::after { background:linear-gradient(90deg,transparent,var(--plat),transparent); animation-delay:0.5s; }
 @keyframes slideline { 0%{left:-100%;opacity:0;} 10%{opacity:1;} 50%{left:100%;opacity:1;} 60%{opacity:0;} 100%{left:100%;opacity:0;} }
 .tier-ex  { border:1px solid rgba(170,255,0,0.25); }
 .tier-top { border:1px solid rgba(95,255,255,0.2); }
 .tier-bar { border:1px solid rgba(255,255,255,0.2); }
+.tier-plat { border:1px solid rgba(212,170,255,0.35); }
 .tier-ex::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%); }
 .tier-top::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%); }
 .tier-bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%); }
+.tier-plat::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(212,170,255,0.09) 0%,transparent 50%); }
 .tier-hdr { display:flex;align-items:center;justify-content:space-between;padding:12px 22px 10px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4); }
 .tier-label { font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:5px;line-height:1; }
 .tier-ex  .tier-label { color:var(--ex);  text-shadow:0 0 30px rgba(170,255,0,0.8); }
@@ -413,13 +420,17 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .slabel { font-size:17px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:2px; }
 .cat-divider { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:3px 20px; }
 .pricing-section { flex-shrink:0;padding-top:10px;border-top:1px solid var(--border); }
-.pricing-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+.pricing-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px; }
+.cpb-item { display:flex;flex-direction:column;align-items:center;border-right:1px solid rgba(255,255,255,0.08);padding:2px; }
+.cpb-item:last-child { border-right:none; }
+.cpb-sz  { font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.9); }
+.cpb-amt { font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:0.5px; }
 .price-col { background:var(--panel2);border-radius:6px;overflow:hidden; }
-.price-col-hdr { padding:9px 18px;font-size:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center; }
+.price-col-hdr { padding:9px 10px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center; }
 .price-col-hdr.ex-h  { background:rgba(170,255,0,0.15);  color:var(--ex);  border-bottom:2px solid rgba(170,255,0,0.3); }
 .price-col-hdr.top-h { background:rgba(95,255,255,0.12); color:var(--top); border-bottom:2px solid rgba(95,255,255,0.25); }
 .price-col-hdr.bar-h { background:rgba(255,255,255,0.1); color:var(--bar); border-bottom:2px solid rgba(255,255,255,0.2); }
-.price-rows { display:grid;grid-template-columns:repeat(5,1fr);padding:6px 14px;gap:0; }
+.price-rows { display:grid;grid-template-columns:repeat(5,1fr);padding:6px 6px;gap:0; }
 .price-item { display:flex;flex-direction:column;align-items:center;padding:7px 4px;border-right:1px solid var(--border); }
 .price-item:last-child { border-right:none; }
 .p-size { font-size:19px;font-weight:700;color:var(--dim);letter-spacing:1px;text-transform:uppercase;line-height:1; }
@@ -569,7 +580,11 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
         <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
       </div>
     </header>
-    <div class="tiers">
+    <div class="tiers" style="grid-template-columns:repeat(4,1fr);">
+      <div class="tier tier-plat">
+        <div class="tier-hdr"><div class="tier-label" style="color:var(--plat);text-shadow:0 0 20px rgba(212,170,255,0.8)">Platinum</div><div class="tier-tag" style="border-color:rgba(212,170,255,0.4);color:var(--plat)">Top Tier</div></div>
+        <div class="strains-body" id="col-platinum"></div>
+      </div>
       <div class="tier tier-ex">
         <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
         <div class="strains-body" id="col-exotic"></div>
@@ -584,35 +599,41 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
       </div>
     </div>
     <div class="pricing-section">
-      <div class="pricing-grid">
-        <div class="price-col">
-          <div class="price-col-hdr ex-h"><span>Exotic Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
-          <div class="price-rows ex-prices">
-            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$9.99</span></div>
-            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$24.99</span></div>
-            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$34.99</span></div>
-            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$69.99</span></div>
-            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$99.99</span></div>
+      <div class="pricing-grid" style="grid-template-columns:repeat(4,1fr); gap:6px;">
+        <div class="price-col" style="background:rgba(212,170,255,0.08);border:1px solid rgba(212,170,255,0.25);border-radius:4px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);">
+            <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt" style="color:var(--plat);text-shadow:0 0 14px rgba(212,170,255,0.8)">$11.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt" style="color:var(--plat);text-shadow:0 0 14px rgba(212,170,255,0.8)">$29.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt" style="color:var(--plat);text-shadow:0 0 14px rgba(212,170,255,0.8)">$54.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt" style="color:var(--plat);text-shadow:0 0 14px rgba(212,170,255,0.8)">$79.99</span></div>
+            <div class="cpb-item" style="border-right:none"><span class="cpb-sz">oz</span><span class="cpb-amt" style="color:var(--plat);text-shadow:0 0 14px rgba(212,170,255,0.8)">$124.99</span></div>
           </div>
         </div>
-        <div class="price-col">
-          <div class="price-col-hdr top-h"><span>Top Shelf Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
-          <div class="price-rows top-prices">
-            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$7.99</span></div>
-            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$19.99</span></div>
-            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$29.99</span></div>
-            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$54.99</span></div>
-            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$84.99</span></div>
+        <div class="price-col" style="background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);">
+            <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt" style="color:var(--ex);text-shadow:0 0 14px rgba(170,255,0,0.8)">$9.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt" style="color:var(--ex);text-shadow:0 0 14px rgba(170,255,0,0.8)">$24.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt" style="color:var(--ex);text-shadow:0 0 14px rgba(170,255,0,0.8)">$34.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt" style="color:var(--ex);text-shadow:0 0 14px rgba(170,255,0,0.8)">$69.99</span></div>
+            <div class="cpb-item" style="border-right:none"><span class="cpb-sz">oz</span><span class="cpb-amt" style="color:var(--ex);text-shadow:0 0 14px rgba(170,255,0,0.8)">$99.99</span></div>
           </div>
         </div>
-        <div class="price-col">
-          <div class="price-col-hdr bar-h"><span>Bargain Pricing</span><span style="opacity:.3;font-size:11px;letter-spacing:2px">PER UNIT</span></div>
-          <div class="price-rows bar-prices">
-            <div class="price-item"><span class="p-size">1g</span><span class="p-oz">&nbsp;</span><span class="p-amt">$4.99</span></div>
-            <div class="price-item"><span class="p-size">3.5g</span><span class="p-oz">1/8 oz</span><span class="p-amt">$14.99</span></div>
-            <div class="price-item"><span class="p-size">7g</span><span class="p-oz">1/4 oz</span><span class="p-amt">$24.99</span></div>
-            <div class="price-item"><span class="p-size">14g</span><span class="p-oz">1/2 oz</span><span class="p-amt">$44.99</span></div>
-            <div class="price-item"><span class="p-size">28g</span><span class="p-oz">1 oz</span><span class="p-amt">$74.99</span></div>
+        <div class="price-col" style="background:rgba(95,255,255,0.06);border:1px solid rgba(95,255,255,0.15);border-radius:4px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);">
+            <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt" style="color:var(--top);text-shadow:0 0 14px rgba(95,255,255,0.8)">$7.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt" style="color:var(--top);text-shadow:0 0 14px rgba(95,255,255,0.8)">$19.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt" style="color:var(--top);text-shadow:0 0 14px rgba(95,255,255,0.8)">$29.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt" style="color:var(--top);text-shadow:0 0 14px rgba(95,255,255,0.8)">$54.99</span></div>
+            <div class="cpb-item" style="border-right:none"><span class="cpb-sz">oz</span><span class="cpb-amt" style="color:var(--top);text-shadow:0 0 14px rgba(95,255,255,0.8)">$84.99</span></div>
+          </div>
+        </div>
+        <div class="price-col" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);">
+            <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt" style="color:var(--bar);text-shadow:0 0 14px rgba(255,255,255,0.8)">$4.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt" style="color:var(--bar);text-shadow:0 0 14px rgba(255,255,255,0.8)">$14.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt" style="color:var(--bar);text-shadow:0 0 14px rgba(255,255,255,0.8)">$24.99</span></div>
+            <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt" style="color:var(--bar);text-shadow:0 0 14px rgba(255,255,255,0.8)">$44.99</span></div>
+            <div class="cpb-item" style="border-right:none"><span class="cpb-sz">oz</span><span class="cpb-amt" style="color:var(--bar);text-shadow:0 0 14px rgba(255,255,255,0.8)">$74.99</span></div>
           </div>
         </div>
       </div>

@@ -50,7 +50,7 @@ const PREROLLS = {
 };
 
 const STIIZY = {
-  pods: { price: "$15.99", flavors: "Blue Burst · Birthday Cake · Blue Dream · SFV OG · Granddaddy Purp · Gelato · Apple Fritter · King Louis XIII · Super Lemon Haze · Pineapple Express · Pink Acai · Do-Si-Dos · Sour Diesel · Purple Punch · OG Kush · Sour Tangie · Hardcore OG · Biscotti · Premium Jack · Orange Sunset" },
+  pods: { price: "$29.99", flavors: "Blue Burst · Birthday Cake · Blue Dream · SFV OG · Granddaddy Purp · Gelato · Apple Fritter · King Louis XIII · Super Lemon Haze · Pineapple Express · Pink Acai · Do-Si-Dos · Sour Diesel · Purple Punch · OG Kush · Sour Tangie · Hardcore OG · Biscotti · Premium Jack · Orange Sunset" },
   battery: "$15.99",
   xlBattery: "$20.00",
 };
@@ -201,10 +201,24 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
   position:relative; z-index:5;
   height:1070px;
   display:grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
   padding:8px 14px 6px;
-  gap:6px;
+  gap:5px;
 }
+
+/* ── SECTION LABEL (like flower/edibles divider on index) ── */
+.section-label-bar {
+  display:flex; align-items:center; gap:14px; flex-shrink:0;
+}
+.section-label-bar::before,.section-label-bar::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(170,255,0,0.3),transparent);
+}
+.section-label-txt {
+  font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:10px;
+  color:var(--white); white-space:nowrap; text-shadow:0 0 20px rgba(170,255,0,0.4);
+}
+.section-label-txt em { font-style:normal; color:var(--green); }
 
 /* header */
 .header { display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0; }
@@ -239,28 +253,9 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 }
 .section-label em { font-style:normal; color:var(--green); }
 
-/* ── CONTENT GRID ── */
-.content-grid {
-  display:grid;
-  grid-template-columns: 1fr 3px 1fr;
-  gap:0;
-  min-height:0;
-  height:100%;
-}
-.content-divider {
-  background:linear-gradient(180deg,transparent,rgba(170,255,0,0.25),transparent);
-  margin:0 8px;
-}
-
-/* ── SECTION PANELS ── */
-.section-panel {
-  display:flex; flex-direction:column; gap:5px; min-height:0; overflow:hidden; height:100%;
-}
-.section-title {
-  font-family:'Bebas Neue',sans-serif; font-size:36px; letter-spacing:8px;
-  text-align:center; color:var(--green); text-shadow:0 0 20px rgba(170,255,0,0.5);
-  flex-shrink:0; padding-bottom:4px; border-bottom:1px solid rgba(170,255,0,0.15);
-}
+/* ── STACKED SECTIONS ── */
+.vapes-tiers   { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; flex:1; min-height:0; }
+.preroll-tiers { display:grid; grid-template-columns:0.85fr 1.15fr 1fr; gap:6px; flex:1; min-height:0; }
 
 /* ── TIER STYLES ── */
 .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; flex:1; min-height:0; }
@@ -362,85 +357,83 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
       </div>
     </header>
 
-    <!-- CONTENT: VAPES | DIVIDER | PRE-ROLLS -->
-    <div class="content-grid">
+    <!-- VAPES LABEL -->
+    <div class="section-label-bar">
+      <span class="section-label-txt">VAP<em>E</em>S &amp; DISPOSABLES</span>
+    </div>
 
-      <!-- VAPES SIDE -->
-      <div class="section-panel">
-        <div class="section-title">VAPES &amp; DISPOSABLES</div>
-        <div class="tiers" style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
-          <!-- STIIZY — platinum color, leftmost -->
-          <div class="tier" style="border:1px solid rgba(212,170,255,0.3);background:rgba(212,170,255,0.04);">
-            <div class="tier-hdr" style="background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);padding:5px 12px 4px;">
-              <div class="tier-label" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.8);font-size:36px;letter-spacing:3px;">Stiizy</div>
-              <div class="tier-tag" style="background:rgba(212,170,255,0.15);color:#d4aaff;border:1px solid rgba(212,170,255,0.35);">Pods &amp; Batt.</div>
-            </div>
-            <div class="pr-body" id="stiizy-col"></div>
-            <div class="deal-wrap">
-              <div class="deal-banner" style="background:linear-gradient(135deg,#120a1a,#160c1e,#0e0814);border:1px solid rgba(212,170,255,0.25);">
-                <div style="text-align:center;">
-                  <div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,170,255,0.6);margin-bottom:1px;">Pod + Battery</div>
-                  <div class="deal-amount" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.9);">$40 KIT</div>
-                  <div class="deal-sub" style="color:rgba(212,170,255,0.65);">Mix &amp; Match</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tier tier-ex">
-            <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
-            <div class="products-body" id="col-exotic"></div>
-          </div>
-          <div class="tier tier-top">
-            <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
-            <div class="products-body" id="col-topshelf"></div>
-          </div>
-          <div class="tier tier-bar">
-            <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
-            <div class="products-body" id="col-bargain"></div>
-            <div class="deal-wrap">
-              <div class="deal-banner">
-                <div style="text-align:center;">
-                  <div class="deal-amount">2 FOR $40</div>
-                  <div class="deal-sub">Mix &amp; Match</div>
-                </div>
-              </div>
+    <!-- VAPES TIERS -->
+    <div class="vapes-tiers">
+      <!-- STIIZY — platinum color, leftmost -->
+      <div class="tier" style="border:1px solid rgba(212,170,255,0.3);background:rgba(212,170,255,0.04);">
+        <div class="tier-hdr" style="background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);padding:5px 12px 4px;">
+          <div class="tier-label" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.8);font-size:36px;letter-spacing:3px;">Stiizy</div>
+          <div class="tier-tag" style="background:rgba(212,170,255,0.15);color:#d4aaff;border:1px solid rgba(212,170,255,0.35);">Pods &amp; Batt.</div>
+        </div>
+        <div class="pr-body" id="stiizy-col"></div>
+        <div class="deal-wrap">
+          <div class="deal-banner" style="background:linear-gradient(135deg,#120a1a,#160c1e,#0e0814);border:1px solid rgba(212,170,255,0.25);">
+            <div style="text-align:center;">
+              <div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,170,255,0.6);margin-bottom:1px;">Pod + Battery</div>
+              <div class="deal-amount" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.9);">$40 KIT</div>
+              <div class="deal-sub" style="color:rgba(212,170,255,0.65);">Mix &amp; Match</div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- DIVIDER -->
-      <div class="content-divider"></div>
-
-      <!-- PRE-ROLLS SIDE -->
-      <div class="section-panel">
-        <div class="section-title">PRE-ROLLS</div>
-        <div style="display:grid;grid-template-columns:0.85fr 1.15fr 1fr;gap:6px;flex:1;min-height:0;">
-          <div class="tier tier-ex">
-            <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium</div></div>
-            <div class="pr-body" id="pr-exotic"></div>
-          </div>
-          <div class="tier tier-top">
-            <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Favorites</div></div>
-            <div class="pr-body" id="pr-topshelf"></div>
-            <div class="deal-wrap">
-              <div class="deal-banner" style="background:linear-gradient(135deg,#001a1a,#001c1c,#001414);border:1px solid rgba(95,255,255,0.25);">
-                <div style="text-align:center;">
-                  <div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(95,255,255,0.6);margin-bottom:1px;">Stiizy 40's 1G</div>
-                  <div class="deal-amount" style="color:var(--top);text-shadow:0 0 20px rgba(95,255,255,0.9);">2 FOR $25</div>
-                  <div class="deal-sub" style="color:rgba(95,255,255,0.65);">Mix &amp; Match</div>
-                </div>
-              </div>
+      <div class="tier tier-ex">
+        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
+        <div class="products-body" id="col-exotic"></div>
+      </div>
+      <div class="tier tier-top">
+        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
+        <div class="products-body" id="col-topshelf"></div>
+      </div>
+      <div class="tier tier-bar">
+        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
+        <div class="products-body" id="col-bargain"></div>
+        <div class="deal-wrap">
+          <div class="deal-banner">
+            <div style="text-align:center;">
+              <div class="deal-amount">2 FOR $40</div>
+              <div class="deal-sub">Mix &amp; Match</div>
             </div>
-          </div>
-          <div class="tier tier-bar">
-            <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
-            <div class="pr-body" id="pr-bargain"></div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div><!-- end content-grid -->
+    <!-- PRE-ROLLS LABEL -->
+    <div class="section-label-bar">
+      <span class="section-label-txt">PR<em>E</em>-ROLLS</span>
+    </div>
+
+    <!-- PRE-ROLLS TIERS -->
+    <div class="preroll-tiers">
+      <div class="tier tier-ex">
+        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium</div></div>
+        <div class="pr-body" id="pr-exotic"></div>
+      </div>
+      <div class="tier tier-top">
+        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Favorites</div></div>
+        <div class="pr-body" id="pr-topshelf"></div>
+        <div class="deal-wrap">
+          <div class="deal-banner" style="background:linear-gradient(135deg,#001a1a,#001c1c,#001414);border:1px solid rgba(95,255,255,0.25);">
+            <div style="text-align:center;">
+              <div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(95,255,255,0.6);margin-bottom:1px;">Stiizy 40's 1G</div>
+              <div class="deal-amount" style="color:var(--top);text-shadow:0 0 20px rgba(95,255,255,0.9);">2 FOR $25</div>
+              <div class="deal-sub" style="color:rgba(95,255,255,0.65);">Mix &amp; Match</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tier tier-bar">
+        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
+        <div class="pr-body" id="pr-bargain"></div>
+      </div>
+    </div>
+
+  </div><!-- end combined-page -->
   </div><!-- end combined-page -->
 
   <div class="btm"></div>

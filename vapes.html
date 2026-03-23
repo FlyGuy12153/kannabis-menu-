@@ -24,7 +24,6 @@ const VAPES = {
     { name: "Ghost 2G",              price: "$24.99", flavors: "Concrete Haze · Bubba Drift · Blueberry Blitz · Black Cherry · Golden Z · Midnight Mirage · Tropic Burst · Peach Paradise · Jungle Vice · Grape Bliss" },
     { name: "Choices 2G Switch",     price: "$24.99", flavors: "Honey Cream x Wild Cherry · White Peach Freeze x Toxic Paradise · Watermelon Tart x Pistachio Gelato · Tres Leches x Banana Sundae · Sweet Citrus x War Heads · Sour Push Pop x Tutti Frutti · Red Starburst x Iced Sangria · Red Blow Pop x Kool Aid Jammers · Honey Comb x Strawberry Milk · Raspberry Kush x Cocolato · Pink Gushers x Atomic Pop · Orange Fanta x Lemonade Stand · Chocolate Milk x Horchata · Lychee Juice x Vanilla Float · Lecherita x Blue Jam · Hubba Bubba x Blueberry Jizz · Hibiscus Rush x Airhead Extremes · Grape Jelly x Caramel Apple · Diamond Dust x Sweet Tooth · Butter Fingerz x Pizookie" },
     { name: "Boutiq 2G",             price: "$24.99", flavors: "Brooklyn Dream · Black Z · Purple Berry · Chem Berry · Blue Matcha · Lava Mintz · Razzleberry · Pink Tangie · Green Magic · Tropical Gelato" },
-    { name: "White Recluse",         price: "$24.99", flavors: "Kiwi Kush · Strawberry Banana Runtz · Island Slushy · Red Pineapple Kush · Lychee Candy" },
     { name: "Bodega Boyz 2G Switch", price: "$24.99", flavors: "HI-C · Pineapple Slushie · Guava Mintz · Lemon OG · Candy Funk" },
   ],
 };
@@ -201,7 +200,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
   position:relative; z-index:5;
   height:1070px;
   display:grid;
-  grid-template-rows: auto auto auto auto 1fr;
+  grid-template-rows: auto auto 1fr auto 1fr;
   padding:8px 14px 6px;
   gap:5px;
 }
@@ -329,7 +328,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
 .tier-top .pr-row::before { background:var(--top); }
 .tier-bar .pr-row::before { background:var(--bar); }
 .pr-left { flex:1;min-width:0;overflow:hidden; }
-.pr-name { font-size:18px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1;white-space:normal;word-break:break-word;letter-spacing:-0.3px; }
+.pr-name { font-size:20px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1;white-space:normal;word-break:break-word;letter-spacing:-0.3px; }
 .pr-price { font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;text-align:right; }
 .tier-ex  .pr-price { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
 .tier-top .pr-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
@@ -404,8 +403,10 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
     </div>
 
     <!-- PRE-ROLLS LABEL -->
-    <div class="section-label-bar">
-      <span class="section-label-txt">PR<em>E</em>-ROLLS</span>
+    <div class="section-label-bar" style="background:linear-gradient(90deg,transparent,rgba(232,76,48,0.06),transparent);border-radius:4px;padding:2px 0;">
+      <span style="flex:1;height:2px;background:linear-gradient(90deg,transparent,rgba(232,76,48,0.6),rgba(242,122,46,0.4));display:block;"></span>
+      <span class="section-label-txt" style="color:#fff;font-size:36px;letter-spacing:12px;text-shadow:0 0 25px rgba(232,76,48,0.9),0 0 50px rgba(242,122,46,0.5);padding:0 20px;">PRE-ROLLS</span>
+      <span style="flex:1;height:2px;background:linear-gradient(270deg,transparent,rgba(232,76,48,0.6),rgba(242,122,46,0.4));display:block;"></span>
     </div>
 
     <!-- PRE-ROLLS TIERS -->

@@ -13,18 +13,17 @@
 // ╚══════════════════════════════════════════════════╝
 const VAPES = {
   exotic: [
-    { name: "Sauce 2G XL",  price: "$34.99", flavors: "Strawberry Frost · Chemdawg · Watermelon Haze · White Widow · Super Blue Diesel · Banana Guava · Strawberry Cough · Purple Octane · Blue Tangie · Gelonade" },
-    { name: "Muha Meds 2G", price: "$39.99", flavors: "Pineapple Paradise · Blue Slushie · Bubblegum Burst · Dragon Berry Runtz · Horchata · Galactic Diesel · Sweet Dreams OG · Frozen Pomegranate · Watermelon Moonshine · Habibi" },
+    { name: "Sauce 2G XL",  price: "$35", flavors: "Strawberry Frost · Chemdawg · Watermelon Haze · White Widow · Super Blue Diesel · Banana Guava · Strawberry Cough · Purple Octane · Blue Tangie · Gelonade" },
+    { name: "Muha Meds 2G", price: "$40", flavors: "Pineapple Paradise · Blue Slushie · Bubblegum Burst · Dragon Berry Runtz · Horchata · Galactic Diesel · Sweet Dreams OG · Frozen Pomegranate · Watermelon Moonshine · Habibi" },
   ],
   topshelf: [
-    { name: "Madlabs 2G",            price: "$29.99", flavors: "Sherbacio · Blue Dream · Guava Kush · Lemon Cherry G · Peach Rings · Jet Fuel · Watermelon Z · Horchata Lato · Pixie Dust · Blue Razz" },
-    { name: "Sauce Live Resin 1.5G", price: "$29.99", flavors: "OG Z · Alien Runtz · Blue Dreamsicle · Apple Fritter · Ghost Train Haze · Blueberry Kush · Strawberry Cough · Tangie Dream · Gelato · Space Octane · Gelonade" },
+    { name: "Madlabs 2G",            price: "$30", flavors: "Sherbacio · Blue Dream · Guava Kush · Lemon Cherry G · Peach Rings · Jet Fuel · Watermelon Z · Horchata Lato · Pixie Dust · Blue Razz" },
+    { name: "Sauce Live Resin 1.5G", price: "$30", flavors: "OG Z · Alien Runtz · Blue Dreamsicle · Apple Fritter · Ghost Train Haze · Blueberry Kush · Strawberry Cough · Tangie Dream · Gelato · Space Octane · Gelonade" },
   ],
   bargain: [
-    { name: "Ghost 2G",              price: "$24.99", flavors: "Concrete Haze · Bubba Drift · Blueberry Blitz · Black Cherry · Golden Z · Midnight Mirage · Tropic Burst · Peach Paradise · Jungle Vice · Grape Bliss" },
-    { name: "Choices 2G Switch",     price: "$24.99", flavors: "Honey Cream x Wild Cherry · White Peach Freeze x Toxic Paradise · Watermelon Tart x Pistachio Gelato · Tres Leches x Banana Sundae · Sweet Citrus x War Heads · Sour Push Pop x Tutti Frutti · Red Starburst x Iced Sangria · Red Blow Pop x Kool Aid Jammers · Honey Comb x Strawberry Milk · Raspberry Kush x Cocolato · Pink Gushers x Atomic Pop · Orange Fanta x Lemonade Stand · Chocolate Milk x Horchata · Lychee Juice x Vanilla Float · Lecherita x Blue Jam · Hubba Bubba x Blueberry Jizz · Hibiscus Rush x Airhead Extremes · Grape Jelly x Caramel Apple · Diamond Dust x Sweet Tooth · Butter Fingerz x Pizookie" },
-    { name: "Boutiq 2G",             price: "$24.99", flavors: "Brooklyn Dream · Black Z · Purple Berry · Chem Berry · Blue Matcha · Lava Mintz · Razzleberry · Pink Tangie · Green Magic · Tropical Gelato" },
-    { name: "Bodega Boyz 2G Switch", price: "$24.99", flavors: "HI-C · Pineapple Slushie · Guava Mintz · Lemon OG · Candy Funk" },
+    { name: "Ghost 2G",              price: "$25", flavors: "Concrete Haze · Bubba Drift · Blueberry Blitz · Black Cherry · Golden Z · Midnight Mirage · Tropic Burst · Peach Paradise · Jungle Vice · Grape Bliss" },
+    { name: "Choices 2G Switch",     price: "$25", flavors: "Honey Cream x Wild Cherry · White Peach Freeze x Toxic Paradise · Watermelon Tart x Pistachio Gelato · Tres Leches x Banana Sundae · Sweet Citrus x War Heads · Sour Push Pop x Tutti Frutti · Red Starburst x Iced Sangria · Red Blow Pop x Kool Aid Jammers · Honey Comb x Strawberry Milk · Raspberry Kush x Cocolato · Pink Gushers x Atomic Pop · Orange Fanta x Lemonade Stand · Chocolate Milk x Horchata · Lychee Juice x Vanilla Float · Lecherita x Blue Jam · Hubba Bubba x Blueberry Jizz · Hibiscus Rush x Airhead Extremes · Grape Jelly x Caramel Apple · Diamond Dust x Sweet Tooth · Butter Fingerz x Pizookie" },
+    { name: "Bodega Boyz 2G Switch", price: "$25", flavors: "HI-C · Pineapple Slushie · Guava Mintz · Lemon OG · Candy Funk" },
   ],
 };
 
@@ -33,25 +32,25 @@ const VAPES = {
 // ╚══════════════════════════════════════════════════╝
 const PREROLLS = {
   exotic: [
-    { name: "Boutiq Snack Packs 5pk", price: "$29.99", flavors: "Texas Tea · Yuzu · Cake Mix · Purple Peeps · Rocket Pop · Lime Z · Biscoff" },
-    { name: "Sluggers Juiced 5pk",    price: "$32.99", flavors: "Euphoria · Long Island Iced Tea · Adios MF · Pluto · Hurricane SZN · Blue Sushi" },
+    { name: "Boutiq Snack Packs 5pk", price: "$30", flavors: "Texas Tea · Yuzu · Cake Mix · Purple Peeps · Rocket Pop · Lime Z · Biscoff" },
+    { name: "Sluggers Juiced 5pk",    price: "$33", flavors: "Euphoria · Long Island Iced Tea · Adios MF · Pluto · Hurricane SZN · Blue Sushi" },
   ],
   topshelf: [
-    { name: "Ghost 2G Hash Holes", price: "$14.99", flavors: "Indica: Juicy Pop · Sativa: Candyland · Hybrid: True Blue" },
-    { name: "Stiizy 40's 1G",      price: "$14.99", flavors: "Orange Sunset · Super Lemon Haze · Strawberry Cough · Sour Diesel · Blue Dream · Strawnana" },
-    { name: "Stiizy .5G 5pk",      price: "$24.99", flavors: "Magic Melon · Strawnana · Strawberry Mango · Orange Sunset · Pink Acai · Blue Burst · Purple Punch · Gelato · Cereal Milk · Skywalker OG · Strawberry Cough · Sour Diesel · Watermelon Z · Blue Dream · Biscotti · Super Lemon Haze" },
-    { name: "Stiizy Mini Blunts",  price: "$24.99", flavors: "Strawnana · Purple Punch · Pink Acai · Strawberry Mango · Super Lemon Haze · King Louis XIII" },
+    { name: "Ghost 2G Hash Holes", price: "$15", flavors: "Indica: Juicy Pop · Sativa: Candyland · Hybrid: True Blue" },
+    { name: "Stiizy 40's 1G",      price: "$15", flavors: "Orange Sunset · Super Lemon Haze · Strawberry Cough · Sour Diesel · Blue Dream · Strawnana" },
+    { name: "Stiizy .5G 5pk",      price: "$25", flavors: "Magic Melon · Strawnana · Strawberry Mango · Orange Sunset · Pink Acai · Blue Burst · Purple Punch · Gelato · Cereal Milk · Skywalker OG · Strawberry Cough · Sour Diesel · Watermelon Z · Blue Dream · Biscotti · Super Lemon Haze" },
+    { name: "Stiizy Mini Blunts",  price: "$25", flavors: "Strawnana · Purple Punch · Pink Acai · Strawberry Mango · Super Lemon Haze · King Louis XIII" },
   ],
   bargain: [
     { name: "House Blend",           price: "$3 / 2 for $5",     flavors: "Ask budtender" },
-    { name: "Strain Spec.",          price: "$5.99 / 2 for $10", flavors: "Mirage Glue Indica 28.67% · White Fire OG Hybrid 28.76% · Rosetta Stone Hybrid 23.46% · Gas Basket Indica 29.36%" },
+    { name: "Strain Spec.",          price: "$6 / 2 for $10", flavors: "Mirage Glue Indica 28.67% · White Fire OG Hybrid 28.76% · Rosetta Stone Hybrid 23.46% · Gas Basket Indica 29.36%" },
   ],
 };
 
 const STIIZY = {
-  pods: { price: "$29.99", flavors: "Blue Burst · Birthday Cake · Blue Dream · SFV OG · Granddaddy Purp · Gelato · Apple Fritter · King Louis XIII · Super Lemon Haze · Pineapple Express · Pink Acai · Do-Si-Dos · Sour Diesel · Purple Punch · OG Kush · Sour Tangie · Hardcore OG · Biscotti · Premium Jack · Orange Sunset" },
-  battery: "$15.99",
-  xlBattery: "$20.00",
+  pods: { price: "$30", flavors: "Blue Burst · Birthday Cake · Blue Dream · SFV OG · Granddaddy Purp · Gelato · Apple Fritter · King Louis XIII · Super Lemon Haze · Pineapple Express · Pink Acai · Do-Si-Dos · Sour Diesel · Purple Punch · OG Kush · Sour Tangie · Hardcore OG · Biscotti · Premium Jack · Orange Sunset" },
+  battery: "$16",
+  xlBattery: "$20",
 };
 
 // ── BUILD VAPES ────────────────────────────────────
@@ -403,10 +402,8 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000; }
     </div>
 
     <!-- PRE-ROLLS LABEL -->
-    <div class="section-label-bar" style="background:linear-gradient(90deg,transparent,rgba(232,76,48,0.06),transparent);border-radius:4px;padding:2px 0;">
-      <span style="flex:1;height:2px;background:linear-gradient(90deg,transparent,rgba(232,76,48,0.6),rgba(242,122,46,0.4));display:block;"></span>
-      <span class="section-label-txt" style="color:#fff;font-size:36px;letter-spacing:12px;text-shadow:0 0 25px rgba(232,76,48,0.9),0 0 50px rgba(242,122,46,0.5);padding:0 20px;">PRE-ROLLS</span>
-      <span style="flex:1;height:2px;background:linear-gradient(270deg,transparent,rgba(232,76,48,0.6),rgba(242,122,46,0.4));display:block;"></span>
+    <div class="section-label-bar">
+      <span class="section-label-txt">PRE-ROLLS</span>
     </div>
 
     <!-- PRE-ROLLS TIERS -->

@@ -6,34 +6,31 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
 <title>Kannabis City – TV1</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script>
 // ╔══════════════════════════════════════════════════╗
 // ║  ✏️  FLOWER                                       ║
 // ╚══════════════════════════════════════════════════╝
 const FLOWER = {
   platinum: [
-    { name: "Grizzly Gumbo",      thc: "33.27", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Black Cherry Mochi", thc: "28.49", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Phantom Gelato",     thc: "30.31", cat: "hybrid", terps: [["Myrcene","Earthy"],["Limonene","Citrus"],["Caryophyllene","Peppery"]] },
+    { name: "Animal Cocktail",  thc: "31.55", cat: "hybrid" },
+    { name: "Phantom Gelato",   thc: "30.31", cat: "hybrid" },
   ],
   exotic: [
-    { name: "Taffy Twist",       thc: "26.49", cat: "sativa", terps: [["Limonene","Citrus"],["Myrcene","Earthy"],["Terpinolene","Piney"]] },
-    { name: "Galactic Warheads", thc: "26.33", cat: "hybrid", terps: [["Caryophyllene","Peppery"],["Limonene","Citrus"],["Myrcene","Earthy"]] },
-    { name: "Cherry Napalm",     thc: "28.58", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
+    { name: "Black Cherry Mochi", thc: "28.49", cat: "indica" },
+    { name: "Galactic Warheads",  thc: "26.33", cat: "hybrid" },
+    { name: "Cherry Napalm",      thc: "28.58", cat: "indica" },
+    { name: "Black Domina",       thc: "27.86", cat: "indica" },
   ],
   topshelf: [
-    { name: "RS-54",            thc: "25.69", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Champions Cheese", thc: "28.90", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-  ],
-  topshelf: [
-    { name: "RS-54",            thc: "25.69", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Champions Cheese", thc: "28.90", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
+    { name: "RS-54",            thc: "25.69", cat: "indica" },
+    { name: "Champions Cheese", thc: "28.90", cat: "indica" },
+    { name: "Lava Cake",        thc: "26.02", cat: "hybrid" },
   ],
   bargain: [
-    { name: "Gelato",        thc: "21.41", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Monkey Mints",  thc: "20.58", cat: "hybrid", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
-    { name: "Frosted Kush",  thc: "25.20", cat: "indica", terps: [["Myrcene","Earthy"],["Caryophyllene","Peppery"],["Limonene","Citrus"]] },
+    { name: "Gelato",        thc: "21.41", cat: "hybrid" },
+    { name: "Monkey Mints",  thc: "20.58", cat: "hybrid" },
+    { name: "Frosted Kush",  thc: "25.20", cat: "indica" },
     { name: "Premium Shake", thc: "3.5g",  cat: "hybrid", price: "$10", lto: true },
   ],
 };
@@ -57,28 +54,24 @@ const CONCENTRATES = {
 // ╚══════════════════════════════════════════════════╝
 const EDIBLES = {
   exotic: [
-    { name: "Headspace Gummies",             price: "$35", flavors: "100mg per piece · 1000mg per pack" },
-    { name: "Ghost Graveyard 500mg",         price: "$40", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
-    { name: "Camino Gummies 20pk",           price: "$30", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
-    { name: "Camino Sours 20pk",             price: "$30", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
+    { name: "Headspace Gummies",     price: "$35", flavors: "100mg per piece · 1000mg per pack" },
+    { name: "Ghost Graveyard 500mg", price: "$40", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
+    { name: "Camino Gummies 20pk",   price: "$30", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
+    { name: "Camino Sours 20pk",     price: "$30", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
   ],
   topshelf: [
-    { name: "Sauce Bursts 200mg",   price: "$25", flavors: "Juicy Watermelon · Strawberry Lemonade · Blue Raspberry · Tropical Twist · Sour Grape · Sour Green Apple · White Peach · Strawberry Kiwi · Sour Blue Razz" },
+    { name: "Sauce Bursts 200mg",     price: "$25", flavors: "Juicy Watermelon · Strawberry Lemonade · Blue Raspberry · Tropical Twist · Sour Grape · Sour Green Apple · White Peach · Strawberry Kiwi · Sour Blue Razz" },
     { name: "Ghost Reaper 10mg 20pk", price: "$25", flavors: "Cherry Berry Cemetery · Apple · Grape Ghoul · Scary Strawberry · Potion Punch" },
-    { name: "Stripz 600mg",         price: "$22", flavors: "Strawberry Lemonade · Sour Blue Razz · OMG · Watermelon" },
+    { name: "Stripz 600mg",           price: "$22", flavors: "Strawberry Lemonade · Sour Blue Razz · OMG · Watermelon" },
   ],
   deals: [
-    { name: "Gummy 2 Pack 500mg", price: "$5",  flavors: "Ask budtender for flavors",                                                                                              deal: "Best Value" },
-    { name: "Stiizy 10mg 10pk",   price: "$20", flavors: "Strawberry · Caribbean Breeze · Pink Lemonade · Sour Apple · Pineapple · Mango · Lemon Lime · Blue Razz · Fruit Punch · Watermelon", deal: "10 Gummies" },
+    { name: "Gummy 2 Pack 500mg", price: "$5",  deal: "Best Value" },
+    { name: "Stiizy 10mg 10pk",   price: "$20", deal: "10 Gummies" },
   ],
 };
 
 // ── BUILD FUNCTIONS ────────────────────────────────
-const CAT_META = {
-  indica: { label: "Indica" },
-  sativa: { label: "Sativa" },
-  hybrid: { label: "Hybrid" },
-};
+const CAT_META = { indica:{label:"Indica"}, sativa:{label:"Sativa"}, hybrid:{label:"Hybrid"} };
 
 function buildFlowerCol(strains) {
   const order = ["indica","sativa","hybrid"];
@@ -92,13 +85,10 @@ function buildFlowerCol(strains) {
         </div>
         ${s.lto
           ? `<span class="sthc">${s.price}<span class="slabel"> / ${s.thc}</span></span>`
-          : `<span class="sthc">${s.thc}<span class="slabel">% THC</span></span>`
-        }
+          : `<span class="sthc">${s.thc}<span class="slabel">% THC</span></span>`}
       </div>`).join('');
-    const div = i < arr.length - 1 ? `<div class="cat-divider"></div>` : '';
-    return `<div class="cat-block">
-      <div class="cat-pill"><span class="cat-dot"></span>${CAT_META[c].label}</div>
-      ${rows}</div>${div}`;
+    const div = i < arr.length - 1 ? '<div class="cat-divider"></div>' : '';
+    return `<div class="cat-block"><div class="cat-pill"><span class="cat-dot"></span>${CAT_META[c].label}</div>${rows}</div>${div}`;
   }).join('');
 }
 
@@ -115,10 +105,7 @@ function buildEdibles() {
   ['exotic','topshelf'].forEach(tier => {
     document.getElementById(`ed-${tier}`).innerHTML = EDIBLES[tier].map(p => `
       <div class="ed-row">
-        <div class="ed-left">
-          <div class="ed-name">${p.name}</div>
-          <div class="ed-flavors">${p.flavors}</div>
-        </div>
+        <div class="ed-left"><div class="ed-name">${p.name}</div><div class="ed-flavors">${p.flavors}</div></div>
         <div class="ed-price">${p.price}</div>
       </div>`).join('');
   });
@@ -129,580 +116,205 @@ function buildEdibles() {
       <div class="ed-deal-price">${p.price}</div>
     </div>`).join('');
 }
-// ║  STATIC DISPLAY (single screen, no rotation)     ║
-// ╚══════════════════════════════════════════════════╝
 
-function showSlide(idx) {
-  document.querySelectorAll('.menu-frame').forEach(el => el.classList.remove('active','leaving'));
-  const el = document.getElementById('slide-all');
-  if (el) el.classList.add('active');
-}
-
-// ── CLOCK ──────────────────────────────────────────
 function updateClock() {
   const now = new Date();
-  let h = now.getHours();
-  const m    = String(now.getMinutes()).padStart(2,'0');
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12 || 12;
-  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  let h = now.getHours(); const m = String(now.getMinutes()).padStart(2,'0');
+  const ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.querySelectorAll('.clock').forEach(el => el.textContent = `${h}:${m} ${ampm}`);
-  document.querySelectorAll('.datestamp').forEach(el =>
-    el.textContent = `${days[now.getDay()]}  ${months[now.getMonth()]} ${now.getDate()}`);
+  document.querySelectorAll('.datestamp').forEach(el => el.textContent = `${days[now.getDay()]}  ${months[now.getMonth()]} ${now.getDate()}`);
 }
 
-// ── SCALE ──────────────────────────────────────────
 function scaleMenu() {
   const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-  document.querySelectorAll('.menu-frame').forEach(el =>
-    el.style.transform = `translate(-50%,-50%) scale(${scale})`);
-  const hud = document.getElementById('shared-hud');
-  if (hud) {
-    hud.style.transformOrigin = 'bottom center';
-    hud.style.transform = `translateX(-50%) scale(${scale})`;
-  }
-}
-// ── WAKE LOCK ──────────────────────────────────────
-async function keepAwake() {
-  try {
-    if ('wakeLock' in navigator) {
-      let lock = await navigator.wakeLock.request('screen');
-      document.addEventListener('visibilitychange', async () => {
-        if (document.visibilityState === 'visible') lock = await navigator.wakeLock.request('screen');
-      });
-    }
-  } catch(e) {}
-  // gentle DOM ping — does NOT touch opacity
-  setInterval(() => { document.title = document.title; }, 30000);
+  document.querySelector('.menu-frame').style.transform = `translate(-50%,-50%) scale(${scale})`;
 }
 
-// ── INIT ───────────────────────────────────────────
+async function keepAwake() {
+  try { if ('wakeLock' in navigator) {
+    let lock = await navigator.wakeLock.request('screen');
+    document.addEventListener('visibilitychange', async () => {
+      if (document.visibilityState === 'visible') lock = await navigator.wakeLock.request('screen');
+    });
+  }} catch(e) {}
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('col-platinum').innerHTML = buildFlowerCol(FLOWER.platinum);
   document.getElementById('col-exotic').innerHTML   = buildFlowerCol(FLOWER.exotic);
   document.getElementById('col-topshelf').innerHTML = buildFlowerCol(FLOWER.topshelf);
   document.getElementById('col-bargain').innerHTML  = buildFlowerCol(FLOWER.bargain);
-  buildConcentrates();
-  buildEdibles();
-  updateClock();
-  setInterval(updateClock, 1000);
-  showSlide(0);
-  scaleMenu();
-  keepAwake();
+  buildConcentrates(); buildEdibles(); updateClock();
+  setInterval(updateClock, 1000); scaleMenu(); keepAwake();
 });
 window.addEventListener('resize', scaleMenu);
 </script>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --bg:#0a0a0a; --panel:#141414; --panel2:#181818; --border:#2a2a2a;
-  --green:#aaff00; --green2:#66cc00; --glow:rgba(170,255,0,0.5);
-  --white:#ffffff; --dim:#888;
-  --ex:#aaff00; --top:#5fffff; --bar:#ffffff; --gold:#ffd54f;
-  --plat:#d4aaff;
-}
-html,body { width:100%; height:100%; overflow:hidden; background:#000; }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--panel:#141414;--border:#2a2a2a;--green:#aaff00;--green2:#66cc00;--glow:rgba(170,255,0,0.5);--white:#fff;--dim:#888;--ex:#aaff00;--top:#5fffff;--bar:#fff;--gold:#ffd54f;--plat:#d4aaff}
+html,body{width:100%;height:100%;overflow:hidden;background:#000}
 
-/* ── FRAMES ── */
-.menu-frame {
-  position:fixed; top:50%; left:50%;
-  width:1920px; height:1080px; transform-origin:center center;
-  background:var(--bg); color:var(--white);
-  font-family:'Barlow Condensed',sans-serif;
-  overflow:hidden; opacity:0;
-  transition:opacity 0.2s ease; pointer-events:none;
-}
-.menu-frame.active  { opacity:1; pointer-events:all; }
-.menu-frame.leaving { opacity:0; transition:opacity 0.15s ease; }
-.menu-frame::before {
-  content:''; position:absolute; inset:0; z-index:100;
-  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);
-  pointer-events:none;
-}
+.menu-frame{position:fixed;top:50%;left:50%;width:1920px;height:1080px;transform-origin:center center;background:var(--bg);color:var(--white);font-family:'Barlow Condensed',sans-serif;overflow:hidden}
+.top-bar{position:relative;z-index:10;height:10px;background:linear-gradient(90deg,transparent,var(--green2) 15%,var(--green) 50%,var(--green2) 85%,transparent);box-shadow:0 0 30px var(--glow),0 0 80px rgba(170,255,0,0.2)}
+.btm{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7}
 
-/* ── SHARED HUD ── */
-#shared-hud {
-  position:fixed; bottom:0; left:50%;
-  transform:translateX(-50%);
-  transform-origin:bottom center;
-  z-index:9999;
-  display:flex; align-items:center; gap:24px;
-  background:rgba(10,10,10,0.95);
-  border:1px solid rgba(255,255,255,0.1);
-  border-top-left-radius:20px; border-top-right-radius:20px;
-  padding:8px 32px 10px;
-  backdrop-filter:blur(10px);
-}
+/* tiers */
+.tier{background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0}
+.tier::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;animation:slideline 4s ease-in-out infinite}
+.tier-plat::after{background:linear-gradient(90deg,transparent,var(--plat),transparent);animation-delay:0s}
+.tier-ex::after{background:linear-gradient(90deg,transparent,var(--ex),transparent);animation-delay:0.4s}
+.tier-top::after{background:linear-gradient(90deg,transparent,var(--top),transparent);animation-delay:0.8s}
+.tier-bar::after{background:linear-gradient(90deg,transparent,var(--bar),transparent);animation-delay:1.2s}
+@keyframes slideline{0%{left:-100%;opacity:0}10%{opacity:1}50%{left:100%;opacity:1}60%{opacity:0}100%{left:100%;opacity:0}}
+.tier-ex{border:1px solid rgba(170,255,0,0.25)}.tier-top{border:1px solid rgba(95,255,255,0.2)}.tier-bar{border:1px solid rgba(255,255,255,0.2)}.tier-plat{border:1px solid rgba(212,170,255,0.35)}
+.tier-ex::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%)}
+.tier-top::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%)}
+.tier-bar::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%)}
+.tier-plat::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(212,170,255,0.09) 0%,transparent 50%)}
+.tier-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 22px 10px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4)}
+.tier-tag{font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px}
+.tier-ex .tier-tag{background:rgba(170,255,0,0.18);color:var(--ex);border:1px solid rgba(170,255,0,0.4)}
+.tier-top .tier-tag{background:rgba(95,255,255,0.15);color:var(--top);border:1px solid rgba(95,255,255,0.35)}
+.tier-bar .tier-tag{background:rgba(255,255,255,0.12);color:var(--bar);border:1px solid rgba(255,255,255,0.3)}
 
-/* dots with labels */
-#shared-dots { display:flex; align-items:center; gap:18px; }
-.dot-item { display:flex; flex-direction:column; align-items:center; gap:5px; }
-.dot {
-  width:10px; height:10px; border-radius:50%;
-  background:#2a2a2a; border:1px solid #555;
-  transition:all 0.3s;
-}
-.dot.on {
-  background:var(--green); border-color:var(--green);
-  box-shadow:0 0 10px var(--green);
-}
-.dot-label {
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:11px; font-weight:700; letter-spacing:2px;
-  text-transform:uppercase; color:#444;
-  white-space:nowrap; transition:color 0.3s;
-}
-.dot-label.current  { color:var(--green); text-shadow:0 0 8px rgba(170,255,0,0.6); }
-.dot-label.upcoming { color:#888; }
-
-/* divider */
-.hud-divider { width:1px; height:30px; background:rgba(255,255,255,0.1); }
-
-/* countdown */
-.countdown-wrap { display:flex; align-items:center; gap:10px; }
-.countdown-svg { width:32px; height:32px; flex-shrink:0; }
-.countdown-track { fill:none; stroke:rgba(255,255,255,0.1); stroke-width:3; }
-.countdown-arc {
-  fill:none; stroke:var(--green); stroke-width:3; stroke-linecap:round;
-  stroke-dasharray:75.4; stroke-dashoffset:0;
-  transform-origin:center; transform:rotate(-90deg);
-  filter:drop-shadow(0 0 4px rgba(170,255,0,0.8));
-}
-.countdown-text { display:flex; flex-direction:column; align-items:center; }
-.countdown-num {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:26px; letter-spacing:2px; color:#fff; line-height:1;
-  min-width:28px; text-align:center;
-}
-.countdown-label {
-  font-size:10px; font-weight:700; letter-spacing:3px;
-  text-transform:uppercase; color:#555; line-height:1; margin-top:2px;
-}
-
-/* ── BG GLOW ── */
-.bg-glow { position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
-.bg-glow span { position:absolute;border-radius:50%;filter:blur(130px);opacity:0.5; }
-.bg-glow span:nth-child(1){ width:700px;height:500px;background:rgba(170,255,0,0.06);top:-100px;left:-100px; }
-.bg-glow span:nth-child(2){ width:500px;height:500px;background:rgba(95,255,255,0.04);top:200px;right:-50px; }
-.bg-glow span:nth-child(3){ width:400px;height:400px;background:rgba(255,255,255,0.03);bottom:0;left:600px; }
-
-/* top bar */
-.top-bar { position:relative;z-index:10;height:10px;
-  background:linear-gradient(90deg,transparent,var(--green2) 15%,var(--green) 50%,var(--green2) 85%,transparent);
-  box-shadow:0 0 30px var(--glow),0 0 80px rgba(170,255,0,0.2);
-  opacity:1; }
-
-/* page — full height, bottom padding accounts for HUD bar (~56px) */
-.page { position:relative;z-index:5;height:1014px;display:grid;grid-template-rows:auto 1fr auto;padding:12px 32px 10px;gap:12px; }
+/* flower */
+.cat-block{padding:3px 12px}
+.cat-pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);padding:2px 8px 2px 6px;border-radius:20px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);margin-bottom:3px}
+.cat-dot{width:6px;height:6px;border-radius:50%;background:var(--white);box-shadow:0 0 6px rgba(255,255,255,0.5);flex-shrink:0}
+.strain-row{display:flex;align-items:center;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.strain-row:last-child{border-bottom:none}
+.strain-info{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
+.sname{font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1}
+.lto-badge{display:inline-block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b;border:1px solid rgba(255,107,107,0.5);background:rgba(255,107,107,0.1);border-radius:4px;padding:2px 8px;vertical-align:middle;margin-left:10px}
+.sthc{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--green);text-shadow:0 0 16px rgba(170,255,0,0.8);white-space:nowrap;margin-left:12px;flex-shrink:0}
+.slabel{font-size:12px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:2px}
+.cat-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2px 12px}
 
 /* header */
-.header { display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0; }
-.logo-img { height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4)); }
-.hdr-center { position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px; }
-.hdr-title { font-family:'Bebas Neue',sans-serif;font-size:100px;letter-spacing:18px;line-height:1;color:var(--white);text-shadow:5px 5px 0 rgba(0,0,0,.9);white-space:nowrap; }
-.hdr-title em { font-style:normal;color:var(--green);text-shadow:0 0 40px rgba(170,255,0,0.9); }
-.hdr-sub { font-size:13px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--dim); }
-.ticker-wrap { display:flex;flex-direction:column;align-items:flex-end;gap:6px; }
-.live-badge { display:flex;align-items:center;gap:10px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;padding:5px 12px; }
-.live-dot { width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green); }
-.live-text { font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green); }
-.datetime-row { display:flex;align-items:baseline;gap:20px; }
-.live-time,.datestamp { font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4); }
+.ticker-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.live-badge{display:flex;align-items:center;gap:10px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;padding:5px 12px}
+.live-dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.live-text{font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green)}
+.datetime-row{display:flex;align-items:baseline;gap:20px}
+.live-time,.datestamp{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4)}
 
-/* bottom bar */
-.btm { position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7; }
+/* edibles */
+.ed-row{flex:1;display:flex;align-items:center;justify-content:space-between;padding:4px 12px;border-bottom:1px solid rgba(255,255,255,0.05);gap:12px;flex-shrink:0}
+.ed-row:last-child{border-bottom:none}
+.ed-left{flex:1;min-width:0}
+.ed-name{font-size:20px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1}
+.ed-flavors{font-size:11px;font-weight:500;color:rgba(255,255,255,0.35);line-height:1.3;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-price{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;white-space:nowrap;flex-shrink:0}
+.tier-ex .ed-price{color:var(--ex);text-shadow:0 0 16px rgba(170,255,0,0.8)}
+.tier-top .ed-price{color:var(--top);text-shadow:0 0 16px rgba(95,255,255,0.8)}
+.tier-bar .ed-price{color:var(--bar);text-shadow:0 0 16px rgba(255,255,255,0.8)}
+.ed-deals-body{flex:1;display:flex;flex-direction:column;gap:12px;padding:14px;overflow:hidden;position:relative;z-index:1}
+.ed-deal-card{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center;position:relative;overflow:hidden}
+.ed-deal-badge{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(170,255,0,0.35);background:rgba(170,255,0,0.1);border-radius:20px;padding:3px 10px;margin-bottom:10px;white-space:nowrap}
+.ed-deal-name{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1;margin-bottom:4px}
+.ed-deal-price{font-family:'Bebas Neue',sans-serif;font-size:58px;letter-spacing:2px;color:var(--green);text-shadow:0 0 30px rgba(170,255,0,0.8);line-height:1}
 
-/* ══ FLOWER ══ */
-.tiers { display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0; }
-.tier { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0; }
-.tier::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;animation:slideline 4s ease-in-out infinite; }
-/* Panels sweep left→right: plat(0) ex(0.4) top(0.8) bar(1.2) | ed-ex(1.6) ed-ts(2.0) ed-bar(2.4) | lr(2.8) bho(3.2) */
-.tier-plat::after { background:linear-gradient(90deg,transparent,var(--plat),transparent); animation-delay:0s; }
-.tier-ex::after   { background:linear-gradient(90deg,transparent,var(--ex),transparent);   animation-delay:0.4s; }
-.tier-top::after  { background:linear-gradient(90deg,transparent,var(--top),transparent);  animation-delay:0.8s; }
-.tier-bar::after  { background:linear-gradient(90deg,transparent,var(--bar),transparent);  animation-delay:1.2s; }
-@keyframes slideline { 0%{left:-100%;opacity:0;} 10%{opacity:1;} 50%{left:100%;opacity:1;} 60%{opacity:0;} 100%{left:100%;opacity:0;} }
-.tier-ex  { border:1px solid rgba(170,255,0,0.25); }
-.tier-top { border:1px solid rgba(95,255,255,0.2); }
-.tier-bar { border:1px solid rgba(255,255,255,0.2); }
-.tier-plat { border:1px solid rgba(212,170,255,0.35); }
-.tier-ex::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%); }
-.tier-top::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%); }
-.tier-bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%); }
-.tier-plat::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(212,170,255,0.09) 0%,transparent 50%); }
-.tier-hdr { display:flex;align-items:center;justify-content:space-between;padding:12px 22px 10px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4); }
-.tier-label { font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:5px;line-height:1; }
-.tier-ex  .tier-label { color:var(--ex);  text-shadow:0 0 30px rgba(170,255,0,0.8); }
-.tier-top .tier-label { color:var(--top); text-shadow:0 0 30px rgba(95,255,255,0.8); }
-.tier-bar .tier-label { color:var(--bar); text-shadow:0 0 30px rgba(255,255,255,0.6); }
-.tier-tag { font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px; }
-.tier-ex  .tier-tag { background:rgba(170,255,0,0.18); color:var(--ex);  border:1px solid rgba(170,255,0,0.4); }
-.tier-top .tier-tag { background:rgba(95,255,255,0.15);color:var(--top); border:1px solid rgba(95,255,255,0.35); }
-.tier-bar .tier-tag { background:rgba(255,255,255,0.12);color:var(--bar);border:1px solid rgba(255,255,255,0.3); }
-.strains-body { padding:6px 0;overflow:hidden;flex:1;position:relative;z-index:1; }
-.cat-block { padding:5px 20px; }
-.cat-pill { display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);padding:4px 12px 4px 8px;border-radius:20px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);margin-bottom:5px; }
-.cat-dot { width:8px;height:8px;border-radius:50%;background:var(--white);box-shadow:0 0 6px rgba(255,255,255,0.5);flex-shrink:0; }
-.strain-row { display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04); }
-.strain-row:last-child { border-bottom:none; }
-.strain-info { display:flex;flex-direction:column;gap:1px;flex:1;min-width:0; }
-.sname { font-size:38px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--white);line-height:1.1; }
-.lto-badge { display:inline-block;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b;border:1px solid rgba(255,107,107,0.5);background:rgba(255,107,107,0.1);border-radius:4px;padding:2px 8px;vertical-align:middle;margin-left:10px; }
-.sterps-row { display:flex;gap:8px;margin-top:3px;flex-wrap:wrap; }
-.terp-chip { display:flex;flex-direction:column;align-items:center;gap:0px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:2px 8px; }
-.terp-name { font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(170,255,0,0.7);line-height:1.2; }
-.terp-desc { font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#ffffff;line-height:1.2; }
-.sterps { font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);line-height:1; }
-.sthc  { font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--green);text-shadow:0 0 16px rgba(170,255,0,0.8);white-space:nowrap;margin-left:12px;flex-shrink:0; }
-.slabel { font-size:17px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:2px; }
-.cat-divider { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:3px 20px; }
-.pricing-section { flex-shrink:0;padding-top:10px;border-top:1px solid var(--border); }
-.pricing-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
-.price-col { background:var(--panel2);border-radius:6px;overflow:hidden; }
-.price-col-hdr { padding:9px 18px;font-size:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center; }
-.price-col-hdr.ex-h  { background:rgba(170,255,0,0.15);  color:var(--ex);  border-bottom:2px solid rgba(170,255,0,0.3); }
-.price-col-hdr.top-h { background:rgba(95,255,255,0.12); color:var(--top); border-bottom:2px solid rgba(95,255,255,0.25); }
-.price-col-hdr.bar-h { background:rgba(255,255,255,0.1); color:var(--bar); border-bottom:2px solid rgba(255,255,255,0.2); }
-.price-rows { display:grid;grid-template-columns:repeat(5,1fr);padding:6px 14px;gap:0; }
-.price-item { display:flex;flex-direction:column;align-items:center;padding:7px 4px;border-right:1px solid var(--border); }
-.price-item:last-child { border-right:none; }
-.p-size { font-size:19px;font-weight:700;color:var(--dim);letter-spacing:1px;text-transform:uppercase;line-height:1; }
-.p-oz   { font-size:13px;color:#555;font-weight:500;letter-spacing:0.5px;margin-top:2px;line-height:1; }
-.p-amt  { font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:1px;margin-top:3px;line-height:1; }
-.ex-prices  .p-amt { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
-.top-prices .p-amt { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
-.bar-prices .p-amt { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+/* concentrates */
+.conc-panel{background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;border:1px solid var(--border);min-height:0}
+.conc-panel.lr{border-top:3px solid var(--gold)}.conc-panel.bho{border-top:3px solid var(--bar)}
+.conc-panel.lr::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2.8s}
+.conc-panel.bho::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:3.2s}
+.conc-panel.lr::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,213,79,0.05) 0%,transparent 50%)}
+.conc-panel.bho::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(240,240,240,0.03) 0%,transparent 50%)}
+.conc-hdr{display:flex;align-items:center;justify-content:space-between;padding:7px 14px 6px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1}
+.conc-items{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;overflow:hidden}
+.conc-row{display:flex;align-items:center;padding:14px 20px;gap:12px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.conc-row:last-child{border-bottom:none}
+.cname{font-size:26px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1}
+.cthc{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0}
+.lr-price{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);text-shadow:0 0 16px rgba(255,213,79,0.9);white-space:nowrap;flex-shrink:0}
+.conc-tag{font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px}
+.conc-panel.lr .conc-tag{background:rgba(255,213,79,0.14);color:var(--gold);border:1px solid rgba(255,213,79,0.3)}
+.conc-panel.bho .conc-tag{background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25)}
+.ec2-bho-merged{grid-column:span 2}
+.ec2-bho-body{flex:1;display:flex;min-height:0}
+.ec2-bho-items{flex:1;border-right:1px solid var(--border)}
+.ec2-bho-pricing{display:flex;flex-direction:column;width:260px;flex-shrink:0}
+.ec2-bho-price-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-bottom:1px solid var(--border);gap:4px}
+.ec2-bho-price-item:last-child{border-bottom:none}
+.ec2-bho-price-item .bp-size{font-size:18px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase}
+.ec2-bho-price-item .bp-amt{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 16px rgba(255,255,255,0.8)}
 
-/* ══ CONCENTRATES ══ */
-.conc-body { display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0; }
-.conc-panel { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;border:1px solid var(--border); }
-.conc-panel.lr  { border-top:3px solid var(--gold); }
-.conc-panel.bho { border-top:3px solid var(--bar); }
-.conc-panel.lr::after  { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2.8s; }
-.conc-panel.bho::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:3.2s; }
-.conc-panel.lr::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,213,79,0.05) 0%,transparent 50%); }
-.conc-panel.bho::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(240,240,240,0.03) 0%,transparent 50%); }
-.conc-hdr { display:flex;align-items:center;justify-content:space-between;padding:16px 26px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1; }
-.conc-label { font-family:'Bebas Neue',sans-serif;font-size:62px;letter-spacing:5px;line-height:1; }
-.conc-panel.lr  .conc-label { color:var(--gold); text-shadow:0 0 25px rgba(255,213,79,0.6); }
-.conc-panel.bho .conc-label { color:var(--bar);  text-shadow:0 0 25px rgba(255,255,255,0.4); }
-.conc-tag { font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px; }
-.conc-panel.lr  .conc-tag { background:rgba(255,213,79,0.14);color:var(--gold);border:1px solid rgba(255,213,79,0.3); }
-.conc-panel.bho .conc-tag { background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25); }
-.conc-items { flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;overflow:hidden; }
-.conc-row { display:flex;align-items:center;padding:14px 20px;gap:12px;border-bottom:1px solid rgba(255,255,255,0.05); }
-.conc-row:last-child { border-bottom:none; }
-.cname { font-size:30px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1; }
-.cthc  { font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0; }
-.lr-price { font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);text-shadow:0 0 16px rgba(255,213,79,0.9);white-space:nowrap;flex-shrink:0; }
-.bho-pricing { flex-shrink:0;display:flex;border-top:1px solid var(--border);position:relative;z-index:1; }
-.bho-price-item { flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 10px;border-right:1px solid var(--border); }
-.bho-price-item:last-child { border-right:none; }
-.bp-size { font-size:22px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase; }
-.bp-amt  { font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 16px rgba(255,255,255,0.8); }
-
-/* ══ EDIBLES ══ */
-.edibles-body { display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0; }
-.ed-panel { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative; }
-.ed-panel.ts  { border:1px solid rgba(95,255,255,0.2);  border-top:3px solid var(--top); }
-.ed-panel.bar { border:1px solid rgba(255,255,255,0.2); border-top:3px solid var(--bar); }
-.ed-panel.ts::after  { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--top),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:1.6s; }
-.ed-panel.bar::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2.0s; }
-.ed-panel.ts::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.04) 0%,transparent 50%); }
-.ed-panel.bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.03) 0%,transparent 50%); }
-.ed-hdr { display:flex;align-items:center;justify-content:space-between;padding:14px 24px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1; }
-.ed-label { font-family:'Bebas Neue',sans-serif;font-size:62px;letter-spacing:5px;line-height:1; }
-.ed-panel.ts  .ed-label { color:var(--top); text-shadow:0 0 25px rgba(95,255,255,0.7); }
-.ed-panel.bar .ed-label { color:var(--bar); text-shadow:0 0 25px rgba(255,255,255,0.4); }
-.ed-tag { font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px; }
-.ed-panel.ts  .ed-tag { background:rgba(95,255,255,0.14);color:var(--top);border:1px solid rgba(95,255,255,0.3); }
-.ed-panel.bar .ed-tag { background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25); }
-.ed-items { flex:1;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
-.ed-row { flex:1;display:flex;align-items:center;justify-content:space-between;padding:4px 18px;border-bottom:1px solid rgba(255,255,255,0.05);gap:12px; }
-.ed-row:last-child { border-bottom:none; }
-.ed-row:last-child { border-bottom:none; }
-.ed-left { flex:1;min-width:0; }
-.ed-name { font-size:26px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1; }
-.ed-flavors { font-size:15px;font-weight:500;color:rgba(255,255,255,0.45);line-height:1.3;margin-top:2px; }
-.ed-price { font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
-.ed-panel.ex  .ed-price { color:var(--ex);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
-.ed-panel.ts  .ed-price { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.8); }
-.ed-panel.bar .ed-price { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
-
-/* ══ EDIBLES + CONCENTRATES COMBINED ══ */
-.edcon-body { display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;min-height:0; }
-.edcon-panel { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0; }
-.ec-ts   { border:1px solid rgba(95,255,255,0.2);  border-top:3px solid var(--top); }
-.ec-bar  { border:1px solid rgba(255,255,255,0.15); border-top:3px solid var(--bar); }
-.ec-conc { border:1px solid rgba(255,213,79,0.2);   border-top:3px solid var(--gold); }
-.ec-ts::after   { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--top),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:1.6s; }
-.ec-bar::after  { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--bar),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2.0s; }
-.ec-conc::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:slideline 4s ease-in-out infinite;animation-delay:2.8s; }
-.ec-ts::before   { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.04) 0%,transparent 50%); }
-.ec-bar::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.03) 0%,transparent 50%); }
-.ec-conc::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,213,79,0.04) 0%,transparent 50%); }
-.edcon-hdr { display:flex;align-items:center;justify-content:space-between;padding:12px 20px 10px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1; }
-.edcon-label { font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;line-height:1;color:var(--white); }
-.ec-gold { color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.5); }
-.edcon-tag { font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:3px; }
-.ec-ts-tag  { background:rgba(95,255,255,0.14); color:var(--top); border:1px solid rgba(95,255,255,0.3); }
-.ec-bar-tag { background:rgba(255,255,255,0.1);  color:var(--bar); border:1px solid rgba(255,255,255,0.25); }
-.ec-lr-tag  { background:rgba(255,213,79,0.12);  color:var(--gold);border:1px solid rgba(255,213,79,0.3); }
-.edcon-items { display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden; }
-.edcon-items .ed-row  { flex:unset;padding:10px 18px; }
-.edcon-items .conc-row { padding:14px 20px; }
-.edcon-divider { display:flex;align-items:center;gap:12px;padding:8px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(0,0,0,0.25);flex-shrink:0; }
-.edcon-divider-label { font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35); }
-
-/* ══ EDIBLES + CONCENTRATES STACKED ══ */
-.edcon-page { grid-template-rows:auto 1fr auto 1fr !important; gap:8px !important; }
-.ec2-section { min-height:0; display:flex; flex-direction:column; }
-.ec2-tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1; min-height:0; }
-.ec2-tier { min-height:0; }
-.ec2-items { display:flex; flex-direction:column; overflow:hidden; flex:1; position:relative; z-index:1; }
-.ec2-items .ed-row { flex:unset; padding:8px 18px; }
-
-/* edibles pricing col */
-.ec2-pricing-col .tier-hdr { border-bottom:1px solid var(--border); }
-.ec2-price-body { flex:1; display:flex; flex-direction:column; justify-content:center; gap:0; position:relative; z-index:1; }
-.ec2-price-row { display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.05); }
-.ec2-price-row:last-child { border-bottom:none; }
-.ec2-plabel { font-size:18px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--dim); }
-.ec2-pamt { font-family:'Bebas Neue',sans-serif; font-size:52px; letter-spacing:2px; }
-.ec2-top { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.6); }
-.ec2-bar { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.3); }
-
-/* section divider */
-.ec2-divider { display:flex; align-items:center; gap:20px; flex-shrink:0; padding:0 4px; }
-.ec2-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
-.ec2-divider-label { font-family:'Bebas Neue',sans-serif; font-size:80px; letter-spacing:18px; color:var(--white); text-shadow:5px 5px 0 rgba(0,0,0,.9); white-space:nowrap; line-height:1; }
-.ec2-divider-label em { font-style:normal; color:var(--green); text-shadow:0 0 40px rgba(170,255,0,0.9); }
-
-/* concentrates in bottom section — larger pricing display */
-.bho-pricing-lg { flex:1; display:flex; }
-.bho-pricing-lg .bho-price-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--border); }
-.bho-pricing-lg .bho-price-item:last-child { border-right:none; }
-.bho-pricing-lg .bp-size { font-size:24px; }
-.bho-pricing-lg .bp-amt { font-size:64px; }
-
-/* ── EDIBLES DEALS COLUMN ── */
-.ed-deals-body { flex:1; display:flex; flex-direction:column; gap:12px; padding:14px; overflow:hidden; position:relative; z-index:1; }
-.ed-deal-card { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; position:relative; overflow:hidden; }
-.ed-deal-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%); pointer-events:none; }
-.ed-deal-badge { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--green); border:1px solid rgba(170,255,0,0.35); background:rgba(170,255,0,0.1); border-radius:20px; padding:3px 10px; margin-bottom:10px; white-space:nowrap; }
-.ed-deal-name { font-size:26px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:var(--white); line-height:1.1; margin-bottom:8px; }
-.ed-deal-price { font-family:'Bebas Neue',sans-serif; font-size:72px; letter-spacing:2px; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.8); line-height:1; margin-bottom:8px; }
-.ed-deal-flavors { font-size:13px; font-weight:500; color:rgba(255,255,255,0.3); line-height:1.4; }
-
-/* ── MERGED BHO + PRICING ── */
-.ec2-bho-merged { grid-column: span 2; }
-.ec2-bho-body { flex:1; display:flex; min-height:0; }
-.ec2-bho-items { flex:1; border-right:1px solid var(--border); }
-.ec2-bho-pricing { display:flex; flex-direction:column; width:260px; flex-shrink:0; }
-.ec2-bho-price-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-bottom:1px solid var(--border); gap:4px; }
-.ec2-bho-price-item:last-child { border-bottom:none; }
-.ec2-bho-price-item .bp-size { font-size:22px; font-weight:700; color:var(--dim); letter-spacing:2px; text-transform:uppercase; }
-.ec2-bho-price-item .bp-amt  { font-family:'Bebas Neue',sans-serif; font-size:58px; letter-spacing:2px; color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
-
-/* ══ COMBINED SINGLE-PAGE LAYOUT ══ */
-.hud-clock-only { display:flex; align-items:center; gap:16px; }
-.combined-page { position:relative; z-index:5; height:1060px; display:grid; grid-template-rows:auto auto auto auto 1fr; padding:8px 8px 6px; gap:6px; }
-.combo-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:6px; border-bottom:1px solid var(--border); flex-shrink:0; }
-.combo-logo { height:110px; width:auto; object-fit:contain; filter:drop-shadow(0 0 12px rgba(170,255,0,0.7)); }
-.combo-hdr-center { position:absolute; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
-.combo-title { font-family:'Bebas Neue',sans-serif; font-size:64px; letter-spacing:14px; line-height:1; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
-.combo-title em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
-.combo-sub { font-size:11px; font-weight:700; letter-spacing:6px; text-transform:uppercase; color:var(--dim); }
-.combo-section-label { display:flex; align-items:center; gap:16px; flex-shrink:0; }
-.combo-section-label-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
-.combo-section-label-text { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
-.combo-section-label-text em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
-.combo-tiers { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; min-height:0; }
-.combo-tier { min-height:0; }
-.combo-tier-hdr { padding:7px 8px 6px; }
-.combo-tier-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:3px; line-height:1; }
-.tier-ex-lbl  { color:var(--ex);  text-shadow:0 0 20px rgba(170,255,0,0.7); }
-.tier-top-lbl { color:var(--top); text-shadow:0 0 20px rgba(95,255,255,0.7); }
-.tier-bar-lbl { color:var(--bar); text-shadow:0 0 20px rgba(255,255,255,0.5); }
-.tier-plat-lbl { color:var(--plat); text-shadow:0 0 20px rgba(212,170,255,0.8); }
-.combo-strains { padding:3px 0; overflow:hidden; flex:1; position:relative; z-index:1; }
-.combo-strains .cat-block { padding:3px 12px; }
-.combo-strains .cat-pill { font-size:13px; padding:2px 8px 2px 6px; margin-bottom:3px; }
-.combo-strains .cat-dot { width:6px; height:6px; }
-.combo-strains .strain-row { padding:2px 0; }
-.combo-strains .sname { font-size:28px; }
-.combo-strains .sthc { font-size:30px; }
-.combo-strains .slabel { font-size:12px; }
-.combo-strains .cat-divider { margin:2px 12px; }
-.combo-pricing-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; flex-shrink:0; }
-.combo-price-col { display:flex; flex-direction:column; gap:2px; padding:5px 6px; border-radius:4px; overflow:hidden; }
-.combo-price-col.plat-h { background:rgba(212,170,255,0.08); border:1px solid rgba(212,170,255,0.25); }
-.combo-price-col.ex-h  { background:rgba(170,255,0,0.08);  border:1px solid rgba(170,255,0,0.2); }
-.combo-price-col.top-h { background:rgba(95,255,255,0.06); border:1px solid rgba(95,255,255,0.15); }
-.combo-price-col.bar-h { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12); }
-.cpb-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; flex:1; }
-.cpb-item { display:flex; flex-direction:column; align-items:center; border-right:1px solid rgba(255,255,255,0.08); padding:0 2px; }
-.cpb-item:last-child { border-right:none; }
-.cpb-sz  { font-size:16px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.9); }
-.cpb-amt { font-family:'Bebas Neue',sans-serif; font-size:38px; letter-spacing:0.5px; }
-.combo-price-col.plat-h .cpb-amt { color:#e8ccff; text-shadow:0 0 18px rgba(212,170,255,1), 0 0 40px rgba(212,170,255,0.5); }
-.combo-price-col.ex-h  .cpb-amt { color:#ccff33;  text-shadow:0 0 18px rgba(170,255,0,1),   0 0 40px rgba(170,255,0,0.5); }
-.combo-price-col.top-h .cpb-amt { color:#80ffff;  text-shadow:0 0 18px rgba(95,255,255,1),   0 0 40px rgba(95,255,255,0.5); }
-.combo-price-col.bar-h .cpb-amt { color:#ffffff;  text-shadow:0 0 18px rgba(255,255,255,1),   0 0 40px rgba(255,255,255,0.4); }
-.combo-divider { display:flex; align-items:center; gap:16px; flex-shrink:0; }
-.combo-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); }
-.combo-divider-label { font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:12px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,.9); white-space:nowrap; }
-.combo-divider-label em { font-style:normal; color:var(--green); text-shadow:0 0 30px rgba(170,255,0,0.9); }
-.combo-bottom { display:grid; grid-template-columns:repeat(3,1fr) repeat(3,1fr); gap:5px; min-height:0; }
-.combo-ed-tier { min-height:0; }
-.combo-conc-tier { min-height:0; }
-.combo-ed-items { display:flex; flex-direction:column; overflow:hidden; flex:1; position:relative; z-index:1; }
-.combo-ed-items .ed-row { padding:4px 12px; flex-shrink:0; }
-.combo-ed-items .ed-name { font-size:20px; }
-.combo-ed-items .ed-flavors { font-size:11px; color:rgba(255,255,255,0.35); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.combo-ed-items .ed-price { font-size:28px; }
-.tier-ex .combo-ed-items .ed-price { color:var(--ex);  text-shadow:0 0 16px rgba(170,255,0,0.8); }
-.tier-top .combo-ed-items .ed-price { color:var(--top); text-shadow:0 0 16px rgba(95,255,255,0.8); }
-.tier-bar .combo-ed-items .ed-price { color:var(--bar); text-shadow:0 0 16px rgba(255,255,255,0.8); }
-.combo-bottom .conc-hdr { padding:7px 14px 6px; }
-.combo-bottom .conc-label { font-size:42px; }
-.combo-bottom .cname { font-size:26px; }
-.combo-bottom .cthc { font-size:26px; }
-.combo-bottom .lr-price { font-size:36px; }
-.combo-bottom .ec2-bho-price-item .bp-size { font-size:18px; }
-.combo-bottom .ec2-bho-price-item .bp-amt { font-size:46px; }
-.combo-bottom .ed-deal-card { padding:10px; }
-.combo-bottom .ed-deal-name { font-size:22px; margin-bottom:4px; }
-.combo-bottom .ed-deal-price { font-size:58px; margin-bottom:0; }
+/* combined layout */
+.combined-page{position:relative;z-index:5;height:1060px;display:grid;grid-template-rows:auto auto auto auto 1fr;padding:8px 8px 6px;gap:6px}
+.combo-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:6px;border-bottom:1px solid var(--border);flex-shrink:0}
+.combo-logo{height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(170,255,0,0.7))}
+.combo-hdr-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.combo-title{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:14px;line-height:1;color:var(--white);text-shadow:4px 4px 0 rgba(0,0,0,.9);white-space:nowrap}
+.combo-title em{font-style:normal;color:var(--green);text-shadow:0 0 30px rgba(170,255,0,0.9)}
+.combo-sub{font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--dim)}
+.combo-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;min-height:0}
+.combo-tier{min-height:0}
+.combo-tier-hdr{padding:7px 8px 6px}
+.combo-tier-label{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:3px;line-height:1}
+.tier-ex-lbl{color:var(--ex);text-shadow:0 0 20px rgba(170,255,0,0.7)}
+.tier-top-lbl{color:var(--top);text-shadow:0 0 20px rgba(95,255,255,0.7)}
+.tier-bar-lbl{color:var(--bar);text-shadow:0 0 20px rgba(255,255,255,0.5)}
+.tier-plat-lbl{color:var(--plat);text-shadow:0 0 20px rgba(212,170,255,0.8)}
+.combo-strains{padding:3px 0;overflow:hidden;flex:1;position:relative;z-index:1}
+.combo-pricing-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;flex-shrink:0}
+.combo-price-col{display:flex;flex-direction:column;gap:2px;padding:5px 6px;border-radius:4px;overflow:hidden}
+.combo-price-col.plat-h{background:rgba(212,170,255,0.08);border:1px solid rgba(212,170,255,0.25)}
+.combo-price-col.ex-h{background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2)}
+.combo-price-col.top-h{background:rgba(95,255,255,0.06);border:1px solid rgba(95,255,255,0.15)}
+.combo-price-col.bar-h{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12)}
+.cpb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;flex:1}
+.cpb-item{display:flex;flex-direction:column;align-items:center;border-right:1px solid rgba(255,255,255,0.08);padding:0 2px}
+.cpb-item:last-child{border-right:none}
+.cpb-sz{font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.9)}
+.cpb-amt{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:0.5px}
+.combo-price-col.plat-h .cpb-amt{color:#e8ccff;text-shadow:0 0 18px rgba(212,170,255,1),0 0 40px rgba(212,170,255,0.5)}
+.combo-price-col.ex-h .cpb-amt{color:#ccff33;text-shadow:0 0 18px rgba(170,255,0,1),0 0 40px rgba(170,255,0,0.5)}
+.combo-price-col.top-h .cpb-amt{color:#80ffff;text-shadow:0 0 18px rgba(95,255,255,1),0 0 40px rgba(95,255,255,0.5)}
+.combo-price-col.bar-h .cpb-amt{color:#fff;text-shadow:0 0 18px rgba(255,255,255,1),0 0 40px rgba(255,255,255,0.4)}
+.combo-divider{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.combo-divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)}
+.combo-divider-label{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:12px;color:var(--white);text-shadow:4px 4px 0 rgba(0,0,0,.9);white-space:nowrap}
+.combo-divider-label em{font-style:normal;color:var(--green);text-shadow:0 0 30px rgba(170,255,0,0.9)}
+.combo-bottom{display:grid;grid-template-columns:repeat(3,1fr) repeat(3,1fr);gap:5px;min-height:0}
+.combo-ed-tier,.combo-conc-tier{min-height:0}
+.combo-ed-items{display:flex;flex-direction:column;overflow:hidden;flex:1;position:relative;z-index:1}
 </style>
 </head>
 <body>
 
-
-<!-- ═══════════ SLIDE 1 — FLOWER ═══════════ -->
-<div class="menu-frame active" id="slide-all">
-  <div class="bg-glow"><span></span><span></span><span></span></div>
+<div class="menu-frame" id="slide-all">
   <div class="top-bar"></div>
   <div class="combined-page">
-
-    <!-- ══ HEADER ══ -->
     <header class="combo-header">
       <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="combo-logo" alt="Kannabis City"></div>
-      <div class="combo-hdr-center">
-        <div class="combo-title">FL<em>O</em>WER</div>
-        <div class="combo-sub">Today's Full Menu</div>
-      </div>
-      <div class="ticker-wrap">
-        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
-        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
-      </div>
+      <div class="combo-hdr-center"><div class="combo-title">FL<em>O</em>WER</div><div class="combo-sub">Today's Full Menu</div></div>
+      <div class="ticker-wrap"><div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div><div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div></div>
     </header>
-
-    <!-- ══ FLOWER TIERS ══ -->
     <div class="combo-tiers">
-      <div class="tier tier-plat combo-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-plat-lbl">Platinum</div><div class="tier-tag" style="border-color:rgba(212,170,255,0.4);color:var(--plat)">Top Tier</div></div>
-        <div class="combo-strains" id="col-platinum"></div>
-      </div>
-      <div class="tier tier-ex combo-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div>
-        <div class="combo-strains" id="col-exotic"></div>
-      </div>
-      <div class="tier tier-top combo-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
-        <div class="combo-strains" id="col-topshelf"></div>
-      </div>
-      <div class="tier tier-bar combo-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Bargains</div><div class="tier-tag">Best Value</div></div>
-        <div class="combo-strains" id="col-bargain"></div>
-      </div>
+      <div class="tier tier-plat combo-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-plat-lbl">Platinum</div><div class="tier-tag" style="border-color:rgba(212,170,255,0.4);color:var(--plat)">Top Tier</div></div><div class="combo-strains" id="col-platinum"></div></div>
+      <div class="tier tier-ex combo-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div><div class="combo-strains" id="col-exotic"></div></div>
+      <div class="tier tier-top combo-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div><div class="combo-strains" id="col-topshelf"></div></div>
+      <div class="tier tier-bar combo-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Bargains</div><div class="tier-tag">Best Value</div></div><div class="combo-strains" id="col-bargain"></div></div>
     </div>
-
-    <!-- ══ FLOWER PRICING ══ -->
     <div class="combo-pricing-bar">
-      <div class="combo-price-col plat-h">
-        <div class="cpb-grid">
-          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$12</span></div>
-          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$30</span></div>
-          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$55</span></div>
-          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$80</span></div>
-          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$125</span></div>
-        </div>
-      </div>
-      <div class="combo-price-col ex-h">
-        <div class="cpb-grid">
-          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$10</span></div>
-          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$25</span></div>
-          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$35</span></div>
-          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$70</span></div>
-          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$100</span></div>
-        </div>
-      </div>
-      <div class="combo-price-col top-h">
-        <div class="cpb-grid">
-          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$8</span></div>
-          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$20</span></div>
-          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$30</span></div>
-          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$55</span></div>
-          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$85</span></div>
-        </div>
-      </div>
-      <div class="combo-price-col bar-h">
-        <div class="cpb-grid">
-          <div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$5</span></div>
-          <div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$15</span></div>
-          <div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$25</span></div>
-          <div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$45</span></div>
-          <div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$75</span></div>
-        </div>
-      </div>
+      <div class="combo-price-col plat-h"><div class="cpb-grid"><div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$12</span></div><div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$30</span></div><div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$55</span></div><div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$80</span></div><div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$125</span></div></div></div>
+      <div class="combo-price-col ex-h"><div class="cpb-grid"><div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$10</span></div><div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$25</span></div><div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$35</span></div><div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$70</span></div><div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$100</span></div></div></div>
+      <div class="combo-price-col top-h"><div class="cpb-grid"><div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$8</span></div><div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$20</span></div><div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$30</span></div><div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$55</span></div><div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$85</span></div></div></div>
+      <div class="combo-price-col bar-h"><div class="cpb-grid"><div class="cpb-item"><span class="cpb-sz">1g</span><span class="cpb-amt">$5</span></div><div class="cpb-item"><span class="cpb-sz">3.5g</span><span class="cpb-amt">$15</span></div><div class="cpb-item"><span class="cpb-sz">7g</span><span class="cpb-amt">$25</span></div><div class="cpb-item"><span class="cpb-sz">14g</span><span class="cpb-amt">$45</span></div><div class="cpb-item"><span class="cpb-sz">oz</span><span class="cpb-amt">$75</span></div></div></div>
     </div>
-
-    <!-- ══ DIVIDER ══ -->
-    <div class="combo-divider">
-      <div class="combo-divider-line"></div>
-      <div class="combo-divider-label">EDIBLES &amp; CONC<em>E</em>NTRATES</div>
-      <div class="combo-divider-line"></div>
-    </div>
-
-    <!-- ══ EDIBLES + CONCENTRATES ══ -->
+    <div class="combo-divider"><div class="combo-divider-line"></div><div class="combo-divider-label">EDIBLES &amp; CONC<em>E</em>NTRATES</div><div class="combo-divider-line"></div></div>
     <div class="combo-bottom">
-
-      <div class="tier tier-ex combo-tier combo-ed-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div>
-        <div class="combo-ed-items" id="ed-exotic"></div>
-      </div>
-
-      <div class="tier tier-top combo-tier combo-ed-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
-        <div class="combo-ed-items" id="ed-topshelf"></div>
-      </div>
-
-      <div class="tier tier-bar combo-tier combo-ed-tier">
-        <div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Best Deals</div><div class="tier-tag">Don't Miss</div></div>
-        <div class="ed-deals-body" id="ed-deals"></div>
-      </div>
-
-      <div class="conc-panel lr combo-tier combo-conc-tier">
-        <div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.6)">Live Rosin</div><div class="conc-tag">Premium Extract</div></div>
-        <div class="conc-items" id="conc-lr"></div>
-      </div>
-
-      <div class="conc-panel bho combo-tier combo-conc-tier ec2-bho-merged" style="grid-column:span 2">
-        <div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--bar)">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div>
-        <div class="ec2-bho-body">
-          <div class="conc-items ec2-bho-items" id="conc-bho"></div>
-          <div class="ec2-bho-pricing">
-            <div class="ec2-bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div>
-            <div class="ec2-bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div>
-          </div>
-        </div>
-      </div>
-
+      <div class="tier tier-ex combo-tier combo-ed-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div><div class="combo-ed-items" id="ed-exotic"></div></div>
+      <div class="tier tier-top combo-tier combo-ed-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div><div class="combo-ed-items" id="ed-topshelf"></div></div>
+      <div class="tier tier-bar combo-tier combo-ed-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Best Deals</div><div class="tier-tag">Don't Miss</div></div><div class="ed-deals-body" id="ed-deals"></div></div>
+      <div class="conc-panel lr combo-tier combo-conc-tier"><div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.6)">Live Rosin</div><div class="conc-tag">Premium Extract</div></div><div class="conc-items" id="conc-lr"></div></div>
+      <div class="conc-panel bho combo-tier combo-conc-tier ec2-bho-merged" style="grid-column:span 2"><div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--bar)">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div><div class="ec2-bho-body"><div class="conc-items ec2-bho-items" id="conc-bho"></div><div class="ec2-bho-pricing"><div class="ec2-bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div><div class="ec2-bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div></div></div></div>
     </div>
-
   </div>
   <div class="btm"></div>
 </div>

@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
 <title>Kannabis City – TV2</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script>
 // ╔══════════════════════════════════════════════════╗
 // ║  ✏️  VAPES                                        ║
@@ -42,8 +42,8 @@ const PREROLLS = {
     { name: "Stiizy Mini Blunts",  price: "$25", flavors: "Strawnana · Purple Punch · Pink Acai · Strawberry Mango · Super Lemon Haze · King Louis XIII" },
   ],
   bargain: [
-    { name: "House Blend",           price: "$3 / 2 for $5",     flavors: "Ask budtender" },
-    { name: "Strain Spec.",          price: "$6 / 2 for $10", flavors: "Mirage Glue Indica 28.67% · White Fire OG Hybrid 28.76% · Rosetta Stone Hybrid 23.46% · Gas Basket Indica 29.36%" },
+    { name: "House Blend",  price: "$3 / 2 for $5",  flavors: "Ask budtender" },
+    { name: "Strain Spec.", price: "$6 / 2 for $10", flavors: "Mirage Glue Indica 28.67% · White Fire OG Hybrid 28.76% · Rosetta Stone Hybrid 23.46% · Gas Basket Indica 29.36%" },
   ],
 };
 
@@ -53,10 +53,10 @@ const STIIZY = {
   xlBattery: "$20",
 };
 
-// ── BUILD VAPES ────────────────────────────────────
+// ── BUILD ──────────────────────────────────────────
 function makeMarquee(flavors) {
   if (!flavors) return '';
-  const txt = flavors + '   ·   ' + flavors; // doubled for seamless loop
+  const txt = flavors + '   ·   ' + flavors;
   const dur = Math.max(12, flavors.length * 0.12) + 's';
   return `<div class="vflavors"><div class="vflavor-scroll" style="--dur:${dur}"><span class="vflavor-text">${txt}</span></div></div>`;
 }
@@ -64,36 +64,25 @@ function makeMarquee(flavors) {
 function buildVapeCol(products) {
   return products.map((p, i) => `
     <div class="product-row${i % 2 === 0 ? ' even' : ''}">
-      <div class="vape-left">
-        <div class="pname">${p.name}</div>
-        ${p.flavors ? makeMarquee(p.flavors) : ''}
-      </div>
+      <div class="vape-left"><div class="pname">${p.name}</div>${p.flavors ? makeMarquee(p.flavors) : ''}</div>
       <div class="pprice">${p.price}</div>
     </div>`).join('');
 }
 
-// ── BUILD PRE-ROLLS ────────────────────────────────
 function buildPrerolls() {
   ['exotic','topshelf','bargain'].forEach(tier => {
     document.getElementById(`pr-${tier}`).innerHTML = PREROLLS[tier].map((p, i) => `
       <div class="pr-row${i % 2 === 0 ? ' even' : ''}">
-        <div class="pr-left">
-          <div class="pr-name">${p.name}</div>
-          ${p.flavors ? makeMarquee(p.flavors) : ''}
-        </div>
+        <div class="pr-left"><div class="pr-name">${p.name}</div>${p.flavors ? makeMarquee(p.flavors) : ''}</div>
         <div class="pr-price">${p.price}</div>
       </div>`).join('');
   });
 }
 
-// ── BUILD STIIZY ───────────────────────────────────
 function buildStiizy() {
   document.getElementById('stiizy-col').innerHTML = `
     <div class="pr-row even">
-      <div class="pr-left">
-        <div class="pr-name">Stiizy Pods</div>
-        ${makeMarquee(STIIZY.pods.flavors)}
-      </div>
+      <div class="pr-left"><div class="pr-name">Stiizy Pods</div>${makeMarquee(STIIZY.pods.flavors)}</div>
       <div class="pr-price" style="color:#d4aaff;text-shadow:0 0 12px rgba(212,170,255,0.6);">${STIIZY.pods.price}</div>
     </div>
     <div class="pr-row">
@@ -103,337 +92,178 @@ function buildStiizy() {
     <div class="pr-row even">
       <div class="pr-left"><div class="pr-name">XL Battery</div></div>
       <div class="pr-price" style="color:#d4aaff;text-shadow:0 0 12px rgba(212,170,255,0.6);">${STIIZY.xlBattery}</div>
-    </div>
-  `;
+    </div>`;
 }
 
 function updateClock() {
-  const now  = new Date();
-  let h      = now.getHours();
-  const m    = String(now.getMinutes()).padStart(2,'0');
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12 || 12;
-  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const now = new Date();
+  let h = now.getHours(); const m = String(now.getMinutes()).padStart(2,'0');
+  const ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.querySelectorAll('.clock').forEach(el => el.textContent = `${h}:${m} ${ampm}`);
-  document.querySelectorAll('.datestamp').forEach(el =>
-    el.textContent = `${days[now.getDay()]}  ${months[now.getMonth()]} ${now.getDate()}`);
+  document.querySelectorAll('.datestamp').forEach(el => el.textContent = `${days[now.getDay()]}  ${months[now.getMonth()]} ${now.getDate()}`);
 }
 
-// ── SCALE ──────────────────────────────────────────
 function scaleMenu() {
   const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-  document.querySelectorAll('.menu-frame').forEach(el =>
-    el.style.transform = `translate(-50%,-50%) scale(${scale})`);
+  document.querySelector('.menu-frame').style.transform = `translate(-50%,-50%) scale(${scale})`;
 }
 
-// ── WAKE LOCK ──────────────────────────────────────
 async function keepAwake() {
-  try {
-    if ('wakeLock' in navigator) {
-      let lock = await navigator.wakeLock.request('screen');
-      document.addEventListener('visibilitychange', async () => {
-        if (document.visibilityState === 'visible') lock = await navigator.wakeLock.request('screen');
-      });
-    }
-  } catch(e) {}
-  setInterval(() => { document.title = document.title; }, 30000);
+  try { if ('wakeLock' in navigator) {
+    let lock = await navigator.wakeLock.request('screen');
+    document.addEventListener('visibilitychange', async () => {
+      if (document.visibilityState === 'visible') lock = await navigator.wakeLock.request('screen');
+    });
+  }} catch(e) {}
 }
 
-// ── INIT ───────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('col-exotic').innerHTML   = buildVapeCol(VAPES.exotic);
   document.getElementById('col-topshelf').innerHTML = buildVapeCol(VAPES.topshelf);
   document.getElementById('col-bargain').innerHTML  = buildVapeCol(VAPES.bargain);
-  buildPrerolls();
-  buildStiizy();
-  updateClock();
-  setInterval(updateClock, 1000);
-  scaleMenu();
-  keepAwake();
+  buildPrerolls(); buildStiizy(); updateClock();
+  setInterval(updateClock, 1000); scaleMenu(); keepAwake();
 });
 window.addEventListener('resize', scaleMenu);
 </script>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --bg:#0a0a0a; --panel:#141414; --panel2:#181818; --border:#2a2a2a;
-  --green:#aaff00; --green2:#66cc00; --glow:rgba(170,255,0,0.5);
-  --white:#ffffff; --dim:#888;
-  --ex:#aaff00; --top:#5fffff; --bar:#ffffff;
-}
-html,body { width:100%; height:100%; overflow:hidden; background:#000; }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--panel:#141414;--border:#2a2a2a;--green:#aaff00;--green2:#66cc00;--glow:rgba(170,255,0,0.5);--white:#fff;--dim:#888;--ex:#aaff00;--top:#5fffff;--bar:#fff}
+html,body{width:100%;height:100%;overflow:hidden;background:#000}
 
-/* ── FRAME ── */
-.menu-frame {
-  position:fixed; top:50%; left:50%;
-  width:1920px; height:1080px; transform-origin:center center;
-  transform:translate(-50%,-50%);
-  background:var(--bg); color:var(--white);
-  font-family:'Barlow Condensed',sans-serif;
-  overflow:hidden;
-}
-.menu-frame::before {
-  content:''; position:absolute; inset:0; z-index:100;
-  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);
-  pointer-events:none;
-}
+.menu-frame{position:fixed;top:50%;left:50%;width:1920px;height:1080px;transform-origin:center center;background:var(--bg);color:var(--white);font-family:'Barlow Condensed',sans-serif;overflow:hidden}
+.top-bar{position:relative;z-index:10;height:10px;background:linear-gradient(90deg,transparent,var(--green2) 15%,var(--green) 50%,var(--green2) 85%,transparent);box-shadow:0 0 30px var(--glow),0 0 80px rgba(170,255,0,0.2)}
+.btm{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7}
 
-/* bg glow */
-.bg-glow { position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
-.bg-glow span { position:absolute;border-radius:50%;filter:blur(130px);opacity:0;animation:blobpulse 9s infinite; }
-.bg-glow span:nth-child(1){ width:700px;height:500px;background:rgba(170,255,0,0.06);top:-100px;left:-100px;animation-delay:0s; }
-.bg-glow span:nth-child(2){ width:500px;height:500px;background:rgba(95,255,255,0.04);top:200px;right:-50px;animation-delay:3s; }
-.bg-glow span:nth-child(3){ width:400px;height:400px;background:rgba(255,255,255,0.03);bottom:0;left:600px;animation-delay:6s; }
-@keyframes blobpulse { 0%,100%{opacity:0;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+.combined-page{position:relative;z-index:5;height:1070px;display:grid;grid-template-rows:auto auto 1fr auto 1fr;padding:8px 14px 6px;gap:5px}
 
-/* top bar */
-.top-bar { position:relative;z-index:10;height:10px;background:linear-gradient(90deg,transparent,var(--green2) 15%,var(--green) 50%,var(--green2) 85%,transparent);box-shadow:0 0 30px var(--glow),0 0 80px rgba(170,255,0,0.2); }
-
-/* bottom bar */
-.btm { position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--green2),var(--green),var(--green2),transparent);opacity:0.7; }
-
-/* ── COMBINED LAYOUT ── */
-.combined-page {
-  position:relative; z-index:5;
-  height:1070px;
-  display:grid;
-  grid-template-rows: auto auto 1fr auto 1fr;
-  padding:8px 14px 6px;
-  gap:5px;
-}
-
-/* ── SECTION LABEL (like flower/edibles divider on index) ── */
-.section-label-bar {
-  display:flex; align-items:center; gap:14px; flex-shrink:0;
-}
-.section-label-bar::before,.section-label-bar::after {
-  content:''; flex:1; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(170,255,0,0.3),transparent);
-}
-.section-label-txt {
-  font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:10px;
-  color:var(--white); white-space:nowrap; text-shadow:0 0 20px rgba(170,255,0,0.4);
-}
-.section-label-txt em { font-style:normal; color:var(--green); }
+/* section labels */
+.section-label-bar{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.section-label-bar::before,.section-label-bar::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(170,255,0,0.3),transparent)}
+.section-label-txt{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:10px;color:var(--white);white-space:nowrap;text-shadow:0 0 20px rgba(170,255,0,0.4)}
+.section-label-txt em{font-style:normal;color:var(--green)}
 
 /* header */
-.header { display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0; }
-.logo-img { height:100px;width:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(170,255,0,0.8)) drop-shadow(0 0 40px rgba(170,255,0,0.4));animation:logopulse 3s infinite; }
-@keyframes logopulse {
-  0%,100%{filter:drop-shadow(0 0 12px rgba(170,255,0,0.6)) drop-shadow(0 0 30px rgba(170,255,0,0.3));}
-  50%{filter:drop-shadow(0 0 28px rgba(170,255,0,1)) drop-shadow(0 0 60px rgba(170,255,0,0.6));}
-}
-.hdr-center { position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px; }
-.hdr-title { font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:14px;line-height:1;color:var(--white);text-shadow:5px 5px 0 rgba(0,0,0,.9);white-space:nowrap; }
-.hdr-title em { font-style:normal;color:var(--green);text-shadow:0 0 40px rgba(170,255,0,0.9); }
-.hdr-sub { font-size:12px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--dim); }
-.ticker-wrap { display:flex;flex-direction:column;align-items:flex-end;gap:6px; }
-.live-badge { display:flex;align-items:center;gap:10px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;padding:5px 12px; }
-.live-dot { width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green);animation:blink 1.5s infinite; }
+.header{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0}
+.logo-img{height:100px;width:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(170,255,0,0.7))}
+.hdr-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px}
+.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:14px;line-height:1;color:var(--white);text-shadow:5px 5px 0 rgba(0,0,0,.9);white-space:nowrap}
+.hdr-title em{font-style:normal;color:var(--green);text-shadow:0 0 40px rgba(170,255,0,0.9)}
+.hdr-sub{font-size:12px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:var(--dim)}
+.ticker-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.live-badge{display:flex;align-items:center;gap:10px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);border-radius:4px;padding:5px 12px}
+.live-dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 16px var(--green);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.live-text { font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green); }
-.datetime-row { display:flex;align-items:baseline;gap:20px; }
-.live-time,.datestamp { font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4); }
+.live-text{font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green)}
+.datetime-row{display:flex;align-items:baseline;gap:20px}
+.live-time,.datestamp{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.4)}
 
-/* ── SECTION DIVIDER ── */
-.section-divider {
-  display:flex; align-items:center; gap:14px; flex-shrink:0;
-}
-.section-divider::before,.section-divider::after {
-  content:''; flex:1; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(170,255,0,0.3),transparent);
-}
-.section-label {
-  font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:10px;
-  color:var(--dim); white-space:nowrap;
-}
-.section-label em { font-style:normal; color:var(--green); }
+/* tier grids */
+.vapes-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;flex:1;min-height:0}
+.preroll-tiers{display:grid;grid-template-columns:0.85fr 1.15fr 1fr;gap:6px;flex:1;min-height:0}
 
-/* ── STACKED SECTIONS ── */
-.vapes-tiers   { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; flex:1; min-height:0; }
-.preroll-tiers { display:grid; grid-template-columns:0.85fr 1.15fr 1fr; gap:6px; flex:1; min-height:0; }
+/* tiers */
+.tier{background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0}
+.tier::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;animation:slideline 4s ease-in-out infinite}
+.tier-ex::after{background:linear-gradient(90deg,transparent,var(--ex),transparent);animation-delay:0s}
+.tier-top::after{background:linear-gradient(90deg,transparent,var(--top),transparent);animation-delay:1s}
+.tier-bar::after{background:linear-gradient(90deg,transparent,var(--bar),transparent);animation-delay:2s}
+@keyframes slideline{0%{left:-100%;opacity:0}10%{opacity:1}50%{left:100%;opacity:1}60%{opacity:0}100%{left:100%;opacity:0}}
+.tier-ex{border:1px solid rgba(170,255,0,0.25)}.tier-top{border:1px solid rgba(95,255,255,0.2)}.tier-bar{border:1px solid rgba(255,255,255,0.2)}
+.tier-ex::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%)}
+.tier-top::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%)}
+.tier-bar::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%)}
+.tier-hdr{display:flex;align-items:center;justify-content:space-between;padding:5px 12px 4px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4)}
+.tier-label{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;line-height:1}
+.tier-ex .tier-label{color:var(--ex);text-shadow:0 0 20px rgba(170,255,0,0.8)}
+.tier-top .tier-label{color:var(--top);text-shadow:0 0 20px rgba(95,255,255,0.8)}
+.tier-bar .tier-label{color:var(--bar);text-shadow:0 0 20px rgba(255,255,255,0.6)}
+.tier-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.tier-ex .tier-tag{background:rgba(170,255,0,0.18);color:var(--ex);border:1px solid rgba(170,255,0,0.4)}
+.tier-top .tier-tag{background:rgba(95,255,255,0.15);color:var(--top);border:1px solid rgba(95,255,255,0.35)}
+.tier-bar .tier-tag{background:rgba(255,255,255,0.12);color:var(--bar);border:1px solid rgba(255,255,255,0.3)}
 
-/* ── TIER STYLES ── */
-.tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; flex:1; min-height:0; }
-.tier { background:var(--panel);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;position:relative;min-height:0; }
-.tier::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;animation:slideline 4s ease-in-out infinite; }
-.tier-ex::after  { background:linear-gradient(90deg,transparent,var(--ex),transparent);  animation-delay:0s; }
-.tier-top::after { background:linear-gradient(90deg,transparent,var(--top),transparent); animation-delay:1s; }
-.tier-bar::after { background:linear-gradient(90deg,transparent,var(--bar),transparent); animation-delay:2s; }
-@keyframes slideline { 0%{left:-100%;opacity:0;} 10%{opacity:1;} 50%{left:100%;opacity:1;} 60%{opacity:0;} 100%{left:100%;opacity:0;} }
-.tier-ex  { border:1px solid rgba(170,255,0,0.25); }
-.tier-top { border:1px solid rgba(95,255,255,0.2); }
-.tier-bar { border:1px solid rgba(255,255,255,0.2); }
-.tier-ex::before  { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(170,255,0,0.06) 0%,transparent 50%); }
-.tier-top::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(95,255,255,0.05) 0%,transparent 50%); }
-.tier-bar::before { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.04) 0%,transparent 50%); }
-.tier-hdr { display:flex;align-items:center;justify-content:space-between;padding:5px 12px 4px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:1;background:rgba(0,0,0,0.4); }
-.tier-label { font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;line-height:1; }
-.tier-ex  .tier-label { color:var(--ex);  text-shadow:0 0 20px rgba(170,255,0,0.8); }
-.tier-top .tier-label { color:var(--top); text-shadow:0 0 20px rgba(95,255,255,0.8); }
-.tier-bar .tier-label { color:var(--bar); text-shadow:0 0 20px rgba(255,255,255,0.6); }
-.tier-tag { font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px; }
-.tier-ex  .tier-tag { background:rgba(170,255,0,0.18); color:var(--ex);  border:1px solid rgba(170,255,0,0.4); }
-.tier-top .tier-tag { background:rgba(95,255,255,0.15);color:var(--top); border:1px solid rgba(95,255,255,0.35); }
-.tier-bar .tier-tag { background:rgba(255,255,255,0.12);color:var(--bar);border:1px solid rgba(255,255,255,0.3); }
+/* vapes */
+.products-body{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden}
+.product-row{display:flex;align-items:center;justify-content:space-between;padding:5px 12px 5px 14px;position:relative;border-bottom:1px solid rgba(255,255,255,0.05)}
+.product-row:last-child{border-bottom:none}
+.product-row.even{background:rgba(255,255,255,0.02)}
+.product-row::before{content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6}
+.tier-ex .product-row::before{background:var(--ex)}.tier-top .product-row::before{background:var(--top)}.tier-bar .product-row::before{background:var(--bar)}
+.vape-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;padding-right:10px;overflow:hidden}
+.pname{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;line-height:1;color:var(--white);white-space:nowrap}
+.vflavors{overflow:hidden;white-space:nowrap;width:100%;position:relative}
+.vflavors::before,.vflavors::after{content:'';position:absolute;top:0;bottom:0;width:20px;z-index:2;pointer-events:none}
+.vflavors::before{left:0;background:linear-gradient(90deg,var(--panel),transparent)}
+.vflavors::after{right:0;background:linear-gradient(270deg,var(--panel),transparent)}
+.product-row.even .vflavors::before{background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent)}
+.product-row.even .vflavors::after{background:linear-gradient(270deg,rgba(255,255,255,0.02),transparent)}
+.vflavor-scroll{display:inline-block;white-space:nowrap;animation:marquee var(--dur,18s) linear infinite}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.vflavor-text{font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:rgba(255,255,255,0.5);padding-right:60px}
+.pprice{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;white-space:nowrap;flex-shrink:0}
+.tier-ex .pprice{color:var(--ex);text-shadow:0 0 12px rgba(170,255,0,0.6)}
+.tier-top .pprice{color:var(--top);text-shadow:0 0 12px rgba(95,255,255,0.6)}
+.tier-bar .pprice{color:var(--bar);text-shadow:0 0 12px rgba(255,255,255,0.3)}
 
-/* ══ VAPES ══ */
-.products-body { flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden; }
-.product-row { display:flex;align-items:center;justify-content:space-between;padding:5px 12px 5px 14px;position:relative;border-bottom:1px solid rgba(255,255,255,0.05); }
-.product-row:last-child { border-bottom:none; }
-.product-row.even { background:rgba(255,255,255,0.02); }
-.product-row::before { content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6; }
-.tier-ex  .product-row::before { background:var(--ex); }
-.tier-top .product-row::before { background:var(--top); }
-.tier-bar .product-row::before { background:var(--bar); }
-.vape-left { display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;padding-right:10px;overflow:hidden; }
-.pname  { font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;line-height:1;color:var(--white);white-space:nowrap; }
-/* scrolling flavor marquee */
-.vflavors { overflow:hidden;white-space:nowrap;width:100%;position:relative; }
-.vflavors::before,.vflavors::after { content:'';position:absolute;top:0;bottom:0;width:20px;z-index:2;pointer-events:none; }
-.vflavors::before { left:0; background:linear-gradient(90deg,var(--panel),transparent); }
-.vflavors::after  { right:0;background:linear-gradient(270deg,var(--panel),transparent); }
-.product-row.even .vflavors::before { background:linear-gradient(90deg,rgba(255,255,255,0.02) ,transparent); }
-.product-row.even .vflavors::after  { background:linear-gradient(270deg,rgba(255,255,255,0.02),transparent); }
-.vflavor-scroll { display:inline-block;white-space:nowrap;animation:marquee var(--dur,18s) linear infinite; }
-@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-.vflavor-text { font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:rgba(255,255,255,0.5);padding-right:60px; }
-.pprice { font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;white-space:nowrap;flex-shrink:0; }
-.tier-ex  .pprice { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
-.tier-top .pprice { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
-.tier-bar .pprice { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+/* deal banners */
+.deal-wrap{position:relative;z-index:2;margin:6px 8px 8px;flex-shrink:0}
+.deal-banner{background:linear-gradient(135deg,#0c1a00,#111c00,#0a1400);border-radius:8px;padding:8px 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(170,255,0,0.25)}
+.deal-amount{font-family:'Bebas Neue',sans-serif;font-size:58px;letter-spacing:4px;color:var(--green);line-height:0.95;text-shadow:0 0 20px rgba(170,255,0,0.7),0 0 40px rgba(170,255,0,0.3)}
+.deal-sub{font-size:14px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:rgba(170,255,0,0.65);margin-top:3px;text-align:center}
 
-/* deal banner */
-.deal-wrap { position:relative;z-index:2;margin:6px 8px 8px;flex-shrink:0; }
-.deal-wrap::before { content:'';position:absolute;inset:-2px;border-radius:10px;z-index:-1;background:var(--green);filter:blur(6px);opacity:0.4;animation:breathe 2.5s ease-in-out infinite; }
-@keyframes breathe { 0%,100%{opacity:0.2;filter:blur(6px);} 50%{opacity:0.6;filter:blur(14px);} }
-.deal-banner { background:linear-gradient(135deg,#0c1a00,#111c00,#0a1400);border-radius:8px;padding:8px 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(170,255,0,0.25); }
-.deal-banner::after { content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(170,255,0,0.07),transparent);animation:sweep 2.5s ease-in-out infinite; }
-@keyframes sweep { 0%{left:-50%} 100%{left:150%} }
-.deal-amount { font-family:'Bebas Neue',sans-serif;font-size:58px;letter-spacing:4px;color:var(--green);line-height:0.95;text-shadow:0 0 20px rgba(170,255,0,0.7),0 0 40px rgba(170,255,0,0.3); }
-.deal-sub { font-size:14px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:rgba(170,255,0,0.65);margin-top:3px;text-align:center; }
-
-/* ══ PRE-ROLLS ══ */
-.pr-body { flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden; }
-.pr-row { flex:1;display:flex;align-items:center;justify-content:space-between;padding:5px 12px 5px 14px;gap:10px;border-bottom:1px solid rgba(255,255,255,0.05);position:relative; }
-.pr-row:last-child { border-bottom:none; }
-.pr-row.even { background:rgba(255,255,255,0.02); }
-.pr-row.even .vflavors::before { background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent); }
-.pr-row.even .vflavors::after  { background:linear-gradient(270deg,rgba(255,255,255,0.02),transparent); }
-.pr-row::before { content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6; }
-.tier-ex  .pr-row::before { background:var(--ex); }
-.tier-top .pr-row::before { background:var(--top); }
-.tier-bar .pr-row::before { background:var(--bar); }
-.pr-left { flex:1;min-width:0;overflow:hidden; }
-.pr-name { font-size:20px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1;white-space:normal;word-break:break-word;letter-spacing:-0.3px; }
-.pr-price { font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;text-align:right; }
-.tier-ex  .pr-price { color:var(--ex);  text-shadow:0 0 12px rgba(170,255,0,0.6); }
-.tier-top .pr-price { color:var(--top); text-shadow:0 0 12px rgba(95,255,255,0.6); }
-.tier-bar .pr-price { color:var(--bar); text-shadow:0 0 12px rgba(255,255,255,0.3); }
+/* pre-rolls */
+.pr-body{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;position:relative;z-index:1;overflow:hidden}
+.pr-row{flex:1;display:flex;align-items:center;justify-content:space-between;padding:5px 12px 5px 14px;gap:10px;border-bottom:1px solid rgba(255,255,255,0.05);position:relative}
+.pr-row:last-child{border-bottom:none}
+.pr-row.even{background:rgba(255,255,255,0.02)}
+.pr-row.even .vflavors::before{background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent)}
+.pr-row.even .vflavors::after{background:linear-gradient(270deg,rgba(255,255,255,0.02),transparent)}
+.pr-row::before{content:'';position:absolute;left:0;top:15%;bottom:15%;width:3px;border-radius:2px;opacity:0.6}
+.tier-ex .pr-row::before{background:var(--ex)}.tier-top .pr-row::before{background:var(--top)}.tier-bar .pr-row::before{background:var(--bar)}
+.pr-left{flex:1;min-width:0;overflow:hidden}
+.pr-name{font-size:20px;font-weight:900;text-transform:uppercase;color:var(--white);line-height:1.1;white-space:normal;word-break:break-word;letter-spacing:-0.3px}
+.pr-price{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;text-align:right}
+.tier-ex .pr-price{color:var(--ex);text-shadow:0 0 12px rgba(170,255,0,0.6)}
+.tier-top .pr-price{color:var(--top);text-shadow:0 0 12px rgba(95,255,255,0.6)}
+.tier-bar .pr-price{color:var(--bar);text-shadow:0 0 12px rgba(255,255,255,0.3)}
 </style>
 </head>
 <body>
 
 <div class="menu-frame" id="slide-all">
-  <div class="bg-glow"><span></span><span></span><span></span></div>
   <div class="top-bar"></div>
-
   <div class="combined-page">
-
-    <!-- HEADER -->
     <header class="header">
       <div class="logo-wrap"><img src="KANNABIS-CITY-GOOGLE-ADS-1200X1200-PNG-NO-BACKGROUND.png" class="logo-img" alt="Kannabis City"></div>
-      <div class="hdr-center">
-        <div class="hdr-title">VAP<em>E</em>S &amp; PR<em>E</em>-ROLLS</div>
-        <div class="hdr-sub">Today's Selection</div>
-      </div>
-      <div class="ticker-wrap">
-        <div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div>
-        <div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div>
-      </div>
+      <div class="hdr-center"><div class="hdr-title">VAP<em>E</em>S &amp; PR<em>E</em>-ROLLS</div><div class="hdr-sub">Today's Selection</div></div>
+      <div class="ticker-wrap"><div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div><div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div></div>
     </header>
-
-    <!-- VAPES LABEL -->
-    <div class="section-label-bar">
-      <span class="section-label-txt">VAP<em>E</em>S &amp; DISPOSABLES</span>
-    </div>
-
-    <!-- VAPES TIERS -->
+    <div class="section-label-bar"><span class="section-label-txt">VAP<em>E</em>S &amp; DISPOSABLES</span></div>
     <div class="vapes-tiers">
-      <!-- STIIZY — platinum color, leftmost -->
       <div class="tier" style="border:1px solid rgba(212,170,255,0.3);background:rgba(212,170,255,0.04);">
-        <div class="tier-hdr" style="background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);padding:5px 12px 4px;">
-          <div class="tier-label" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.8);font-size:36px;letter-spacing:3px;">Stiizy</div>
-          <div class="tier-tag" style="background:rgba(212,170,255,0.15);color:#d4aaff;border:1px solid rgba(212,170,255,0.35);">Pods &amp; Batt.</div>
-        </div>
+        <div class="tier-hdr" style="background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);padding:5px 12px 4px;"><div class="tier-label" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.8);font-size:36px;letter-spacing:3px;">Stiizy</div><div class="tier-tag" style="background:rgba(212,170,255,0.15);color:#d4aaff;border:1px solid rgba(212,170,255,0.35);">Pods &amp; Batt.</div></div>
         <div class="pr-body" id="stiizy-col"></div>
-        <div class="deal-wrap">
-          <div class="deal-banner" style="background:linear-gradient(135deg,#120a1a,#160c1e,#0e0814);border:1px solid rgba(212,170,255,0.25);">
-            <div style="text-align:center;">
-              <div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,170,255,0.6);margin-bottom:1px;">Pod + Battery</div>
-              <div class="deal-amount" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.9);">$40 KIT</div>
-              <div class="deal-sub" style="color:rgba(212,170,255,0.65);">Mix &amp; Match</div>
-            </div>
-          </div>
-        </div>
+        <div class="deal-wrap"><div class="deal-banner" style="background:linear-gradient(135deg,#120a1a,#160c1e,#0e0814);border:1px solid rgba(212,170,255,0.25);"><div style="text-align:center;"><div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,170,255,0.6);margin-bottom:1px;">Pod + Battery</div><div class="deal-amount" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.9);">$40 KIT</div><div class="deal-sub" style="color:rgba(212,170,255,0.65);">Mix &amp; Match</div></div></div></div>
       </div>
-      <div class="tier tier-ex">
-        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div>
-        <div class="products-body" id="col-exotic"></div>
-      </div>
-      <div class="tier tier-top">
-        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div>
-        <div class="products-body" id="col-topshelf"></div>
-      </div>
-      <div class="tier tier-bar">
-        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
-        <div class="products-body" id="col-bargain"></div>
-        <div class="deal-wrap">
-          <div class="deal-banner">
-            <div style="text-align:center;">
-              <div class="deal-amount">2 FOR $40</div>
-              <div class="deal-sub">Mix &amp; Match</div>
-            </div>
-          </div>
-        </div>
+      <div class="tier tier-ex"><div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div><div class="products-body" id="col-exotic"></div></div>
+      <div class="tier tier-top"><div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div><div class="products-body" id="col-topshelf"></div></div>
+      <div class="tier tier-bar"><div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div><div class="products-body" id="col-bargain"></div>
+        <div class="deal-wrap"><div class="deal-banner"><div style="text-align:center;"><div class="deal-amount">2 FOR $40</div><div class="deal-sub">Mix &amp; Match</div></div></div></div>
       </div>
     </div>
-
-    <!-- PRE-ROLLS LABEL -->
-    <div class="section-label-bar">
-      <span class="section-label-txt">PRE-ROLLS</span>
-    </div>
-
-    <!-- PRE-ROLLS TIERS -->
+    <div class="section-label-bar"><span class="section-label-txt">PRE-ROLLS</span></div>
     <div class="preroll-tiers">
-      <div class="tier tier-ex">
-        <div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium</div></div>
-        <div class="pr-body" id="pr-exotic"></div>
+      <div class="tier tier-ex"><div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium</div></div><div class="pr-body" id="pr-exotic"></div></div>
+      <div class="tier tier-top"><div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Favorites</div></div><div class="pr-body" id="pr-topshelf"></div>
+        <div class="deal-wrap"><div class="deal-banner" style="background:linear-gradient(135deg,#001a1a,#001c1c,#001414);border:1px solid rgba(95,255,255,0.25);"><div style="text-align:center;"><div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(95,255,255,0.6);margin-bottom:1px;">Stiizy 40's 1G</div><div class="deal-amount" style="color:var(--top);text-shadow:0 0 20px rgba(95,255,255,0.9);">2 FOR $25</div><div class="deal-sub" style="color:rgba(95,255,255,0.65);">Mix &amp; Match</div></div></div></div>
       </div>
-      <div class="tier tier-top">
-        <div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Favorites</div></div>
-        <div class="pr-body" id="pr-topshelf"></div>
-        <div class="deal-wrap">
-          <div class="deal-banner" style="background:linear-gradient(135deg,#001a1a,#001c1c,#001414);border:1px solid rgba(95,255,255,0.25);">
-            <div style="text-align:center;">
-              <div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(95,255,255,0.6);margin-bottom:1px;">Stiizy 40's 1G</div>
-              <div class="deal-amount" style="color:var(--top);text-shadow:0 0 20px rgba(95,255,255,0.9);">2 FOR $25</div>
-              <div class="deal-sub" style="color:rgba(95,255,255,0.65);">Mix &amp; Match</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tier tier-bar">
-        <div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div>
-        <div class="pr-body" id="pr-bargain"></div>
-      </div>
+      <div class="tier tier-bar"><div class="tier-hdr"><div class="tier-label">Bargains</div><div class="tier-tag">Best Value</div></div><div class="pr-body" id="pr-bargain"></div></div>
     </div>
-
-  </div><!-- end combined-page -->
-  </div><!-- end combined-page -->
-
+  </div>
   <div class="btm"></div>
 </div>
 

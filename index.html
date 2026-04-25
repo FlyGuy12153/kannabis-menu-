@@ -14,15 +14,15 @@
 const FLOWER = {
   platinum: [
     { name: "Lemon Tree",         thc: "30.71", cat: "hybrid" },
-    { name: "Tropic Thunder",     thc: "31.03", cat: "indica" },
     { name: "Dante's Inferno",    thc: "31.37", cat: "hybrid" },
     { name: "Baby Yoda",          thc: "29.65", cat: "hybrid" },
+    { name: "Thors Hammer",       thc: "30.01", cat: "sativa" },
   ],
   exotic: [
     { name: "Tropicana Cookies",   thc: "26.94", cat: "sativa" },
     { name: "Neapolitan",          thc: "28.17", cat: "indica" },
     { name: "Grape Slushie",       thc: "27.62", cat: "sativa" },
-    { name: "Grease Lightning",    thc: "28.60", cat: "hybrid" },
+    { name: "Italian Berries",     thc: "27.36", cat: "hybrid" },
   ],
   topshelf: [
     { name: "Lantz",            thc: "26.96", cat: "indica" },
@@ -79,9 +79,10 @@ const EDIBLES = {
 const CAT_META = { indica:{label:"Indica"}, sativa:{label:"Sativa"}, hybrid:{label:"Hybrid"} };
 
 function buildFlowerCol(strains) {
-  const order = ["indica","sativa","hybrid"];
+  const order = ["indica","hybrid","sativa"];
   const map = {};
   for (const s of strains) { if (!map[s.cat]) map[s.cat]=[]; map[s.cat].push(s); }
+  for (const c in map) map[c].sort((a, b) => parseFloat(b.thc) - parseFloat(a.thc));
   return order.filter(c => map[c]).map((c, i, arr) => {
     const rows = map[c].map(s => `
       <div class="strain-row">

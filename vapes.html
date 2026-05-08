@@ -29,6 +29,7 @@ const VAPES = {
   bargain: [
     { name: "Ghost 2G",              price: "$25", flavors: "Concrete Haze · Bubba Drift · Blueberry Blitz · Black Cherry · Golden Z · Midnight Mirage · Tropic Burst · Peach Paradise · Jungle Vice · Grape Bliss" },
     { name: "Choices 2G Switch",     price: "$25", flavors: "Honey Cream x Wild Cherry · White Peach Freeze x Toxic Paradise · Watermelon Tart x Pistachio Gelato · Tres Leches x Banana Sundae · Sweet Citrus x War Heads · Sour Push Pop x Tutti Frutti · Red Starburst x Iced Sangria · Red Blow Pop x Kool Aid Jammers · Honey Comb x Strawberry Milk · Raspberry Kush x Cocolato · Pink Gushers x Atomic Pop · Orange Fanta x Lemonade Stand · Chocolate Milk x Horchata · Lychee Juice x Vanilla Float · Lecherita x Blue Jam · Hubba Bubba x Blueberry Jizz · Hibiscus Rush x Airhead Extremes · Grape Jelly x Caramel Apple · Diamond Dust x Sweet Tooth · Butter Fingerz x Pizookie" },
+    { name: "QB Labs 2G",             price: "$25" },
   ],
 };
 
@@ -55,9 +56,10 @@ const PREROLLS = {
 };
 
 const STIIZY = {
-  pods: { price: "$30", flavors: "Blue Burst · Birthday Cake · Blue Dream · SFV OG · Granddaddy Purp · Gelato · Apple Fritter · King Louis XIII · Super Lemon Haze · Pineapple Express · Pink Acai · Do-Si-Dos · Sour Diesel · Purple Punch · OG Kush · Sour Tangie · Hardcore OG · Biscotti · Premium Jack · Orange Sunset" },
-  battery: "$16",
-  xlBattery: "$20",
+  items: [
+    { name: "STIIZY Live Resin AIO 1G", price: "$40" },
+    { name: "STIIZY 1G All-In-One", price: "$35" },
+  ],
 };
 
 // ── BUILD ──────────────────────────────────────────
@@ -87,19 +89,11 @@ function buildPrerolls() {
 }
 
 function buildStiizy() {
-  document.getElementById('stiizy-col').innerHTML = `
-    <div class="pr-row even">
-      <div class="pr-left"><div class="pr-name">Stiizy Pods</div>${makeMarquee(STIIZY.pods.flavors)}</div>
-      <div class="pr-price" style="color:#d4aaff;text-shadow:0 0 12px rgba(212,170,255,0.6);">${STIIZY.pods.price}</div>
-    </div>
-    <div class="pr-row">
-      <div class="pr-left"><div class="pr-name">Battery</div></div>
-      <div class="pr-price" style="color:#d4aaff;text-shadow:0 0 12px rgba(212,170,255,0.6);">${STIIZY.battery}</div>
-    </div>
-    <div class="pr-row even">
-      <div class="pr-left"><div class="pr-name">XL Battery</div></div>
-      <div class="pr-price" style="color:#d4aaff;text-shadow:0 0 12px rgba(212,170,255,0.6);">${STIIZY.xlBattery}</div>
-    </div>`;
+  document.getElementById('stiizy-col').innerHTML = STIIZY.items.map((p, i) => `
+    <div class="pr-row${i % 2 === 0 ? ' even' : ''}">
+      <div class="pr-left"><div class="pr-name">${p.name}</div></div>
+      <div class="pr-price" style="color:#d4aaff;text-shadow:0 0 12px rgba(212,170,255,0.6);">${p.price}</div>
+    </div>`).join('');
 }
 
 function updateClock() {
@@ -254,7 +248,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
       <div class="tier" style="border:1px solid rgba(212,170,255,0.3);background:rgba(212,170,255,0.04);">
         <div class="tier-hdr" style="background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);padding:5px 12px 4px;"><div class="tier-label" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.8);font-size:36px;letter-spacing:3px;">Stiizy</div><div class="tier-tag" style="background:rgba(212,170,255,0.15);color:#d4aaff;border:1px solid rgba(212,170,255,0.35);">Pods &amp; Batt.</div></div>
         <div class="pr-body" id="stiizy-col"></div>
-        <div class="deal-wrap"><div class="deal-banner" style="background:linear-gradient(135deg,#120a1a,#160c1e,#0e0814);border:1px solid rgba(212,170,255,0.25);"><div style="text-align:center;"><div style="font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,170,255,0.6);margin-bottom:1px;">Pod + Battery</div><div class="deal-amount" style="color:#d4aaff;text-shadow:0 0 20px rgba(212,170,255,0.9);">$40 KIT</div><div class="deal-sub" style="color:rgba(212,170,255,0.65);">Mix &amp; Match</div></div></div></div>
       </div>
       <div class="tier tier-ex"><div class="tier-hdr"><div class="tier-label">Exotic</div><div class="tier-tag">Premium Select</div></div><div class="products-body" id="col-exotic"></div></div>
       <div class="tier tier-top"><div class="tier-hdr"><div class="tier-label">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div><div class="products-body" id="col-topshelf"></div></div>

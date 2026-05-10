@@ -17,16 +17,17 @@ const FLOWER = {
     { name: "Jelly Donutz",          thc: "29.89", cat: "hybrid" },
     { name: "Rocky Mountain Runtz",  thc: "30.49", cat: "indica" },
     { name: "Icy Candy Bomb",        thc: "31.26", cat: "indica" },
+    { name: "Baby Yoda",             thc: "29.65", cat: "hybrid" },
   ],
   exotic: [
     { name: "Tropicana Cookies",   thc: "26.94", cat: "sativa" },
-    { name: "Grape Slushie",       thc: "27.62", cat: "sativa" },
-    { name: "Black Ice",           thc: "28.54", cat: "indica" },
     { name: "Strawberry Cough",    thc: "28.22", cat: "hybrid" },
+    { name: "Nerd Runtz",          thc: "27.87", cat: "hybrid" },
   ],
   topshelf: [
     { name: "Italian Berries",     thc: "27.36", cat: "hybrid" },
     { name: "Candy Gas",              thc: "27.83", cat: "hybrid" },
+    { name: "King Gelato",           thc: "25.30", cat: "hybrid" },
   ],
   bargain: [
     { name: "Canal St. Runtz",       thc: "25.06", cat: "hybrid" },
@@ -40,11 +41,13 @@ const FLOWER = {
 const CONCENTRATES = {
   liverosin: [
     { name: "Grassmaster 1G Pucks", price: "$40" },
+    { name: "Stiizy 1G Live Rosin Jam", price: "$40" },
+    { name: "Stiizy 1G Live Rosin Badder", price: "$40" },
+    { name: "Stiizy 1G Live Resin", price: "$30" },
   ],
   bho: [
     { name: "Lemon Cherry Diamonds", thc: "86.43" },
     { name: "Jet Fuel Badder",       thc: "67.43" },
-    { name: "Citrus Mist Diamonds", thc: "67.83" },
   ],
   bho_pricing: { g1: "$10", g28: "$80" },
 };
@@ -54,7 +57,7 @@ const CONCENTRATES = {
 // ╚══════════════════════════════════════════════════╝
 const EDIBLES = {
   exotic: [
-    { name: "Headspace Gummies",     price: "$35", flavors: "100mg per piece · 1000mg per pack" },
+    { name: "Wyld Gummies",        price: "$30", flavors: "Assorted Flavors" },
     { name: "Ghost Graveyard 500mg", price: "$40", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
     { name: "Camino Gummies 20pk",   price: "$30", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
     { name: "Camino Sours 20pk",     price: "$30", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
@@ -229,11 +232,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .conc-panel.bho::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(240,240,240,0.03) 0%,transparent 50%)}
 .conc-hdr{display:flex;align-items:center;justify-content:space-between;padding:7px 14px 6px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.4);position:relative;z-index:1}
 .conc-items{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;overflow:hidden}
-.conc-row{display:flex;align-items:center;padding:14px 20px;gap:12px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.conc-row{display:flex;align-items:center;padding:6px 14px;gap:10px;border-bottom:1px solid rgba(255,255,255,0.05)}
 .conc-row:last-child{border-bottom:none}
-.cname{font-size:26px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1}
-.cthc{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0}
-.lr-price{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);text-shadow:0 0 16px rgba(255,213,79,0.9);white-space:nowrap;flex-shrink:0}
+.cname{font-size:20px;font-weight:900;text-transform:uppercase;color:var(--white);flex:1;line-height:1.1}
+.cthc{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green);text-shadow:0 0 12px rgba(170,255,0,0.7);white-space:nowrap;flex-shrink:0}
+.lr-price{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);text-shadow:0 0 16px rgba(255,213,79,0.9);white-space:nowrap;flex-shrink:0}
 .conc-tag{font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:3px}
 .conc-panel.lr .conc-tag{background:rgba(255,213,79,0.14);color:var(--gold);border:1px solid rgba(255,213,79,0.3)}
 .conc-panel.bho .conc-tag{background:rgba(255,255,255,0.1);color:var(--bar);border:1px solid rgba(255,255,255,0.25)}
@@ -314,8 +317,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
       <div class="tier tier-ex combo-tier combo-ed-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-ex-lbl">Exotic</div><div class="tier-tag">Premium Select</div></div><div class="combo-ed-items" id="ed-exotic"></div></div>
       <div class="tier tier-top combo-tier combo-ed-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-top-lbl">Top Shelf</div><div class="tier-tag">Fan Favorites</div></div><div class="combo-ed-items" id="ed-topshelf"></div></div>
       <div class="tier tier-bar combo-tier combo-ed-tier"><div class="tier-hdr combo-tier-hdr"><div class="combo-tier-label tier-bar-lbl">Best Deals</div><div class="tier-tag">Don't Miss</div></div><div class="ed-deals-body" id="ed-deals"></div></div>
-      <div class="conc-panel lr combo-tier combo-conc-tier"><div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.6)">Live Rosin</div><div class="conc-tag">Premium Extract</div></div><div class="conc-items" id="conc-lr"></div></div>
-      <div class="conc-panel bho combo-tier combo-conc-tier ec2-bho-merged" style="grid-column:span 2"><div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--bar)">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div><div class="ec2-bho-body"><div class="conc-items ec2-bho-items" id="conc-bho"></div><div class="ec2-bho-pricing"><div class="ec2-bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div><div class="ec2-bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div></div></div></div>
+      <div class="conc-panel lr combo-tier combo-conc-tier" style="grid-column:span 2"><div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--gold);text-shadow:0 0 20px rgba(255,213,79,0.6)">Live Rosin &amp; Resin</div><div class="conc-tag">Premium Extract</div></div><div class="conc-items" id="conc-lr"></div></div>
+      <div class="conc-panel bho combo-tier combo-conc-tier"><div class="conc-hdr combo-tier-hdr"><div class="combo-tier-label" style="color:var(--bar)">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div><div class="conc-items" id="conc-bho"></div><div style="display:flex;border-top:1px solid var(--border);"><div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;border-right:1px solid var(--border);"><span style="font-size:16px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase;">1g</span><span class="bp-amt" id="bho-1g" style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 16px rgba(255,255,255,0.8);"></span></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;"><span style="font-size:16px;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase;">28g</span><span class="bp-amt" id="bho-28g" style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:2px;color:var(--bar);text-shadow:0 0 16px rgba(255,255,255,0.8);"></span></div></div></div>
     </div>
   </div>
   <div class="btm"></div>

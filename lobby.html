@@ -17,16 +17,17 @@ const FLOWER = {
     { name: "Jelly Donutz",          thc: "29.89", cat: "hybrid" },
     { name: "Rocky Mountain Runtz",  thc: "30.49", cat: "indica" },
     { name: "Icy Candy Bomb",        thc: "31.26", cat: "indica" },
+    { name: "Baby Yoda",             thc: "29.65", cat: "hybrid" },
   ],
   exotic: [
     { name: "Tropicana Cookies",   thc: "26.94", cat: "sativa" },
-    { name: "Grape Slushie",       thc: "27.62", cat: "sativa" },
-    { name: "Black Ice",           thc: "28.54", cat: "indica" },
     { name: "Strawberry Cough",    thc: "28.22", cat: "hybrid" },
+    { name: "Nerd Runtz",          thc: "27.87", cat: "hybrid" },
   ],
   topshelf: [
     { name: "Italian Berries",     thc: "27.36", cat: "hybrid" },
     { name: "Candy Gas",              thc: "27.83", cat: "hybrid" },
+    { name: "King Gelato",           thc: "25.30", cat: "hybrid" },
   ],
   bargain: [
     { name: "Canal St. Runtz",       thc: "25.06", cat: "hybrid" },
@@ -40,11 +41,13 @@ const FLOWER = {
 const CONCENTRATES = {
   liverosin: [
     { name: "Grassmaster 1G Pucks", price: "$40" },
+    { name: "Stiizy 1G Live Rosin Jam", price: "$40" },
+    { name: "Stiizy 1G Live Rosin Badder", price: "$40" },
+    { name: "Stiizy 1G Live Resin", price: "$30" },
   ],
   bho: [
     { name: "Lemon Cherry Diamonds", thc: "86.43" },
     { name: "Jet Fuel Badder",       thc: "67.43" },
-    { name: "Citrus Mist Diamonds", thc: "67.83" },
   ],
   bho_pricing: { g1: "$10", g28: "$80" },
 };
@@ -54,7 +57,7 @@ const CONCENTRATES = {
 // ╚══════════════════════════════════════════════════╝
 const EDIBLES = {
   topshelf: [
-    { name: "Headspace Gummies",     price: "$35", flavors: "100mg per piece · 1000mg per pack" },
+    { name: "Wyld Gummies",        price: "$30", flavors: "Assorted Flavors" },
     { name: "Ghost Graveyard 500mg", price: "$40", flavors: "Watermelon Lemonade · Tropical Punch · Berry Burst · Forbidden Razz" },
     { name: "Camino Gummies 20pk",   price: "$30", flavors: "Wild Berry · Freshly Squeezed · Midnight Blueberry · Pineapple Habanero · Sparkling Pear · Mango Serenity" },
     { name: "Camino Sours 20pk",     price: "$30", flavors: "Strawberry Sunset · Tropical Burst · Watermelon Spritz · Blackberry Dream · Orchard Peach · Raspberry Lemonade" },
@@ -457,7 +460,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
       <div class="ticker-wrap"><div class="live-badge"><div class="live-dot"></div><div class="live-text">Live Menu</div></div><div class="datetime-row"><div class="live-time clock"></div><div class="datestamp"></div></div></div>
     </header>
     <div class="conc-body">
-      <div class="conc-panel lr"><div class="conc-hdr"><div class="conc-label">Live Rosin</div><div class="conc-tag">Premium Extract</div></div><div class="conc-items" id="conc-lr"></div></div>
+      <div class="conc-panel lr"><div class="conc-hdr"><div class="conc-label">Live Rosin &amp; Resin</div><div class="conc-tag">Premium Extract</div></div><div class="conc-items" id="conc-lr"></div></div>
       <div class="conc-panel bho"><div class="conc-hdr"><div class="conc-label">BHO</div><div class="conc-tag">Badder &amp; Sugar</div></div><div class="conc-items" id="conc-bho"></div><div class="bho-pricing"><div class="bho-price-item"><span class="bp-size">1g</span><span class="bp-amt" id="bho-1g"></span></div><div class="bho-price-item"><span class="bp-size">28g</span><span class="bp-amt" id="bho-28g"></span></div></div></div>
     </div>
   </div>
